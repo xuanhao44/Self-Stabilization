@@ -47,10 +47,10 @@ Theorem 2.2 provides a general methodology for constructing self-stabilizing alg
 
 Moreover, the fair-composition methodology can be used for message-passing systems. For example, $\mathcal{AL}_1$ can be a self-stabilizing data-link algorithm that uses retransmissions to guarantee that, from some point on, every message sent from one processor to its neighbor reaches its destination. $\mathcal{AL}_2$ can be a self-stabilizing end-to-end algorithm that guarantees that, from some point on, every message sent from one processor in the network to another processor reaches its destination under the assumption that the data-link service is reliable. Clearly $\mathcal{AL}_2$ will not operate correctly until $\mathcal{AL}_1$ is stabilized and operating as it should. Eventually $\mathcal{AL}_1$ reaches a safe configuration with relation to $\mathcal{T}_1$; in this configuration, the $B_i$ components of the state of $P_i$ are arbitrary. Fortunately, $\mathcal{AL}_2$ is self-stabilizing when $\mathcal{AL}_1$ is already stabilized. Therefore a safe configuration for $\mathcal{AL}_2$ with relation to $\mathcal{T}_2$ is reached.
 
-定理 2.2 提供了一种构建复杂任务的自稳定算法的一般方法。
+**定理 2.2 提供了一种构建复杂任务的自稳定算法的一般方法。**
 
-- 给定一个任务 $\mathcal{T}_2$，我们希望为其构建这样的算法，首先定义一个任务 $\mathcal{T}_1$ 并构建一个在 $\mathcal{T}_1$ 给定的情况下对 $\mathcal{T}_2$ 自稳定的算法 $\mathcal{AL}_2$，
-- 然后构建一个对 $\mathcal{T}_1$ 自稳定的算法 $\mathcal{AL}_1$。$\mathcal{AL}_1$ 和 $\mathcal{AL}_2$ 的公平组合就是所需的算法。注意，这种方法不要求算法 $\mathcal{AL}_1$ 达到“稳定状态”，即通信寄存器（或处理器 $P_i$ 状态中的任何其他组件）从未改变。
+- **给定一个任务 $\mathcal{T}_2$，我们希望为其构建这样的算法，首先定义一个任务 $\mathcal{T}_1$ 并构建一个在 $\mathcal{T}_1$ 给定的情况下对 $\mathcal{T}_2$ 自稳定的算法 $\mathcal{AL}_2$，**
+- **然后构建一个对 $\mathcal{T}_1$ 自稳定的算法 $\mathcal{AL}_1$。$\mathcal{AL}_1$ 和 $\mathcal{AL}_2$ 的公平组合就是所需的算法。注意，这种方法不要求算法 $\mathcal{AL}_1$ 达到“稳定状态”，即通信寄存器（或处理器 $P_i$ 状态中的任何其他组件）从未改变。**
 
 此外，公平组合方法可以用于消息传递系统。例如，$\mathcal{AL}_1$ 可以是一个自稳定的数据链路算法，该算法使用重传来保证从某个时刻起，从一个处理器发送到其邻居的每条消息都能到达目的地。$\mathcal{AL}_2$ 可以是一个自稳定的端到端算法，在假设数据链路服务可靠的情况下，保证从某个时刻起，从网络中的一个处理器发送到另一个处理器的每条消息都能到达目的地。显然，$\mathcal{AL}_2$ 在 $\mathcal{AL}_1$ 稳定并正常运行之前不会正确运行。最终，$\mathcal{AL}_1$ 达到与 $\mathcal{T}_1$ 相关的安全配置；在这种配置中，$P_i$ 的状态的 $B_i$ 组件是任意的。幸运的是，当 $\mathcal{AL}_1$ 已经稳定时，$\mathcal{AL}_2$ 是自稳定的。因此，$\mathcal{AL}_2$ 达到了与 $\mathcal{T}_2$ 相关的安全配置。
 

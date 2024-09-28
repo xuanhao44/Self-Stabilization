@@ -16,8 +16,6 @@ The above property of the variant function can be used to estimate the maximal n
 
 ## Example: Self-Stabilizing Maximal Matching
 
-![figure_2.8](images/figure_2.8.png)
-
 In the maximal matching algorithm, every processor Pi tries to find a matching neighbor $P_j$. Assume that each processor $P_i$ has a pointer that either points to one of its neighbors or has a null value. The maximal matching algorithm should reach a configuration $c_l$ in which the existence of a pointer of $P_i$ that points to $P_j$ implies the existence of a pointer of $P_j$ that points to $P_i$. In addition, assume that in $c_l$ there are no two neighboring processors $P_i$ and $P_j$, such that both have null pointers. The first condition is the core requirement for matching, while the second requirement guarantees that the solution is maximal.
 
 在最大匹配算法中，每个处理器 $P_i$ 尝试找到一个匹配的邻居 $P_j$。假设每个处理器 $P_i$ 有一个指针，该指针要么指向其一个邻居，要么为空值。最大匹配算法应达到一个配置 $c_l$，在该配置中，$P_i$ 的指针指向 $P_j$ 意味着 $P_j$ 的指针也指向 $P_i$。此外，假设在 $c_l$ 中没有两个相邻的处理器 $P_i$ 和 $P_j$ 都有空指针。第一个条件是匹配的核心要求，而第二个条件保证了解决方案是最大的。
@@ -26,7 +24,9 @@ Our concern in this example is to demonstrate the variant function technique. To
 
 在这个示例中，我们关注的是演示变元函数技术。为了简化讨论，假设存在一个中央守护进程，该进程一次激活一个处理器；被激活的处理器读取其所有邻居的状态并相应地改变状态。只有当被激活的处理器完成上述操作后，另一个处理器才会被激活。算法如图 2.8 所示。
 
-The set of legal executions $MM$ for the maximal matching task includes every execution in which the values of the pointers of all the processors are fixed and form a maximal matching. Given a configuration $c_l$, we say that a processor $P_i$ is:
+![figure_2.8](images/figure_2.8.png)
+
+The set of legal executions $MM$ for the maximal matching task includes every execution in which the values of the pointers of all the processors are **fixed and form a maximal matching**. Given a configuration $c_l$, we say that a processor $P_i$ is:
 
 - $matched$ in $c_l$, if $P_i$ has a neighbor $P_j$ such that ${pointer}_i = j$ and ${pointer}_j = i$.
 - $single$ in $c_l$, if ${pointer}_i = null$ and every neighbor of $P_i$ is matched.
@@ -34,7 +34,7 @@ The set of legal executions $MM$ for the maximal matching task includes every ex
 - $free$ in $c_l$, if ${pointer}_i = null$ and there exists a neighbor $P_j$, such that $P_j$ is not matched.
 - $chaining$ in $c_l$, if there exists a neighbor $P_j$ for which ${pointer}_i = j$ and ${pointer}_j = k, k \neq i$.
 
-最大匹配任务的合法执行集 $MM$ 包括所有处理器的指针值固定并形成最大匹配的每次执行。给定一个配置 $c_l$，我们说处理器 $P_i$ 是：
+最大匹配任务的合法执行集 $MM$ 包括所有处理器的指针值**固定并形成最大匹配**的每次执行。给定一个配置 $c_l$，我们说处理器 $P_i$ 是：
 
 - 在 $c_l$ 中是 $matched$，如果 $P_i$ 有一个邻居 $P_j$，使得 ${pointer}_i = j$ 且 ${pointer}_j = i$。
 - 在 $c_l$ 中是 $single$，如果 ${pointer}_i = null$ 且 $P_i$ 的每个邻居都是匹配的。
@@ -44,15 +44,33 @@ The set of legal executions $MM$ for the maximal matching task includes every ex
 
 The correctness proof of the algorithm presented in figure 2.8 uses the variant function $V F(c)$, which returns a vector $(m + s,w, f, c)$, where $m$, $s$, $w$, $f$, and c are the total number of matched, single, waiting, free, and chaining processors, respectively, in $c_l$. Values of $V F$ are compared lexicographically: for example, $(5, 3, 4, 7)$ is greater than $(5, 3, 3, 8)$.
 
-图 2.8 中所示算法的正确性证明使用了变元函数 $V F(c)$，该函数返回一个向量 $(m + s,w, f, c)$，其中 $m$、$s$、$w$、$f$ 和 $c$ 分别是 $c_l$ 中匹配的、单独的、等待的、空闲的和链式的处理器的总数。$V F$ 的值按字典顺序进行比较：例如，$(5, 3, 4, 7)$ 大于 $(5, 3, 3, 8)$。
+图 2.8 中所示算法的正确性证明使用了变元函数 $V F(c)$，该函数返回一个向量 $(m + s,w, f, c)$，其中 $m$、$s$、$w$、$f$ 和 $c$ 分别是 $c_l$ 中 matched、single、waiting、free 和 chaining 处理器的总数。$V F$ 的值按字典顺序进行比较：例如，$(5, 3, 4, 7)$ 大于 $(5, 3, 3, 8)$。
 
-Note that every configuration $c_l$ for which $V F(c) = (n, 0, 0, 0)$ is a safe configuration with relation to $MM$ and to our algorithm; also for every safe configuration $c_l$, $V F(c) = (n, 0, 0, 0)$. Once the system reaches a safe configuration, no processor changes the value of its pointer, while in every non-safe configuration, there exists at least one processor that can change the value of its pointer when it is activated by the central daemon. Next we show that every change of a pointer value increases the value of $V F$.
+Note that every configuration $c_l$ for which $V F(c) = (n, 0, 0, 0)$ is a safe configuration with relation to $MM$ and to our algorithm; also for every safe configuration $c_l$, $V F(c) = (n, 0, 0, 0)$. Once the system reaches a safe configuration, no processor changes the value of its pointer, **while in every non-safe configuration, there exists at least one processor that can change the value of its pointer when it is activated by the central daemon**. Next we show that every change of a pointer value increases the value of $V F$.
 
-注意，对于每个配置 $c_l$，如果 $V F(c) = (n, 0, 0, 0)$，则该配置相对于 $MM$ 和我们的算法是一个安全配置；同样，对于每个安全配置 $c_l$，$V F(c) = (n, 0, 0, 0)$。一旦系统达到安全配置，没有处理器会改变其指针的值，而在每个非安全配置中，至少存在一个处理器在被中央守护进程激活时可以改变其指针的值。接下来我们将展示每次指针值的变化都会增加 $V F$ 的值。
+注意，对于每个配置 $c_l$，如果 $V F(c) = (n, 0, 0, 0)$，则该配置相对于 $MM$ 和我们的算法是一个安全配置；同样，对于每个安全配置 $c_l$，$V F(c) = (n, 0, 0, 0)$。一旦系统达到安全配置，没有处理器会改变其指针的值，**而在每个非安全配置中，至少存在一个处理器在被中央守护进程激活时可以改变其指针的值**。接下来我们将展示每次指针值的变化都会增加 $V F$ 的值。
 
-An assignment in line 3 of the code reduces the number of free processors and waiting processors by 1 and increments the number of matched processors by 2. An assignment in line 6 of the code reduces the number of free processors by 1 and increments the number of waiting processors by 1. The assignment in line 8 is executed when $P_i$ is chaining. Two cases are considered: first, if no neighboring processor points to $P_i$. In this case, $P_i$ changes status to free if there exists an unmatched neighbor, or to single if all neighbors are matched. Therefore, the number of chaining processors is reduced by 1 and the number of free or single processors is incremented by 1. In the second case, when at least one neighbor $P_k$ points toward $P_i$, the status of $P_i$ is changed to free and the status of $P_k$ is changed from chaining to waiting. Hence the number of chaining processors is reduced by 2, while the number of both free and waiting processors is incremented by 1. Thus each of the above assignments increments the value of $V F$. The system stabilizes once it reaches a configuration in which no increment is possible, which is a safe configuration.
+An assignment in line 3 of the code reduces the number of free processors and waiting processors by 1 and increments the number of matched processors by 2.
 
-代码第 3 行的赋值操作将空闲处理器和等待处理器的数量减少 1，并将匹配处理器的数量增加 2。代码第 6 行的赋值操作将空闲处理器的数量减少 1，并将等待处理器的数量增加 1。第 8 行的赋值操作在 $P_i$ 处于链式状态时执行。考虑两种情况：首先，如果没有邻居处理器指向 $P_i$。在这种情况下，如果存在未匹配的邻居，$P_i$ 的状态变为空闲；如果所有邻居都已匹配，则状态变为单独。因此，链式处理器的数量减少 1，空闲或单独处理器的数量增加 1。在第二种情况下，当至少有一个邻居 $P_k$ 指向 $P_i$ 时，$P_i$ 的状态变为空闲，$P_k$ 的状态从链式变为等待。因此，链式处理器的数量减少 2，而空闲和等待处理器的数量各增加 1。因此，上述每个赋值操作都会增加 $V F$ 的值。一旦系统达到无法再增加的配置，即为安全配置，系统就会稳定下来。
+An assignment in line 6 of the code reduces the number of free processors by 1 and increments the number of waiting processors by 1. 
+
+The assignment in line 8 is executed when $P_i$ is chaining. Two cases are considered:
+
+- first, if no neighboring processor points to $P_i$. In this case, $P_i$ changes status to free if there exists an unmatched neighbor, or to single if all neighbors are matched. Therefore, the number of chaining processors is reduced by 1 and the number of free or single processors is incremented by 1.
+- In the second case, when at least one neighbor $P_k$ points toward $P_i$, the status of $P_i$ is changed to free and the status of $P_k$ is changed from chaining to waiting. Hence the number of chaining processors is reduced by 2, while the number of both free and waiting processors is incremented by 1.
+
+Thus each of the above assignments increments the value of $V F$. The system stabilizes once it reaches a configuration in which no increment is possible, which is a safe configuration.
+
+代码第 3 行的赋值操作将 free 处理器和 waiting 处理器的数量减少 1，并将 matched 处理器的数量增加 2。
+
+代码第 6 行的赋值操作将  free 处理器的数量减少 1，并将  waiting 处理器的数量增加 1。
+
+第 8 行的赋值操作在 $P_i$ 处于 chaining 状态时执行。考虑两种情况：
+
+- 首先，如果没有邻居处理器指向 $P_i$。在这种情况下，如果存在未匹配的邻居，$P_i$ 的状态变为 free；如果所有邻居都 matched，则状态变为 single。因此，chaining 处理器的数量减少 1，free 或 single 处理器的数量增加 1。
+- 在第二种情况下，当至少有一个邻居 $P_k$ 指向 $P_i$ 时，$P_i$ 的状态变为 free，$P_k$ 的状态从 chaining 变为 waiting。因此，chaining 处理器的数量减少 2，而 free 和 waiting 处理器的数量各增加 1。
+
+因此，上述每个赋值操作都会增加 $V F$ 的值。一旦系统达到无法再增加的配置，即为安全配置，系统就会稳定下来。
 
 We can conclude that, indeed, every change in a pointer value increments the value of $V F$. The number of such pointer-value changes is bounded by the number of all possible vector values. The fact that $m + s + w + f + c = n$ implies that the number of possible vector values is $O(n^3)$. A rough analysis uses the following argument. One can choose $n + 1$ possible values for $m + s$ and then $n+1$ values for $w$ and $f$. The value of $n$ and the first three elements of the vector $(m + s,w, f, c)$ imply the value of $c$. Therefore the system reaches a safe configuration within $O(n^3)$ pointer-value changes.
 
