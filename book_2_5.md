@@ -86,13 +86,24 @@ Note that in every $2\triangle$ successive rounds, each processor reads the regi
 
 *Base case:*
 
-(proof for $k = 1$) Distances stored in the registers and internal variables are non-negative; thus the value of the smallest floating distance is at least 0 in the first configuration. During the first $2\triangle$ rounds, each non-root processor $P_i$ computes the value of the variable $dist$ (line 7 of the code in figure 2.1). The result of each such computation must be greater than or equal to 1. Let $c_2$ be the configuration reached following the first computation of the value of $dist$ by each processor. Each non-root processor writes to each of its registers the computed value of $dist$ during the $2\triangle$ rounds that follow $c_2$. Thus, in every configuration that follows the first $4\triangle$ rounds there is no non-root processor with value 0 in its registers. The above proves assertion 1.
+(proof for $k = 1$)
 
-To prove assertion 2, note that the root repeatedly writes the distance 0 to its registers in every $\triangle$ rounds. Let $c_1$ be the configuration reached after these $\triangle$ rounds. Each processor reads the registers of the root and then writes to its own registers during the $4\triangle$ rounds that follow $c_1$. In this write operation the processor assigns 1 to its own registers. Any further read of the root registers returns the value 0; therefore, the value of the registers of each neighbor of the root is 1 following the first $\triangle+ 4\triangle$ rounds. Thus, assertion 2 holds as well.
+Distances stored in the registers and internal variables are non-negative; thus the value of the smallest floating distance is at least 0 in the first configuration.
+
+- During the first $2\triangle$ rounds, each non-root processor $P_i$ computes the value of the variable $dist$ (line 7 of the code in figure 2.1). The result of each such computation must be greater than or equal to 1.
+- Let $c_2$ be the configuration reached following the first computation of the value of $dist$ by each processor. Each non-root processor writes to each of its registers the computed value of $dist$ during the $2\triangle$ rounds that follow $c_2$.
+
+Thus, in every configuration that follows the first $4\triangle$ rounds there is no non-root processor with value 0 in its registers. The above proves assertion 1.
+
+To prove assertion 2, note that the root repeatedly writes the distance 0 to its registers in every $\triangle$ rounds. Let $c_1$ be the configuration reached after these $\triangle$ rounds.
+
+Each processor reads the registers of the root and then writes to its own registers during the $4\triangle$ rounds that follow $c_1$. In this write operation the processor assigns 1 to its own registers. Any further read of the root registers returns the value 0; therefore, the value of the registers of each neighbor of the root is 1 following the first $\triangle+ 4\triangle$ rounds. Thus, assertion 2 holds as well.
 
 *Induction step:*
 
-(assume correctness for $k ≥ 0$ and prove for $k + 1$) Let $m ≥ k$ be the smallest floating distance in the configuration $c_{4k}$ that follows the first $\triangle+ 4k\triangle$ rounds. During the $4\triangle$ rounds that follow $c_{4k}$, each processor that reads $m$ and chooses $m$ as the smallest value assigns $m + 1$ to its distance and writes this value. Therefore, the smallest floating distance value is $m +1$ in the configuration $c_{4(k+1)}$. This proves assertion 1.
+(assume correctness for $k ≥ 0$ and prove for $k + 1$)
+
+Let $m ≥ k$ be the smallest floating distance in the configuration $c_{4k}$ that follows the first $\triangle+ 4k\triangle$ rounds. During the $4\triangle$ rounds that follow $c_{4k}$, each processor that reads $m$ and chooses $m$ as the smallest value assigns $m + 1$ to its distance and writes this value. Therefore, the smallest floating distance value is $m +1$ in the configuration $c_{4(k+1)}$. This proves assertion 1.
 
 Since the smallest floating distance is $m ≥ k$, it is clear that each processor reads the distance of a neighboring processor of distance $k$ and assigns $k + 1$ to its distance. (End)
 
@@ -102,13 +113,24 @@ Since the smallest floating distance is $m ≥ k$, it is clear that each process
 
 *基本情况：*
 
-（证明 $k = 1$）寄存器和内部变量中存储的距离是非负的；因此，在第一个配置中，最小浮动距离的值至少为 0。在前 $2\triangle$ 轮次中，每个非根处理器 $P_i$ 计算变量 $dist$ 的值（图 2.1 中代码的第 7 行）。每次这样的计算结果必须大于或等于 1。设 $c_2$ 为每个处理器首次计算 $dist$ 值后的配置。在 $c_2$ 之后的 $2\triangle$ 轮次中，每个非根处理器将计算出的 $dist$ 值写入其每个寄存器。因此，在前 $4\triangle$ 轮次之后的每个配置中，没有非根处理器的寄存器值为 0。以上证明了断言 1。
+（证明 $k = 1$）
 
-为了证明断言 2，注意根在每 $\triangle$ 轮次中反复将距离 0 写入其寄存器。设 $c_1$ 为这些 $\triangle$ 轮次后的配置。每个处理器读取根的寄存器，然后在 $c_1$ 之后的 $4\triangle$ 轮次中将其写入自己的寄存器。在此写操作中，处理器将 1 赋给其自己的寄存器。任何进一步读取根寄存器的操作都会返回值 0；因此，在前 $\triangle+ 4\triangle$ 轮次之后，每个根邻居的寄存器值为 1。因此，断言 2 也成立。
+寄存器和内部变量中存储的距离是非负的；因此，在第一个配置中，最小浮动距离的值至少为 0。
+
+- 在前 $2\triangle$ 轮次中，每个非根处理器 $P_i$ 计算变量 $dist$ 的值（图 2.1 中代码的第 7 行）。每次这样的计算结果必须大于或等于 1。
+- 设 $c_2$ 为每个处理器首次计算 $dist$ 值后的配置。在 $c_2$ 之后的 $2\triangle$ 轮次中，每个非根处理器将计算出的 $dist$ 值写入其每个寄存器。
+
+因此，在前 $4\triangle$ 轮次之后的每个配置中，没有非根处理器的寄存器值为 0。以上证明了断言 1。
+
+为了证明断言 2，注意根在每 $\triangle$ 轮次中反复将距离 0 写入其寄存器。设 $c_1$ 为这些 $\triangle$ 轮次后的配置。
+
+每个处理器读取根的寄存器，然后在 $c_1$ 之后的 $4\triangle$ 轮次中将其写入自己的寄存器。在此写操作中，处理器将 1 赋给其自己的寄存器。任何进一步读取根寄存器的操作都会返回值 0；因此，在前 $\triangle+ 4\triangle$ 轮次之后，每个根邻居的寄存器值为 1。因此，断言 2 也成立。
 
 *归纳步骤：*
 
-（假设 $k ≥ 0$ 时正确，并证明 $k + 1$ 时正确）设 $m ≥ k$ 为前 $\triangle+ 4k\triangle$ 轮次后的配置 $c_{4k}$ 中的最小浮动距离。在 $c_{4k}$ 之后的 $4\triangle$ 轮次中，每个读取 $m$ 并选择 $m$ 作为最小值的处理器将 $m + 1$ 赋给其距离并写入该值。因此，在配置 $c_{4(k+1)}$ 中，最小浮动距离值为 $m +1$。这证明了断言 1。
+（假设 $k ≥ 0$ 时正确，并证明 $k + 1$ 时正确）
+
+设 $m ≥ k$ 为前 $\triangle+ 4k\triangle$ 轮次后的配置 $c_{4k}$ 中的最小浮动距离。在 $c_{4k}$ 之后的 $4\triangle$ 轮次中，每个读取 $m$ 并选择 $m$ 作为最小值的处理器将 $m + 1$ 赋给其距离并写入该值。因此，在配置 $c_{4(k+1)}$ 中，最小浮动距离值为 $m +1$。这证明了断言 1。
 
 由于最小浮动距离为 $m ≥ k$，显然每个处理器读取距离为 $k$ 的邻居处理器的距离并将其距离赋值为 $k + 1$。（完）
 
