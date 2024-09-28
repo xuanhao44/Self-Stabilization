@@ -6,19 +6,19 @@ This section describes and demonstrates several basic proof techniques, techniqu
 
 ## Variant Function
 
-The variant function (or potential function) technique is used for proving convergence. The basic idea is to use a function over the configuration set, whose value is bounded, to prove that this function monotonically decreases (or increases) when processors execute a step, and to show that after the function reaches a certain threshold, the system is in a safe configuration.
+The variant function (or potential function) technique is **used for proving convergence**. The basic idea is to use a function over the configuration set, whose value is bounded, to prove that this function **monotonically** decreases (or increases) when processors execute a step, and to show that after the function reaches a certain threshold, the system is in a safe configuration.
 
 The above property of the variant function can be used to estimate the maximal number of steps required to reach a safe configuration. In some cases the choice of the variant function is intricate, as the following example indicates.
 
-变元函数（或势函数）技术用于证明收敛性。其基本思想是使用一个在配置集上的函数，该函数的值是有界的，以证明当处理器执行一步时，该函数单调递减（或递增），并且在函数达到某个阈值后，系统处于安全配置中。
+变元函数（或势函数）技术用于**证明收敛性**。其基本思想是使用一个在配置集上的函数，该函数的值是有界的，以证明当处理器执行一步时，该函数**单调**递减（或递增），并且在函数达到某个阈值后，系统处于安全配置中。
 
 变元函数的上述性质可用于估计达到安全配置所需的最大步骤数。在某些情况下，变元函数的选择是复杂的，正如以下示例所示。
 
 ## Example: Self-Stabilizing Maximal Matching
 
-In the maximal matching algorithm, every processor Pi tries to find a matching neighbor $P_j$. Assume that each processor $P_i$ has a pointer that either points to one of its neighbors or has a null value. The maximal matching algorithm should reach a configuration $c_l$ in which the existence of a pointer of $P_i$ that points to $P_j$ implies the existence of a pointer of $P_j$ that points to $P_i$. In addition, assume that in $c_l$ there are no two neighboring processors $P_i$ and $P_j$, such that both have null pointers. The first condition is the core requirement for matching, while the second requirement guarantees that the solution is maximal.
+In the maximal matching algorithm, every processor Pi tries to find a matching neighbor $P_j$. Assume that each processor $P_i$ has a pointer that either points to one of its neighbors or has a null value. The maximal matching algorithm should reach **a configuration $c_l$ in which the existence of a pointer of $P_i$ that points to $P_j$ implies the existence of a pointer of $P_j$ that points to $P_i$. In addition, assume that in $c_l$ there are no two neighboring processors $P_i$ and $P_j$, such that both have null pointers. The first condition is the core requirement for matching, while the second requirement guarantees that the solution is maximal**.
 
-在最大匹配算法中，每个处理器 $P_i$ 尝试找到一个匹配的邻居 $P_j$。假设每个处理器 $P_i$ 有一个指针，该指针要么指向其一个邻居，要么为空值。最大匹配算法应达到一个配置 $c_l$，在该配置中，$P_i$ 的指针指向 $P_j$ 意味着 $P_j$ 的指针也指向 $P_i$。此外，假设在 $c_l$ 中没有两个相邻的处理器 $P_i$ 和 $P_j$ 都有空指针。第一个条件是匹配的核心要求，而第二个条件保证了解决方案是最大的。
+在最大匹配算法中，每个处理器 $P_i$ 尝试找到一个匹配的邻居 $P_j$。假设每个处理器 $P_i$ 有一个指针，该指针要么指向其一个邻居，要么为空值。最大匹配算法应达到一个配置 $c_l$，**在该配置中，$P_i$ 的指针指向 $P_j$ 意味着 $P_j$ 的指针也指向 $P_i$。此外，假设在 $c_l$ 中没有两个相邻的处理器 $P_i$ 和 $P_j$ 都有空指针。第一个条件是匹配的核心要求，而第二个条件保证了解决方案是最大的**。
 
 Our concern in this example is to demonstrate the variant function technique. To simplify the discussion, let us assume the existence of a central daemon that activates one processor at a time; the activated processor reads the state of all its neighbors and changes state accordingly. Only when the activated processor finishes executing the above operations is another processor activated. The algorithm is presented in figure 2.8.
 
@@ -39,16 +39,16 @@ The set of legal executions $MM$ for the maximal matching task includes every ex
 - 在 $c_l$ 中是 $matched$，如果 $P_i$ 有一个邻居 $P_j$，使得 ${pointer}_i = j$ 且 ${pointer}_j = i$。
 - 在 $c_l$ 中是 $single$，如果 ${pointer}_i = null$ 且 $P_i$ 的每个邻居都是匹配的。
 - 在 $c_l$ 中是 $waiting$，如果 $P_i$ 有一个邻居 $P_j$，使得 ${pointer}_i = j$ 且 ${pointer}_j = null$。
-- 在 $c_l$ 中是 $free$，如果 ${pointer}_i = null$ 且存在一个邻居 $P_j$，使得 $P_j$ 没有匹配。
+- 在 $c_l$ 中是 $free$，如果 ${pointer}_i = null$ 且存在一个邻居 $P_j$，使得 $P_j$ 没有 matched。
 - 在 $c_l$ 中是 $chaining$，如果存在一个邻居 $P_j$，使得 ${pointer}_i = j$ 且 ${pointer}_j = k, k \neq i$。
 
 The correctness proof of the algorithm presented in figure 2.8 uses the variant function $VF(c)$, which returns a vector $(m+s, w, f, c)$, where $m$, $s$, $w$, $f$, and c are the total number of matched, single, waiting, free, and chaining processors, respectively, in $c_l$. Values of $VF$ are compared lexicographically: for example, $(5, 3, 4, 7)$ is greater than $(5, 3, 3, 8)$.
 
 图 2.8 中所示算法的正确性证明使用了变元函数 $VF(c)$，该函数返回一个向量 $(m+s, w, f, c)$，其中 $m$、$s$、$w$、$f$ 和 $c$ 分别是 $c_l$ 中 matched、single、waiting、free 和 chaining 处理器的总数。$VF$ 的值按字典顺序进行比较：例如，$(5, 3, 4, 7)$ 大于 $(5, 3, 3, 8)$。
 
-Note that every configuration $c_l$ for which $VF(c) = (n, 0, 0, 0)$ is a safe configuration with relation to $MM$ and to our algorithm; also for every safe configuration $c_l$, $VF(c) = (n, 0, 0, 0)$. Once the system reaches a safe configuration, no processor changes the value of its pointer, **while in every non-safe configuration, there exists at least one processor that can change the value of its pointer when it is activated by the central daemon**. Next we show that every change of a pointer value increases the value of $VF$.
+Note that every configuration $c_l$ for which $VF(c) = (n, 0, 0, 0)$ is a safe configuration with relation to $MM$ and to our algorithm; also for every safe configuration $c_l$, $VF(c) = (n, 0, 0, 0)$. Once the system reaches a safe configuration, no processor changes the value of its pointer, **while in every non-safe configuration, there exists at least one processor that can change the value of its pointer when it is activated by the central daemon**. Next we show that **every change of a pointer value increases the value of $VF$**.
 
-注意，对于每个配置 $c_l$，如果 $VF(c) = (n, 0, 0, 0)$，则该配置相对于 $MM$ 和我们的算法是一个安全配置；同样，对于每个安全配置 $c_l$，$VF(c) = (n, 0, 0, 0)$。一旦系统达到安全配置，没有处理器会改变其指针的值，**而在每个非安全配置中，至少存在一个处理器在被中央守护进程激活时可以改变其指针的值**。接下来我们将展示每次指针值的变化都会增加 $VF$ 的值。
+注意，对于每个配置 $c_l$，如果 $VF(c) = (n, 0, 0, 0)$，则该配置相对于 $MM$ 和我们的算法是一个安全配置；同样，对于每个安全配置 $c_l$，$VF(c) = (n, 0, 0, 0)$。一旦系统达到安全配置，没有处理器会改变其指针的值，**而在每个非安全配置中，至少存在一个处理器在被中央守护进程激活时可以改变其指针的值**。接下来我们将展示**每次指针值的变化都会增加 $VF$ 的值**。
 
 An assignment in line 3 of the code reduces the number of free processors and waiting processors by 1 and increments the number of matched processors by 2.
 
@@ -72,9 +72,9 @@ Thus each of the above assignments increments the value of $VF$. The system stab
 
 因此，上述每个赋值操作都会增加 $VF$ 的值。一旦系统达到无法再增加的配置，即为安全配置，系统就会稳定下来。
 
-We can conclude that, indeed, every change in a pointer value increments the value of $VF$. The number of such pointer-value changes is bounded by the number of all possible vector values. The fact that $m + s + w + f + c = n$ implies that the number of possible vector values is $O(n^3)$. A rough analysis uses the following argument. One can choose $n + 1$ possible values for $m + s$ and then $n+1$ values for $w$ and $f$. The value of $n$ and the first three elements of the vector $(m+s, w, f, c)$ imply the value of $c$. Therefore the system reaches a safe configuration within $O(n^3)$ pointer-value changes.
+We can conclude that, indeed, every change in a pointer value increments the value of $VF$. The number of such pointer-value changes is bounded by the number of all possible vector values. The fact that $m + s + w + f + c = n$ implies that **the number of possible vector values is $O(n^3)$**. A rough analysis uses the following argument. One can choose $n + 1$ possible values for $m + s$ and then $n+1$ values for $w$ and $f$. The value of $n$ and the first three elements of the vector $(m+s, w, f, c)$ imply the value of $c$. Therefore the system reaches a safe configuration within $O(n^3)$ pointer-value changes.
 
-我们可以得出结论，确实，每次指针值的变化都会增加 $VF$ 的值。这种指针值变化的次数受所有可能向量值数量的限制。由于 $m + s + w + f + c = n$，这意味着可能的向量值数量是 $O(n^3)$。粗略分析使用以下论点。可以为 $m+s$ 选择 $n+1$ 个可能值，然后为 $w$ 和 $f$ 选择 $n + 1$ 个值。向量 $(m + s, w, f, c)$ 的值 $n$ 和前三个元素决定了 $c$ 的值。因此，系统在 $O(n^3)$ 次指针值变化内达到安全配置。
+我们可以得出结论，确实，每次指针值的变化都会增加 $VF$ 的值。这种指针值变化的次数受所有可能向量值数量的限制。由于 $m + s + w + f + c = n$，这意味着**可能的向量值数量是 $O(n^3)$**。粗略分析使用以下论点。可以为 $m+s$ 选择 $n+1$ 个可能值，然后为 $w$ 和 $f$ 选择 $n + 1$ 个值。向量 $(m + s, w, f, c)$ 的值 $n$ 和前三个元素决定了 $c$ 的值。因此，系统在 $O(n^3)$ 次指针值变化内达到安全配置。
 
 ## Convergence Stairs
 
