@@ -18,7 +18,7 @@ The above property of the variant function can be used to estimate the maximal n
 
 In the maximal matching algorithm, every processor Pi tries to find a matching neighbor $P_j$. Assume that each processor $P_i$ has a pointer that either points to one of its neighbors or has a null value. The maximal matching algorithm should reach **a configuration $c_l$ in which the existence of a pointer of $P_i$ that points to $P_j$ implies the existence of a pointer of $P_j$ that points to $P_i$. In addition, assume that in $c_l$ there are no two neighboring processors $P_i$ and $P_j$, such that both have null pointers. The first condition is the core requirement for matching, while the second requirement guarantees that the solution is maximal**.
 
-在最大匹配算法中，每个处理器 $P_i$ 尝试找到一个匹配的邻居 $P_j$。假设每个处理器 $P_i$ 有一个指针，该指针要么指向其一个邻居，要么为空值。最大匹配算法应达到一个配置 $c_l$，**在该配置中，$P_i$ 的指针指向 $P_j$ 意味着 $P_j$ 的指针也指向 $P_i$。此外，假设在 $c_l$ 中没有两个相邻的处理器 $P_i$ 和 $P_j$ 都有空指针。第一个条件是匹配的核心要求，而第二个条件保证了解决方案是最大的**。
+在极大匹配算法中，每个处理器 $P_i$ 尝试找到一个匹配的邻居 $P_j$。假设每个处理器 $P_i$ 有一个指针，该指针要么指向其一个邻居，要么为空值。极大匹配算法应达到一个配置 $c_l$，**在该配置中，$P_i$ 的指针指向 $P_j$ 意味着 $P_j$ 的指针也指向 $P_i$。此外，假设在 $c_l$ 中没有两个相邻的处理器 $P_i$ 和 $P_j$ 都有空指针。第一个条件是匹配的核心要求，而第二个条件保证了解决方案是最大的**。
 
 Our concern in this example is to demonstrate the variant function technique. To simplify the discussion, let us assume the existence of a central daemon that activates one processor at a time; the activated processor reads the state of all its neighbors and changes state accordingly. Only when the activated processor finishes executing the above operations is another processor activated. The algorithm is presented in figure 2.8.
 
@@ -34,10 +34,10 @@ The set of legal executions $MM$ for the maximal matching task includes every ex
 - $free$ in $c_l$, if ${pointer}_i = null$ and there exists a neighbor $P_j$, such that $P_j$ is not matched.
 - $chaining$ in $c_l$, if there exists a neighbor $P_j$ for which ${pointer}_i = j$ and ${pointer}_j = k, k \neq i$.
 
-最大匹配任务的合法执行集 $MM$ 包括所有处理器的指针值**固定并形成最大匹配**的每次执行。给定一个配置 $c_l$，我们说处理器 $P_i$ 是：
+极大匹配任务的合法执行集 $MM$ 包括所有处理器的指针值**固定并形成极大匹配**的每次执行。给定一个配置 $c_l$，我们说处理器 $P_i$ 是：
 
 - 在 $c_l$ 中是 $matched$，如果 $P_i$ 有一个邻居 $P_j$，使得 ${pointer}_i = j$ 且 ${pointer}_j = i$。
-- 在 $c_l$ 中是 $single$，如果 ${pointer}_i = null$ 且 $P_i$ 的每个邻居都是匹配的。
+- 在 $c_l$ 中是 $single$，如果 ${pointer}_i = null$ 且 $P_i$ 的每个邻居都是 matched 的。
 - 在 $c_l$ 中是 $waiting$，如果 $P_i$ 有一个邻居 $P_j$，使得 ${pointer}_i = j$ 且 ${pointer}_j = null$。
 - 在 $c_l$ 中是 $free$，如果 ${pointer}_i = null$ 且存在一个邻居 $P_j$，使得 $P_j$ 没有 matched。
 - 在 $c_l$ 中是 $chaining$，如果存在一个邻居 $P_j$，使得 ${pointer}_i = j$ 且 ${pointer}_j = k, k \neq i$。
