@@ -78,9 +78,9 @@ We can conclude that, indeed, every change in a pointer value increments the val
 
 ## Convergence Stairs
 
-It is possible to prove the correctness of a self-stabilizing algorithm by proving that it converges to fulfill $k > 1$ predicates $\mathcal{A}_1,\mathcal{A}_2, · · · ,\mathcal{A}_k$ such that, for every $1 ≤ i < k$, $\mathcal{A}_{i+1}$ is a refinement of $\mathcal{A}_i$. Here a predicate $\mathcal{A}_{i+1}$ refines the predicate $\mathcal{A}_i$ if $\mathcal{A}_i$ holds whenever $\mathcal{A}_{i+1}$ holds. The term attractor is often used for each such $\mathcal{A}_i$ predicate. The proof is done in “stairs” by proving that, from some point of the execution, every configuration satisfies $\mathcal{A}_1$ and then proving that an execution in which $\mathcal{A}_1$ holds reaches a configuration after which every configuration satisfies $\mathcal{A}_2$ and, in general, proving that $\mathcal{A}_{i+1}$ holds after $\mathcal{A}_i$ does. The goal is to prove that the system reaches a configuration in which the last predicate $\mathcal{A}_k$ holds, which is a predicate for a safe configuration. The method is demonstrated by a self-stabilizing leader-election algorithm. Leader election is a fundamental task in distributed computing: often a distributed task can be performed by electing a leader and then using a centralized computation by that leader.
+It is possible to prove the correctness of a self-stabilizing algorithm by proving that it converges to fulfill $k > 1$ predicates $\mathcal{A}_1,\mathcal{A}_2, · · · ,\mathcal{A}_k$ such that, for every $1 ≤ i < k$, $\mathcal{A}_{i+1}$ is a *refinement* of $\mathcal{A}_i$. Here a predicate $\mathcal{A}_{i+1}$ *refines* the predicate $\mathcal{A}_i$ if $\mathcal{A}_i$ holds whenever $\mathcal{A}_{i+1}$ holds. The term *attractor* is often used for each such $\mathcal{A}_i$ predicate. The proof is done in “stairs” by proving that, from some point of the execution, every configuration satisfies $\mathcal{A}_1$ and then proving that an execution in which $\mathcal{A}_1$ holds reaches a configuration after which every configuration satisfies $\mathcal{A}_2$ and, in general, proving that $\mathcal{A}_{i+1}$ holds after $\mathcal{A}_i$ does. The goal is to prove that the system reaches a configuration in which the last predicate $\mathcal{A}_k$ holds, which is a predicate for a safe configuration. The method is demonstrated by a self-stabilizing leader-election algorithm. Leader election is a fundamental task in distributed computing: often a distributed task can be performed by electing a leader and then using a centralized computation by that leader.
 
-可以通过证明自稳定算法收敛以满足 $k > 1$ 个谓词 $\mathcal{A}_1,\mathcal{A}_2, · · · ,\mathcal{A}_k$ 来证明其正确性，其中对于每个 $1 ≤ i < k$，$\mathcal{A}_{i+1}$ 是 $\mathcal{A}_i$ 的细化。这里，如果 $\mathcal{A}_{i+1}$ 成立，则 $\mathcal{A}_i$ 也成立，则谓词 $\mathcal{A}_{i+1}$ 细化了谓词 $\mathcal{A}_i$。术语吸引子通常用于每个这样的 $\mathcal{A}_i$ 谓词。证明是通过“阶梯”完成的，首先证明从执行的某个点开始，每个配置都满足 $\mathcal{A}_1$，然后证明在 $\mathcal{A}_1$ 成立的执行中达到一个配置，此后每个配置都满足 $\mathcal{A}_2$，一般来说，证明 $\mathcal{A}_{i+1}$ 在 $\mathcal{A}_i$ 之后成立。目标是证明系统达到一个配置，其中最后一个谓词 $\mathcal{A}_k$ 成立，这是一个安全配置的谓词。该方法通过一个自稳定的领导者选举算法来演示。领导者选举是分布式计算中的一项基本任务：通常可以通过选举一个领导者来执行分布式任务，然后由该领导者进行集中计算。
+可以通过证明自稳定算法收敛以满足 $k > 1$ 个谓词 $\mathcal{A}_1,\mathcal{A}_2, · · · ,\mathcal{A}_k$ 来证明其正确性，其中对于每个 $1 ≤ i < k$，$\mathcal{A}_{i+1}$ 是 $\mathcal{A}_i$ 的 *细化*。这里，如果 $\mathcal{A}_{i+1}$ 成立，则 $\mathcal{A}_i$ 也成立，则谓词 $\mathcal{A}_{i+1}$ *细化* 了谓词 $\mathcal{A}_i$。术语 *吸引子* 通常用于每个这样的 $\mathcal{A}_i$ 谓词。证明是通过“阶梯”完成的，首先证明从执行的某个点开始，每个配置都满足 $\mathcal{A}_1$，然后证明在 $\mathcal{A}_1$ 成立的执行中达到一个配置，此后每个配置都满足 $\mathcal{A}_2$，一般来说，证明 $\mathcal{A}_{i+1}$ 在 $\mathcal{A}_i$ 之后成立。目标是证明系统达到一个配置，其中最后一个谓词 $\mathcal{A}_k$ 成立，这是一个安全配置的谓词。该方法通过一个自稳定的领导者选举算法来演示。领导者选举是分布式计算中的一项基本任务：通常可以通过选举一个领导者来执行分布式任务，然后由该领导者进行集中计算。
 
 ## Example: Leader Election in a General Communication Network
 
@@ -90,7 +90,7 @@ A self-stabilizing algorithm for this task assumes that every processor has a un
 
 The following simple (non-terminating) algorithm elects a leader in a non-stabilizing manner. Each processor $P_i$ has a candidate for a leader; in the beginning, the candidate is $P_i$ itself. $P_i$ repeatedly communicates the identifier $x$ of its current candidate to its neighbors. Whenever $P_i$ receives an identifier $y$ of a candidate of a neighbor, if $x > y$, $P_i$ changes its candidate to be the processor with identifier $y$.
 
-以下简单的（非终止）算法以非稳定的方式选举领导者。每个处理器 $P_i$ 都有一个领导者候选人；一开始，候选人是 $P_i$ 自己。$P_i$ 反复将其当前候选人的标识符 $x$ 传达给其邻居。每当 $P_i$ 收到邻居候选人的标识符 $y$ 时，如果 $x > y$，$P_i$ 会将其候选人更改为标识符为 $y$ 的处理器。
+以下简单的（非终止）算法以非稳定的方式选举领导者。每个处理器 $P_i$ 都有一个领导者候选人；一开始，**候选人是 $P_i$ 自己**。$P_i$ 反复将其当前候选人的标识符 $x$ 传达给其邻居。每当 $P_i$ 收到邻居候选人的标识符 $y$ 时，如果 $x > y$，$P_i$ 会将其候选人更改为标识符为 $y$ 的处理器。
 
 The above algorithm is not self-stabilizing, since it is possible that the minimal identifier $z$—which is a candidate in the first (arbitrary) configuration of the system—is not an identifier of a processor in the system. Nevertheless, eventually every processor declares that $z$ is the identifier of the leader. The term *floating identifier* is used to describe an identifier that appears in the initial configuration, when no processor in the system with this identifier appears in the system.
 
@@ -192,9 +192,17 @@ On the other hand, if no central daemon exists, then it is possible to let all t
 
 ![figure_2.10](images/figure_2.10.png)
 
-Our simple randomized self-stabilizing leader-election algorithm does not assume the existence of a central daemon. The settings presented in section 2.1 of this chapter are assumed: each step consists of a single read or a single write operation. Each processor communicates with all other processors using a single-writer multi-reader binary register called the leader register, where ${leader}_i$ denotes the $leader$ register of processor $P_i$. The random function used simulates a coin toss and returns *heads* or *tails* with equal probability. One can assume that heads is mapped to 1 and tails to 0. The algorithm in figure 2.10 is correct in the presence of *coarse atomicity* that assumes a coin toss is an internal operation that is not separable from the next read or write operation. Starting the system with any possible combination of binary values of the $leader$ registers, the algorithm eventually fixes all the $leader$ registers except one to hold 0. The single processor whose $leader$ value is 1 is the elected leader. The algorithm is straightforward: each processor $P_i$ repeatedly reads all $leader$ registers; if no single leader exists, $P_i$ decides whether it is a candidate for a leader and, if it is, tosses a coin and assigns its value to its register.
+Our simple randomized self-stabilizing leader-election algorithm does not assume the existence of a central daemon. The settings presented in section 2.1 of this chapter are assumed: each step consists of a single read or a single write operation. Each processor communicates with all other processors using a single-writer multi-reader binary register called the leader register, where ${leader}_i$ denotes the $leader$ register of processor $P_i$.
 
-我们的简单随机自稳定领导者选举算法不假设中央守护进程的存在。假设本章第 2.1 节中提出的设置：每一步由单个读取或单个写入操作组成。每个处理器使用一个称为领导者寄存器的单写多读二进制寄存器与所有其他处理器通信，其中 ${leader}_i$ 表示处理器 $P_i$ 的 $leader$ 寄存器。所使用的随机函数模拟掷硬币，并以相等的概率返回 *正面* 或 *反面*。可以假设正面映射为 1，反面映射为 0。图 2.10 中的算法在存在 *粗粒度原子性*的情况下是正确的，假设掷硬币是一个内部操作，不可与下一个读取或写入操作分离。系统以 $leader$ 寄存器的任何可能的二进制值组合开始，算法最终将所有 $leader$ 寄存器固定为 0，除了一个。其 $leader$ 值为 1 的单个处理器是被选举的领导者。该算法很简单：每个处理器 $P_i$ 反复读取所有 $leader$ 寄存器；如果不存在单个领导者，$P_i$ 决定它是否是领导者候选人，如果是，则掷硬币并将其值分配给其寄存器。。
+The random function used simulates a coin toss and returns *heads* or *tails* with equal probability. One can assume that heads is mapped to 1 and tails to 0. The algorithm in figure 2.10 is correct in the presence of *coarse atomicity* that assumes a coin toss is an internal operation that is not separable from the next read or write operation.
+
+Starting the system with any possible combination of binary values of the $leader$ registers, the algorithm eventually fixes all the $leader$ registers except one to hold 0. The single processor whose $leader$ value is 1 is the elected leader. The algorithm is straightforward: each processor $P_i$ repeatedly reads all $leader$ registers; if no single leader exists, $P_i$ decides whether it is a candidate for a leader and, if it is, tosses a coin and assigns its value to its register.
+
+我们的简单随机自稳定领导者选举算法不假设中央守护进程的存在。假设本章第 2.1 节中提出的设置：每一步由单个读取或单个写入操作组成。每个处理器使用一个称为 $leader$ 寄存器的单写多读二进制寄存器与所有其他处理器通信，其中 ${leader}_i$ 表示处理器 $P_i$ 的 $leader$ 寄存器。
+
+所使用的随机函数模拟掷硬币，并以相等的概率返回 *正面* 或 *反面*。可以假设正面映射为 1，反面映射为 0。图 2.10 中的算法在存在 *粗粒度原子性* 的情况下是正确的，假设掷硬币是一个内部操作，不可与下一个读取或写入操作分离。
+
+系统以 $leader$ 寄存器的任何可能的二进制值组合开始，算法最终将所有 $leader$ 寄存器固定为 0，除了一个。其 $leader$ 值为 1 的单个处理器是被选举的领导者。该算法很简单：每个处理器 $P_i$ 反复读取所有 $leader$ 寄存器；如果不存在单个领导者，$P_i$ 决定它是否是领导者候选人，如果是，则掷硬币并将其值分配给其寄存器。
 
 We define the task $LE$ to be the set of executions in which there exists a single fixed leader throughout the execution. We define a configuration to be safe if it satisfies the following:
 
@@ -252,7 +260,7 @@ Thus we conclude that, after a maximum of $2n$ rounds, every processor $P_i$ doe
 
 We have presented a simple proof, using the *sl-game* method, that the algorithm stabilizes within a maximum expected $2n2^n$ rounds. We conclude this section by proving, in the next lemma, that the algorithm does not stabilize under fine atomicity, in which a coin-toss is a separate atomic step. We present a winning strategy for the scheduler, guaranteeing that the obtained schedule is a fair schedule with probability 1.
 
-我们使用 *sl-game* 方法提出了一个简单的证明，证明算法在期望的最多 $2n2^n$ 轮内稳定。我们在接下来的引理中证明，在细粒度原子性下，算法不会稳定，其中掷硬币是一个单独的原子步骤。我们提出了一个调度程序的获胜策略，保证获得的调度是概率为 1 的公平调度。。
+我们使用 *sl-game* 方法提出了一个简单的证明，证明算法在期望的最多 $2n2^n$ 轮内稳定。我们在接下来的引理中证明，在细粒度原子性下，算法不会稳定，其中掷硬币是一个单独的原子步骤。我们提出了一个调度程序的获胜策略，保证获得的调度是概率为 1 的公平调度。
 
 ---
 
