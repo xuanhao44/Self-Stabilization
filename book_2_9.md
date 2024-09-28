@@ -42,39 +42,39 @@ The set of legal executions $MM$ for the maximal matching task includes every ex
 - 在 $c_l$ 中是 $free$，如果 ${pointer}_i = null$ 且存在一个邻居 $P_j$，使得 $P_j$ 没有匹配。
 - 在 $c_l$ 中是 $chaining$，如果存在一个邻居 $P_j$，使得 ${pointer}_i = j$ 且 ${pointer}_j = k, k \neq i$。
 
-The correctness proof of the algorithm presented in figure 2.8 uses the variant function $V F(c)$, which returns a vector $(m + s,w, f, c)$, where $m$, $s$, $w$, $f$, and c are the total number of matched, single, waiting, free, and chaining processors, respectively, in $c_l$. Values of $V F$ are compared lexicographically: for example, $(5, 3, 4, 7)$ is greater than $(5, 3, 3, 8)$.
+The correctness proof of the algorithm presented in figure 2.8 uses the variant function $VF(c)$, which returns a vector $(m+s, w, f, c)$, where $m$, $s$, $w$, $f$, and c are the total number of matched, single, waiting, free, and chaining processors, respectively, in $c_l$. Values of $VF$ are compared lexicographically: for example, $(5, 3, 4, 7)$ is greater than $(5, 3, 3, 8)$.
 
-图 2.8 中所示算法的正确性证明使用了变元函数 $V F(c)$，该函数返回一个向量 $(m + s,w, f, c)$，其中 $m$、$s$、$w$、$f$ 和 $c$ 分别是 $c_l$ 中 matched、single、waiting、free 和 chaining 处理器的总数。$V F$ 的值按字典顺序进行比较：例如，$(5, 3, 4, 7)$ 大于 $(5, 3, 3, 8)$。
+图 2.8 中所示算法的正确性证明使用了变元函数 $VF(c)$，该函数返回一个向量 $(m+s, w, f, c)$，其中 $m$、$s$、$w$、$f$ 和 $c$ 分别是 $c_l$ 中 matched、single、waiting、free 和 chaining 处理器的总数。$VF$ 的值按字典顺序进行比较：例如，$(5, 3, 4, 7)$ 大于 $(5, 3, 3, 8)$。
 
-Note that every configuration $c_l$ for which $V F(c) = (n, 0, 0, 0)$ is a safe configuration with relation to $MM$ and to our algorithm; also for every safe configuration $c_l$, $V F(c) = (n, 0, 0, 0)$. Once the system reaches a safe configuration, no processor changes the value of its pointer, **while in every non-safe configuration, there exists at least one processor that can change the value of its pointer when it is activated by the central daemon**. Next we show that every change of a pointer value increases the value of $V F$.
+Note that every configuration $c_l$ for which $VF(c) = (n, 0, 0, 0)$ is a safe configuration with relation to $MM$ and to our algorithm; also for every safe configuration $c_l$, $VF(c) = (n, 0, 0, 0)$. Once the system reaches a safe configuration, no processor changes the value of its pointer, **while in every non-safe configuration, there exists at least one processor that can change the value of its pointer when it is activated by the central daemon**. Next we show that every change of a pointer value increases the value of $VF$.
 
-注意，对于每个配置 $c_l$，如果 $V F(c) = (n, 0, 0, 0)$，则该配置相对于 $MM$ 和我们的算法是一个安全配置；同样，对于每个安全配置 $c_l$，$V F(c) = (n, 0, 0, 0)$。一旦系统达到安全配置，没有处理器会改变其指针的值，**而在每个非安全配置中，至少存在一个处理器在被中央守护进程激活时可以改变其指针的值**。接下来我们将展示每次指针值的变化都会增加 $V F$ 的值。
+注意，对于每个配置 $c_l$，如果 $VF(c) = (n, 0, 0, 0)$，则该配置相对于 $MM$ 和我们的算法是一个安全配置；同样，对于每个安全配置 $c_l$，$VF(c) = (n, 0, 0, 0)$。一旦系统达到安全配置，没有处理器会改变其指针的值，**而在每个非安全配置中，至少存在一个处理器在被中央守护进程激活时可以改变其指针的值**。接下来我们将展示每次指针值的变化都会增加 $VF$ 的值。
 
 An assignment in line 3 of the code reduces the number of free processors and waiting processors by 1 and increments the number of matched processors by 2.
 
-An assignment in line 6 of the code reduces the number of free processors by 1 and increments the number of waiting processors by 1. 
+An assignment in line 6 of the code reduces the number of free processors by 1 and increments the number of waiting processors by 1.
 
 The assignment in line 8 is executed when $P_i$ is chaining. Two cases are considered:
 
 - first, if no neighboring processor points to $P_i$. In this case, $P_i$ changes status to free if there exists an unmatched neighbor, or to single if all neighbors are matched. Therefore, the number of chaining processors is reduced by 1 and the number of free or single processors is incremented by 1.
 - In the second case, when at least one neighbor $P_k$ points toward $P_i$, the status of $P_i$ is changed to free and the status of $P_k$ is changed from chaining to waiting. Hence the number of chaining processors is reduced by 2, while the number of both free and waiting processors is incremented by 1.
 
-Thus each of the above assignments increments the value of $V F$. The system stabilizes once it reaches a configuration in which no increment is possible, which is a safe configuration.
+Thus each of the above assignments increments the value of $VF$. The system stabilizes once it reaches a configuration in which no increment is possible, which is a safe configuration.
 
 代码第 3 行的赋值操作将 free 处理器和 waiting 处理器的数量减少 1，并将 matched 处理器的数量增加 2。
 
-代码第 6 行的赋值操作将  free 处理器的数量减少 1，并将  waiting 处理器的数量增加 1。
+代码第 6 行的赋值操作将 free 处理器的数量减少 1，并将 waiting 处理器的数量增加 1。
 
 第 8 行的赋值操作在 $P_i$ 处于 chaining 状态时执行。考虑两种情况：
 
 - 首先，如果没有邻居处理器指向 $P_i$。在这种情况下，如果存在未匹配的邻居，$P_i$ 的状态变为 free；如果所有邻居都 matched，则状态变为 single。因此，chaining 处理器的数量减少 1，free 或 single 处理器的数量增加 1。
 - 在第二种情况下，当至少有一个邻居 $P_k$ 指向 $P_i$ 时，$P_i$ 的状态变为 free，$P_k$ 的状态从 chaining 变为 waiting。因此，chaining 处理器的数量减少 2，而 free 和 waiting 处理器的数量各增加 1。
 
-因此，上述每个赋值操作都会增加 $V F$ 的值。一旦系统达到无法再增加的配置，即为安全配置，系统就会稳定下来。
+因此，上述每个赋值操作都会增加 $VF$ 的值。一旦系统达到无法再增加的配置，即为安全配置，系统就会稳定下来。
 
-We can conclude that, indeed, every change in a pointer value increments the value of $V F$. The number of such pointer-value changes is bounded by the number of all possible vector values. The fact that $m + s + w + f + c = n$ implies that the number of possible vector values is $O(n^3)$. A rough analysis uses the following argument. One can choose $n + 1$ possible values for $m + s$ and then $n+1$ values for $w$ and $f$. The value of $n$ and the first three elements of the vector $(m + s,w, f, c)$ imply the value of $c$. Therefore the system reaches a safe configuration within $O(n^3)$ pointer-value changes.
+We can conclude that, indeed, every change in a pointer value increments the value of $VF$. The number of such pointer-value changes is bounded by the number of all possible vector values. The fact that $m + s + w + f + c = n$ implies that the number of possible vector values is $O(n^3)$. A rough analysis uses the following argument. One can choose $n + 1$ possible values for $m + s$ and then $n+1$ values for $w$ and $f$. The value of $n$ and the first three elements of the vector $(m+s, w, f, c)$ imply the value of $c$. Therefore the system reaches a safe configuration within $O(n^3)$ pointer-value changes.
 
-我们可以得出结论，确实，每次指针值的变化都会增加 $V F$ 的值。这种指针值变化的次数受所有可能向量值数量的限制。由于 $m + s + w + f + c = n$，这意味着可能的向量值数量是 $O(n^3)$。粗略分析使用以下论点。可以为 $m + s$ 选择 $n + 1$ 个可能值，然后为 $w$ 和 $f$ 选择 $n + 1$ 个值。向量 $(m + s,w, f, c)$ 的值 $n$ 和前三个元素决定了 $c$ 的值。因此，系统在 $O(n^3)$ 次指针值变化内达到安全配置。
+我们可以得出结论，确实，每次指针值的变化都会增加 $VF$ 的值。这种指针值变化的次数受所有可能向量值数量的限制。由于 $m + s + w + f + c = n$，这意味着可能的向量值数量是 $O(n^3)$。粗略分析使用以下论点。可以为 $m+s$ 选择 $n+1$ 个可能值，然后为 $w$ 和 $f$ 选择 $n + 1$ 个值。向量 $(m + s, w, f, c)$ 的值 $n$ 和前三个元素决定了 $c$ 的值。因此，系统在 $O(n^3)$ 次指针值变化内达到安全配置。
 
 ## Convergence Stairs
 
@@ -86,7 +86,7 @@ It is possible to prove the correctness of a self-stabilizing algorithm by provi
 
 A self-stabilizing algorithm for this task assumes that every processor has a unique identifier in the range 1 to $N$, where $N$ is an upper bound on the number of processors in the system. The leader election task is to inform every processor of the identifier of a single processor in the system. This single processor with the elected identifier is the leader. Usually the processor with the minimal (or maximal) identifier is elected to be the leader.
 
-一个自稳定算法假设每个处理器都有一个唯一的标识符，范围在 1 到$N$之间，其中$N$是系统中处理器数量的上限。领导者选举任务是通知每个处理器系统中某个处理器的标识符。这个具有被选标识符的处理器是领导者。通常，具有最小（或最大）标识符的处理器被选为领导者。
+一个自稳定算法假设每个处理器都有一个唯一的标识符，范围在 1 到 $N$ 之间，其中 $N$ 是系统中处理器数量的上限。领导者选举任务是通知每个处理器系统中某个处理器的标识符。这个具有被选标识符的处理器是领导者。通常，具有最小（或最大）标识符的处理器被选为领导者。
 
 The following simple (non-terminating) algorithm elects a leader in a non-stabilizing manner. Each processor $P_i$ has a candidate for a leader; in the beginning, the candidate is $P_i$ itself. $P_i$ repeatedly communicates the identifier $x$ of its current candidate to its neighbors. Whenever $P_i$ receives an identifier $y$ of a candidate of a neighbor, if $x > y$, $P_i$ changes its candidate to be the processor with identifier $y$.
 
@@ -100,7 +100,7 @@ The above algorithm is not self-stabilizing, since it is possible that the minim
 
 We use distance variables and the bound $N$ on the number of processors to eliminate floating identifiers. Each processor $P_i$ has a candidate for a leader ${leader}_i$ and a value for the distance from this leader ${dis}_i$. The program for $P_i$ appears in figure 2.9. A processor $P_i$ repeatedly reads the identifiers chosen by its neighbors for the identifier of the leader. $P_i$ chooses the identifier $x$ that is the smallest among the read values, such that the distance to $x$ is less than $N$. If $y$ is the minimal distance read from a neighbor together with the identifier $x$, then $P_i$ assigns $y + 1$ to its distance field.
 
-我们使用距离变量和处理器数量的上限 $N$ 来消除浮动标识符。每个处理器 $P_i$ 都有一个领导者候选人 ${leader}_i$ 和一个从该领导者的距离值 ${dis}_i$。$P_i$ 的程序如图 2.9 所示。处理器 $P_i$ 反复读取其邻居为领导者选择的标识符。$P_i$ 选择读取值中最小的标识符 $x$，使得到 $x$ 的距离小于 $N$。如果 $y$ 是从邻居读取的最小距离以及标识符 $x$，那么 $P_i$ 将 $y + 1$ 分配给其距离字段。
+我们使用距离变量和处理器数量的上限 $N$ 来消除浮动标识符。每个处理器 $P_i$ 都有一个领导者候选人 ${leader}_i$ 和一个从该领导者的距离值 ${dis}_i$。$P_i$ 的程序如图 2.9 所示。处理器 $P_i$ 反复读取其邻居为领导者选择的标识符。$P_i$ 选择读取值中最小的标识符 $x$，使得到 $x$ 的距离小于 $N$。如果 $y$ 是从邻居读取的最小距离以及标识符 $x$，那么 $P_i$ 将 $y+1$ 分配给其距离字段。
 
 The proof of correctness uses two convergence stairs. The first convergence stair is a predicate $\mathcal{A}_1$ on system configurations verifying that no floating identifier exists. The second convergence stair is a predicate $\mathcal{A}_2$ for a safe configuration — a predicate that verifies that every processor chooses the minimal identifier of a processor in the system as the identifier of the leader.
 
@@ -108,7 +108,7 @@ The proof of correctness uses two convergence stairs. The first convergence stai
 
 The value of a floating identifier can appear in the local arrays of every processor $P_i$, $l_i [1..δ]$, in the $candidate$ local variable, and in the field ${leader}_i$ of the communication register. The $distance$ of *a floating identifier* appearing in $l_i [ j ]$, $candidate$, or ${leader}_i$ is $d_i [ j ]$, $distance$, or ${dis}_i$, respectively.
 
-浮动标识符的值可以出现在每个处理器 $P_i$ 的本地数组 $l_i [1..δ]$ 中，在 $candidate$ 局部变量中，以及在通信寄存器的字段 ${leader}_i$ 中。出现在 $l_i [ j ]$、$candidate$ 或 ${leader}_i$ 中的浮动标识符的 $distance$ 分别是 $d_i [ j ]$、$distance$ 或 ${dis}_i$。
+浮动标识符的值可以出现在每个处理器 $P_i$ 的本地数组 $l_i [1..δ]$ 中，在 $candidate$ 局部变量中，以及在通信寄存器的字段 ${leader}_i$ 中。出现在 $l_i [j]$、$candidate$ 或 ${leader}_i$ 中的浮动标识符的 $distance$ 分别是 $d_i [j]$、$distance$ 或 ${dis}_i$。
 
 To show that the first attractor holds, we argue that, if a floating identifier exists, then during any $O(\triangle)$ rounds, the minimal distance of a floating identifier increases.
 
@@ -252,7 +252,7 @@ Thus we conclude that, after a maximum of $2n$ rounds, every processor $P_i$ doe
 
 We have presented a simple proof, using the *sl-game* method, that the algorithm stabilizes within a maximum expected $2n2^n$ rounds. We conclude this section by proving, in the next lemma, that the algorithm does not stabilize under fine atomicity, in which a coin-toss is a separate atomic step. We present a winning strategy for the scheduler, guaranteeing that the obtained schedule is a fair schedule with probability 1.
 
-我们使用 *sl-game*方法提出了一个简单的证明，证明算法在期望的最多 $2n2^n$ 轮内稳定。我们在接下来的引理中证明，在细粒度原子性下，算法不会稳定，其中掷硬币是一个单独的原子步骤。我们提出了一个调度程序的获胜策略，保证获得的调度是概率为 1 的公平调度。。
+我们使用 *sl-game* 方法提出了一个简单的证明，证明算法在期望的最多 $2n2^n$ 轮内稳定。我们在接下来的引理中证明，在细粒度原子性下，算法不会稳定，其中掷硬币是一个单独的原子步骤。我们提出了一个调度程序的获胜策略，保证获得的调度是概率为 1 的公平调度。。
 
 ---
 
@@ -296,13 +296,13 @@ The neighborhood-resemblance technique uses a configuration $c_0$ that is claime
 
 We are now familiar with the self-stabilizing spanning-tree construction algorithm of section 2.5, which assumes the existence of a special processor, the root, and an arbitrary communication graph. Let us just remind ourselves that, in this rooted spanning-tree algorithm, every processor repeatedly computes its distance from the root and chooses its parent to be a neighbor with the minimal distance from the root. Once the system stabilizes, the contents of the communication registers are fixed. Thus, the spanning-tree algorithm is in fact a silent self-stabilizing algorithm. To implement the distance field, every communication register must be of $\Omega$ ($\log d$) bits, where $d$ is the diameter of the system. One would like to devise an algorithm that uses fewer resources—an algorithm that uses only a constant number of bits per communication register. This constant number of bits is not a function of the size of the system; in particular, it is not a function of the number of the processors or the diameter of the system. The neighborhood resemblance technique is used to prove that no such silent algorithm exists.
 
-我们现在已经熟悉了第 2.5 节中的自稳定生成树构造算法，该算法假设存在一个特殊的处理器，即根节点，以及一个任意的通信图。让我们提醒自己，在这个有根生成树算法中，每个处理器反复计算它与根节点的距离，并选择其父节点为距离根节点最近的邻居。一旦系统稳定，通信寄存器的内容就固定了。因此，生成树算法实际上是一种静默自稳定算法。为了实现距离字段，每个通信寄存器必须有 $\Omega$ ($\log d$) 位，其中 $d$ 是系统的直径。人们希望设计一种使用更少资源的算法——一种每个通信寄存器只使用常数位数的算法。这个常数位数不是系统大小的函数；特别地，它不是处理器数量或系统直径的函数。邻域相似性技术用于证明不存在这样的静默算法。
+我们现在已经熟悉了第 2.5 节中的自稳定生成树构造算法，该算法假设存在一个特殊的处理器，即根节点，以及一个任意的通信图。让我们提醒自己，在这个有根生成树算法中，每个处理器反复计算它与根节点的距离，并选择其父节点为距离根节点最近的邻居。一旦系统稳定，通信寄存器的内容就固定了。因此，生成树算法实际上是一种静默自稳定算法。为了实现距离字段，每个通信寄存器必须有 $\Omega(\log d)$ 位，其中 $d$ 是系统的直径。人们希望设计一种使用更少资源的算法——一种每个通信寄存器只使用常数位数的算法。这个常数位数不是系统大小的函数；特别地，它不是处理器数量或系统直径的函数。邻域相似性技术用于证明不存在这样的静默算法。
 
 ![figure_2.11](images/figure_2.11.png)
 
 Figure 2.11 demonstrates the use of the neighborhood resemblance technique. A communication graph of triangles, connected by edges, with a node chosen to be the root, is shown in the left portion of figure 2.11. This particular choice of graph implies that exactly one edge of every triangle is not a spanning-tree edge and every edge connecting two triangles is a spanning-tree edge. A possible tree structure appears in the portion of figure 2.11 entitled *Tree*. Every two neighboring processors (processors connected by an edge of the communication graph) communicate by two communication registers. Examine the contents of the communication registers of the edges connecting triangles (the contents of the communication registers of such an edge $e_i$ are denoted $a_i$ and $b_i$ in the Tree portion of figure 2.11).
 
-图 2.11 展示了邻域相似性技术的使用。图 2.11 左侧部分显示了一个由边连接的三角形通信图，其中一个节点被选为根节点。这种特定的图选择意味着每个三角形恰好有一条边不是生成树边，并且每条连接两个三角形的边都是生成树边。图 2.11 标题为 *Tree*的部分显示了一个可能的树结构。每两个相邻的处理器（由通信图的边连接的处理器）通过两个通信寄存器进行通信。检查连接三角形的边的通信寄存器的内容（图 2.11 的 Tree 部分中这样的边 $e_i$ 的通信寄存器内容分别标记为 $a_i$ 和 $b_i$）。。
+图 2.11 展示了邻域相似性技术的使用。图 2.11 左侧部分显示了一个由边连接的三角形通信图，其中一个节点被选为根节点。这种特定的图选择意味着每个三角形恰好有一条边不是生成树边，并且每条连接两个三角形的边都是生成树边。图 2.11 标题为 *Tree* 的部分显示了一个可能的树结构。每两个相邻的处理器（由通信图的边连接的处理器）通过两个通信寄存器进行通信。检查连接三角形的边的通信寄存器的内容（图 2.11 的 Tree 部分中这样的边 $e_i$ 的通信寄存器内容分别标记为 $a_i$ 和 $b_i$）。
 
 Let $x$ be the (constant) number of values that can be stored in each register. In every graph of $x^2 + 2$ triangles, there are $x^2 + 1$ edges that connect triangles. The contents of the registers of at least two such edges are identical. In figure 2.11, $e_i$ and $e_j$ are the two edges with identical register contents. The existence of $e_i$ and $e_j$ is used to construct a silent non-tree graph with no special processor. Let $P_1$, $P_2$ be the two processors attached to $e_i$ such that the value stored in the register in which $P_1$ writes is $a_i$ and the value stored in the register in which $P_2$ writes is $b_i$. $Q_1$ and $Q_2$ are defined analogously for $e_j$. The neighborhood of every processor in the *Non-tree without special processor* graph in figure 2.11 is identical to the neighborhood of the corresponding processor in the tree. In other words, the state of every processor and the values that the processor can read are the same in both cases. This is clear for every processor different from $P_2$ and $Q_1$, since their neighborhood is not changed. It is also clear for $P_2$, since the value ai read from the register of $P_1$ is now read from the register of $Q_1$. Similarly, the neighborhood of $Q_2$ is not changed.
 
@@ -314,4 +314,4 @@ At this stage we can conclude that the contents of the registers in the *Non-tre
 
 To complete the proof and show that no such silent self-stabilizing algorithm for tree construction exists, we need one additional step. Let $e_k$ be an edge of a triangle that is not a tree edge in the *Non-tree without special processor* graph. Let $R_1$ and $R_2$ be the two processors attached to $e_k$. A silent configuration that encodes a non-tree with a special processor is achieved by connecting the *Non-tree without special processor* with the *Tree* in a way that preserves the neighborhood of every processor (see the right portion of figure 2.11).We have reached a silent configuration in which there are processors that are not and never will be connected to the spanning tree of the root.
 
-为了完成证明并表明不存在这样的用于树构造的静默自稳定算法，我们需要一个额外的步骤。设 $e_k$ 为 *无特殊处理器的非树* 图中一个不是树边的三角形边。设 $R_1$ 和 $R_2$ 为连接到 $e_k$ 的两个处理器。通过将 *无特殊处理器的非树* 与 *树*连接，以保持每个处理器的邻域，从而实现编码非树的静默配置（见图 2.11 的右侧部分）。我们已经达到了一个静默配置，其中有些处理器未连接且永远不会连接到根的生成树。
+为了完成证明并表明不存在这样的用于树构造的静默自稳定算法，我们需要一个额外的步骤。设 $e_k$ 为 *无特殊处理器的非树* 图中一个不是树边的三角形边。设 $R_1$ 和 $R_2$ 为连接到 $e_k$ 的两个处理器。通过将 *无特殊处理器的非树* 与 *树* 连接，以保持每个处理器的邻域，从而实现编码非树的静默配置（见图 2.11 的右侧部分）。我们已经达到了一个静默配置，其中有些处理器未连接且永远不会连接到根的生成树。
