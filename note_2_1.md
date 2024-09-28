@@ -147,12 +147,20 @@ Unlike steps executed by processors, we do not require that, in every infinite f
 The Communication Fairness (FC) Property
 
 - Communication Fairness: if a message is sent infinitely often, that message is received infinitely often
-  - FC holds even if an infinite num. message are lost eventually
+  - FC holds even if an infinite num. message are lost eventually,
   - Between any two successful deliveries, only a finite num messages may be lost, otherwise, the communication channel is faulty.
 
 - 通信公平性：如果一个消息被无限频繁地发送，那么该消息被无限频繁地接收。
   - 即使最终丢失无限条消息，通信公平性也会保持，
-  - 任意两次成功下发之间，只会有一定数量的消息丢失，否则通信通道故障。
+  - 任意两次成功交付之间，只会有一定数量的消息丢失，否则通信通道故障。
+
+---
+
+个人觉得这个 PPT 上的表述和书中的描述有点出入，关键点在于丢失步骤是不是能又无限次。我问一下 GPT。
+
+- **公平性要求的核心是“无限次发送消息必须被无限次接收”**，即在一个无限的时间段内，接收到的消息次数也是无限的，而不是总是丢失。
+- **丢失无限条消息的描述**，并不是说所有消息都可以被丢失，而是说在无限次的尝试中仍可能存在无限次丢失。但这并不与公平性冲突，因为公平性要求的是接收的次数也是无限的。
+- **任意两次成功交付之间的丢失数目是有限的**，则进一步限制了这种丢失行为，避免了过多的连续丢失导致的通信质量问题。
 
 ### Node Failures 节点故障
 
@@ -225,6 +233,19 @@ It is important to note that these latency numbers are very rough estimates and 
 - 如果网络从任意配置开始，算法如何使网络呈现合法行为？
   - *即，满足问题定义？*
 
+---
+
+题目：
+
+- Can a crashed processor ever take steps in a **non-self-stabilizing** network?
+  - Yes, it may take a finite number of steps before it crashes, but not after it crashes.
+- Can a crashed processor ever take steps in a **self-stabilizing** network?
+  - Yes, it may take a finite number of steps before it crashes. We model as a transient fault the case in which a crashed processor resume and takes steps after it was crashed.
+
+这两道题都对 crashed processor 的行为做出了评判，但是分别是非自稳定和自稳定网络。它们都会在崩溃前做出有限的操作，但是自稳定中网络中，崩溃的（或者说将要崩溃的）处理器还会在崩溃后做出一些操作。
+
+这和前面说的：“最终**永远停止**执行步骤的处理器被称为**崩溃**”矛盾吗？不矛盾。只是说处理器最终会永远停止。（注：我能理解这个说法，但是我认为语言表述确实是有问题的）
+
 ### legal behavior（合法执行） & safe configuration（安全配置） & self-stabilizing algorithm（自稳定算法）
 
 ![legal_execution](images/legal_execution.png)
@@ -251,13 +272,25 @@ It is important to note that these latency numbers are very rough estimates and 
 
 ### asynchronous round 异步轮
 
-In order to evaluate and compare different asynchronous algorithms, it is convenient to use the number of *asynchronous rounds* to measure the time complexity of a particular execution. The first *asynchronous round* (or *round*) in an execution $E$ is the shortest prefix $E’$ of E **such that each processor executes at least one step in $E’$**. Let $E’’$ be the suffix of $E$ that follows $E’$, $E = E’E’’$. The second round of $E$ is the first round of $E’’$, and so on. The number of rounds in the execution of an algorithm is used to measure the time complexity of the algorithm.
+In order to evaluate and compare different asynchronous algorithms, it is convenient to use the number of *asynchronous rounds* to measure the time complexity of a particular execution. The first *asynchronous round* (or *round*) in an execution $E$ is the **shortest prefix** $E’$ of E **such that each processor executes at least one step in $E’$**. Let $E’’$ be the suffix of $E$ that follows $E’$, $E = E’E’’$. The second round of $E$ is the first round of $E’’$, and so on. The number of rounds in the execution of an algorithm is used to measure the time complexity of the algorithm.
 
 The definition of an asynchronous round nullifies the speed differences of the processors by stretching the round to be long enough to include a step (including a communication operation) of the slowest processor in this execution segment. Thus, information can be transferred through the slowest processor even if that processor resides in a node that can separate the communication graph.
 
-为了评估和比较不同的异步算法，使用异步轮数来衡量特定执行的时间复杂度是很方便的。执行 $E$ 中的第一个异步轮（或轮）是 $E$ 的最短前缀 $E'$，使得每个处理器在 $E'$ 中**至少执行一步**。设 $E''$ 为 $E$ 的后缀，紧随 $E'$ 之后，$E = E'E''$。$E$ 的第二轮是 $E''$ 的第一轮，依此类推。算法执行中的轮数用于衡量算法的时间复杂度。
+为了评估和比较不同的异步算法，使用异步轮数来衡量特定执行的时间复杂度是很方便的。执行 $E$ 中的第一个异步轮（或轮）是 $E$ 的**最短前缀** $E'$，使得每个处理器在 $E'$ 中**至少执行一步**。设 $E''$ 为 $E$ 的后缀，紧随 $E'$ 之后，$E = E'E''$。$E$ 的第二轮是 $E''$ 的第一轮，依此类推。算法执行中的轮数用于衡量算法的时间复杂度。
 
 异步轮的定义通过将轮延长到足够长，以包括此执行段中最慢处理器的一步（包括通信操作），从而消除了处理器速度的差异。因此，即使该处理器位于可以分隔通信图的节点中，信息也可以通过最慢的处理器传输。
+
+---
+
+例子：
+
+E.g., let $P={p_i, p_j}$ and $E=(c_0, a^i_0, c_1, a^i_1, c_2 , a^i_2, c_3, a^j_3, c_4, a^i_4, c_5,…)$
+
+- where $a^k_x$ is the $x$ th step in execution $E$ taking by $p_k$.
+  - The first asynchronous round is $E’=(c_0, a^i_0, c_1, a^i_1, c_2 , a^i_2, c_3, a^j_3)$
+  - The second asynchronous round in $E$ is the first asynchronous round in $E’’=(c_4, a^i_4, c_5,…)$.
+
+很明显的至少一步，但是没说不能多步，所以 $E$ 中尽管 $p_i$ 执行了三步（$a^i_0, a^i_1, a^i_2$），但是最终在 $a^j_3$ 后才结束。并且 $E'$ 没包含 $c_4$，是因为定义中没提到这个配置也在一轮中。
 
 ### 永不停止，反复通信
 
