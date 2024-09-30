@@ -88,13 +88,21 @@ A self-stabilizing algorithm for this task assumes that every processor has a un
 
 一个自稳定算法假设每个处理器都有一个唯一的标识符，范围在 1 到 $N$ 之间，其中 $N$ 是系统中处理器数量的上限。领导者选举任务是通知每个处理器系统中某个处理器的标识符。这个具有被选标识符的处理器是领导者。通常，具有最小（或最大）标识符的处理器被选为领导者。
 
-The following simple (non-terminating) algorithm elects a leader in a non-stabilizing manner. Each processor $P_i$ has a candidate for a leader; in the beginning, the candidate is $P_i$ itself. $P_i$ repeatedly communicates the identifier $x$ of its current candidate to its neighbors. Whenever $P_i$ receives an identifier $y$ of a candidate of a neighbor, if $x > y$, $P_i$ changes its candidate to be the processor with identifier $y$.
+The following simple (non-terminating) algorithm elects a leader in a non-stabilizing manner.
 
-以下简单的（非终止）算法以非稳定的方式选举领导者。每个处理器 $P_i$ 都有一个领导者候选人；一开始，**候选人是 $P_i$ 自己**。$P_i$ 反复将其当前候选人的标识符 $x$ 传达给其邻居。每当 $P_i$ 收到邻居候选人的标识符 $y$ 时，如果 $x > y$，$P_i$ 会将其候选人更改为标识符为 $y$ 的处理器。
+- Each processor $P_i$ has a candidate for a leader; in the beginning, the candidate is $P_i$ itself.
+- $P_i$ repeatedly communicates the identifier $x$ of its current candidate to its neighbors.
+- Whenever $P_i$ receives an identifier $y$ of a candidate of a neighbor, if $x > y$, $P_i$ changes its candidate to be the processor with identifier $y$.
 
-The above algorithm is not self-stabilizing, since it is possible that the minimal identifier $z$—which is a candidate in the first (arbitrary) configuration of the system—is not an identifier of a processor in the system. Nevertheless, eventually every processor declares that $z$ is the identifier of the leader. The term *floating identifier* is used to describe an identifier that appears in the initial configuration, when no processor in the system with this identifier appears in the system.
+以下简单的（非终止）算法以非稳定的方式选举领导者。
 
-上述算法不是自稳定的，因为在系统的第一个（任意）配置中，最小标识符 $z$ 可能不是系统中某个处理器的标识符。然而，最终每个处理器都会声明 $z$ 是领导者的标识符。术语 *浮动标识符* 用于描述在初始配置中出现的标识符，而系统中没有处理器具有该标识符。
+- 每个处理器 $P_i$ 都有一个领导者候选人；一开始，**候选人是 $P_i$ 自己**。
+- $P_i$ 反复将其当前候选人的标识符 $x$ 传达给其邻居。
+- 每当 $P_i$ 收到邻居候选人的标识符 $y$ 时，如果 $x > y$，$P_i$ 会将其候选人更改为标识符为 $y$ 的处理器。
+
+The above algorithm is not self-stabilizing, since it is possible that the minimal identifier $z$—which is a candidate in the first (arbitrary) configuration of the system—is not an identifier of a processor in the system. Nevertheless, eventually every processor declares that $z$ is the identifier of the leader. **The term *floating identifier* is used to describe an identifier that appears in the initial configuration**, when no processor in the system with this identifier appears in the system.
+
+上述算法不是自稳定的，因为在系统的第一个（任意）配置中，最小标识符 $z$ 可能不是系统中某个处理器的标识符。然而，最终每个处理器都会声明 $z$ 是领导者的标识符。**术语 *浮动标识符* 用于描述在初始配置中出现的标识符，而系统中没有处理器具有该标识符**。
 
 ![figure_2.9](images/figure_2.9.png)
 
