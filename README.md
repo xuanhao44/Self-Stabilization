@@ -20,5 +20,6 @@ Shlomi Dolev
     - [2.9 Convergence Stairs](book_2_9.md#convergence-stairs)
     - [2.9 Example: Leader Election in a General Communication Network](book_2_9.md#example-leader-election-in-a-general-communication-network)
   - [note_2_7_调度器运气游戏](note_2_7.md):
+    - [2.4 Randomized Self-Stabilization](book_2_4.md)
     - [2.9 Scheduler-Luck Game](book_2_9.md#scheduler-luck-game)
     - [2.9 Example: Self-Stabilizing Leader Election in Complete Graphs](book_2_9.md#example-self-stabilizing-leader-election-in-complete-graphs)

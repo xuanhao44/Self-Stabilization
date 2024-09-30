@@ -110,9 +110,15 @@ We use distance variables and the bound $N$ on the number of processors to elimi
 
 我们使用距离变量和处理器数量的上限 $N$ 来消除浮动标识符。每个处理器 $P_i$ 都有一个领导者候选人 ${leader}_i$ 和一个从该领导者的距离值 ${dis}_i$。$P_i$ 的程序如图 2.9 所示。处理器 $P_i$ 反复读取其邻居为领导者选择的标识符。$P_i$ 选择读取值中最小的标识符 $x$，使得到 $x$ 的距离小于 $N$。如果 $y$ 是从邻居读取的最小距离以及标识符 $x$，那么 $P_i$ 将 $y+1$ 分配给其距离字段。
 
-The proof of correctness uses two convergence stairs. The first convergence stair is a predicate $\mathcal{A}_1$ on system configurations verifying that no floating identifier exists. The second convergence stair is a predicate $\mathcal{A}_2$ for a safe configuration — a predicate that verifies that every processor chooses the minimal identifier of a processor in the system as the identifier of the leader.
+The proof of correctness uses two convergence stairs.
 
-正确性证明使用了两个收敛阶梯。第一个收敛阶梯是系统配置上的谓词 $\mathcal{A}_1$，用于验证不存在浮动标识符。第二个收敛阶梯是安全配置的谓词 $\mathcal{A}_2$，用于验证每个处理器选择系统中处理器的最小标识符作为领导者的标识符。
+- The first convergence stair is a predicate $\mathcal{A}_1$ on system configurations verifying that no floating identifier exists.
+- The second convergence stair is a predicate $\mathcal{A}_2$ for a safe configuration — a predicate that verifies that every processor chooses the minimal identifier of a processor in the system as the identifier of the leader.
+
+正确性证明使用了两个收敛阶梯。
+
+- 第一个收敛阶梯是系统配置上的谓词 $\mathcal{A}_1$，用于验证不存在浮动标识符。
+- 第二个收敛阶梯是安全配置的谓词 $\mathcal{A}_2$，用于验证每个处理器选择系统中处理器的最小标识符作为领导者的标识符。
 
 The value of a floating identifier can appear in the local arrays of every processor $P_i$, $l_i [1..δ]$, in the $candidate$ local variable, and in the field ${leader}_i$ of the communication register. The $distance$ of *a floating identifier* appearing in $l_i [ j ]$, $candidate$, or ${leader}_i$ is $d_i [ j ]$, $distance$, or ${dis}_i$, respectively.
 
