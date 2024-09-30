@@ -1,6 +1,8 @@
 # note_2_6_一般通信网络中的领导者选举
 
-## 实际意义
+包含 2.9 章部分内容和 PPT 内容。
+
+## 领导者选举实际应用
 
 Leader election algorithms are fundamental in computer networks and distributed systems for various applications:
 
