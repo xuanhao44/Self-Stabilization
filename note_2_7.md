@@ -28,9 +28,17 @@ Under coarse atomicity---less power to the adversary
 Under fine atomicity---more power to the adversary
 
 - a coin toss is a separate operation from the next read or write operation.
-- the adversary is aware to the algorithm random choices before its first read or write operation
+- **the adversary is aware to the algorithm random choices before its first read or write operation**
 
-## Scheduler-Luck Game（略，纯粹的概念）
+## Scheduler-Luck Game
+
+> If, during this step, the activated processor uses a random function, then **luck may *intervene* — i.e., luck may determine the result (or some subset of the desired results) of the random function. If luck intervenes and fixes the result to be any of g values from the possible h results, then the probability of this intervention is $p = g/h$**.
+>
+> 如果在这一步中，激活的处理器使用了随机函数，那么**运气可能会 *干预* —— 即运气可以决定随机函数的结果（或期望结果的某个子集）。如果运气干预并将结果固定为可能的 $h$ 个结果中的任意 $g$ 个值，那么这种干预的概率为 $p = g/h$。**
+
+在我第一次看的时候，我完全都没有注意到这一部分。他的意思就是，随机函数的结果本来有 $h$ 个，但是运气干预了这个结果，使得仅有其中的 $g$ 个结果，当然这种干预是有概率的，就是 $p = g/h$。
+
+比较令人匪夷所思的是，这个运气的操作并没有包含在算法内，而这正是 *sl-game* 相当重要的一环。
 
 ## Self-Stabilizing Leader Election in Complete Graphs
 

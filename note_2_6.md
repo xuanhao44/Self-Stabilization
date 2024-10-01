@@ -26,6 +26,18 @@ Leader election algorithms are fundamental in computer networks and distributed 
 
 Leader election algorithms are a crucial building block for achieving fault tolerance, load balancing, and efficient coordination in distributed systems and computer networks. They play a vital role in maintaining system stability and resilience, especially in large-scale and complex distributed environments.
 
+---
+
+在分布式系统中，选举出一个被所有处理器认可的“领导者”主要是为了确保系统的一致性和稳定性，而不是基于物理距离或其他因素。
+
+关键点：
+
+1. **一致性**：领导者负责协调和管理数据的写入和复制，确保所有节点的数据保持一致。
+2. **认可度**：通过选举过程，所有节点都知道并认可当前的领导者，这样可以避免多个节点同时认为自己是领导者的情况。
+3. **故障恢复**：当领导者出现故障时，选举算法能够迅速选出新的领导者，确保系统的高可用性和快速恢复。
+
+这些机制确保了分布式系统在面对各种故障和挑战时，仍然能够保持稳定和一致的运行。
+
 ## 简单的（非终止）非自稳定算法
 
 > 以下简单的（非终止）算法以非稳定的方式选举领导者。
