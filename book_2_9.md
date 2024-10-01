@@ -218,13 +218,13 @@ On the other hand, if no central daemon exists, then it is possible to let all t
 
 The random function used simulates a coin toss and returns *heads* or *tails* with equal probability. One can assume that heads is mapped to 1 and tails to 0. The algorithm in figure 2.10 is correct in the presence of *coarse atomicity* that assumes a coin toss is an internal operation that is not separable from the next read or write operation.
 
-Starting the system with any possible combination of binary values of the $leader$ registers, the algorithm eventually fixes all the $leader$ registers except one to hold 0. The single processor whose $leader$ value is 1 is the elected leader. The algorithm is straightforward: each processor $P_i$ repeatedly reads all $leader$ registers; if no single leader exists, $P_i$ decides whether it is a candidate for a leader and, if it is, tosses a coin and assigns its value to its register.
+Starting the system with any possible combination of binary values of the $leader$ registers, the algorithm eventually fixes all the $leader$ registers except one to hold 0. The single processor whose $leader$ value is 1 is the elected leader. The algorithm is straightforward: ~~each processor $P_i$ repeatedly reads all $leader$ registers; if no single leader exists, $P_i$ decides whether it is a candidate for a leader and, if it is, tosses a coin and assigns its value to its register.~~
 
 **我们的简单随机自稳定领导者选举算法不假设中央守护进程的存在。假设本章第 2.1 节中提出的设置：每一步由单个读取或单个写入操作组成。**每个处理器使用一个称为 $leader$ 寄存器的单写多读二进制寄存器与所有其他处理器通信，其中 ${leader}_i$ 表示处理器 $P_i$ 的 $leader$ 寄存器。
 
 所使用的随机函数模拟掷硬币，并以相等的概率返回 *正面* 或 *反面*。可以假设正面映射为 1，反面映射为 0。图 2.10 中的算法在存在 *粗粒度原子性* 的情况下是正确的，假设掷硬币是一个内部操作，不可与下一个读取或写入操作分离。
 
-系统以 $leader$ 寄存器的任何可能的二进制值组合开始，算法最终将所有 $leader$ 寄存器固定为 0，除了一个。其 $leader$ 值为 1 的单个处理器是被选举的领导者。该算法很简单：每个处理器 $P_i$ 反复读取所有 $leader$ 寄存器；如果不存在单个领导者，$P_i$ 决定它是否是领导者候选人，如果是，则掷硬币并将其值分配给其寄存器。
+系统以 $leader$ 寄存器的任何可能的二进制值组合开始，算法最终将所有 $leader$ 寄存器固定为 0，除了一个。其 $leader$ 值为 1 的单个处理器是被选举的领导者。该算法很简单：~~每个处理器 $P_i$ 反复读取所有 $leader$ 寄存器；如果不存在单个领导者，$P_i$ 决定它是否是领导者候选人，如果是，则掷硬币并将其值分配给其寄存器。~~（译者注：这一部分的内容和图 2.10 的算法严重不符，以图为准）
 
 We define the task $LE$ to be the set of executions in which there exists a single fixed leader throughout the execution. We define a configuration to be safe if it satisfies the following:
 
@@ -256,13 +256,31 @@ We use theorem 2.4 to show that the expected number of rounds before the algorit
 
 Luck’s strategy is as follows: whenever some processor $P_i$ tosses a coin, luck intervenes; if for all $j \neq i$, ${leader}_j = 0$, then luck fixes the coin toss to be 1; otherwise, it fixes the coin toss to be 0. Since we assume coarse atomicity, the algorithm implies that, at the end of this atomic step, ${leader}_i$ holds the result of the coin toss. The correctness of this strategy follows from the following observations.
 
-The first observation is that, within less than $2n$ successive rounds, every processor $P_i$ reads all the $leader$ registers, and then, if needed, it tosses a coin and writes the outcome in ${leader}_i$. Therefore, if within the first $2n$ rounds no processor tosses a coin, the system reaches a safe configuration. The reason is that no processor writes in its $leader$ register during these $2n$ rounds; therefore every processor reads the fixed value of the $leader$ variables during the $2n$ rounds. A processor $P_i$ with ${leader}_i = 0$ must find another processor $P_j$ with ${leader}_j = 1$, and a processor with ${leader}_j = 1$ must find that it is the only processor with ${leader}_j = 1$.
+The first observation is that, within less than $2n$ successive rounds, every processor $P_i$ reads all the $leader$ registers, and then, if needed, it tosses a coin and writes the outcome in ${leader}_i$.
 
-If there is a processor that does toss a coin, then, in accordance with luck’s strategy, it is the case that, after the first coin toss, there is at least one $leader$ register whose value is 1. Moreover, once ${leader}_j = 1$ for some $j$, there exists a $k$ such that ${leader}_k = 1$ throughout the rest of the execution. To see this, let $S$ be the set of processors whose $leader$ register holds 1 after the first coin toss. If there exists a processor $P_k ∈ S$ that never tosses a coin again, then ${leader}_k = 1$ forever. Otherwise, every processor in $S$ tosses a coin; in this case, we take $P_k$ to be the last processor in $S$ that tosses a coin. Luck’s strategy guarantees that, during Pk ’s coin toss, all the remaining $leader$ values are 0, and hence luck sets the result of $P_k$ ’s coin toss to 1. From now on, ${leader}_k = 1$ and for $j \neq k$, ${leader}_j = 0$.
+Therefore, if within the first $2n$ rounds no processor tosses a coin, the system reaches a safe configuration.
 
-Next we compute the combined probability of luck’s strategy. Every processor $P_i$ may toss a coin at most once: if the outcome of $P_i$ ’s first coin toss is set by luck to 0, then, in all successive readings, $P_i$ finds out that ${leader}_k = 1$ (where $P_k$ is the $leader$ in the safe configuration reached) and hence will not toss a coin again. If the outcome of $P_i$ ’s first coin toss was set to 1, the leader values of all other processors are 0. After this atomic step, $P_i$ finds out that it is the only processor whose $leader$ value is 1, and thus it will not toss a coin in this case as well. Therefore, the combined probability of the strategy of luck is at least $1/2^n$.
+- The reason is that no processor writes in its $leader$ register during these $2n$ rounds; therefore every processor reads the fixed value of the $leader$ variables during the $2n$ rounds.
+- A processor $P_i$ with ${leader}_i = 0$ must find another processor $P_j$ with ${leader}_j = 1$, and a processor with ${leader}_j = 1$ must find that it is the only processor with ${leader}_j = 1$.
 
-Thus we conclude that, after a maximum of $2n$ rounds, every processor $P_i$ does not toss a coin anymore; moreover, that during these $2n$ rounds, $P_i$ can toss a coin at most once. Therefore luck wins the game within $2n$ rounds and with $1/2^n$ combined probability. (End)
+If there is a processor that does toss a coin, then, in accordance with luck’s strategy, it is the case that, after the first coin toss, there is at least one $leader$ register whose value is 1.Moreover, once ${leader}_j = 1$ for some $j$, there exists a $k$ such that ${leader}_k = 1$ throughout the rest of the execution.
+
+To see this, let $S$ be the set of processors whose $leader$ register holds 1 after the first coin toss. **If there exists a processor $P_k ∈ S$ that never tosses a coin again, then ${leader}_k = 1$ forever**. Otherwise, every processor in $S$ tosses a coin; in this case, we take $P_k$ to be the last processor in $S$ that tosses a coin.
+
+Luck’s strategy guarantees that, during Pk ’s coin toss, all the remaining $leader$ values are 0, and hence luck sets the result of $P_k$ ’s coin toss to 1.
+
+From now on, ${leader}_k = 1$ and for $j \neq k$, ${leader}_j = 0$.
+
+Next we compute the combined probability of luck’s strategy.
+
+- Every processor $P_i$ may toss a coin at most once:
+  - if the outcome of $P_i$ ’s first coin toss is set by luck to 0, then, in all successive readings, $P_i$ finds out that ${leader}_k = 1$ (where $P_k$ is the $leader$ in the safe configuration reached) and hence will not toss a coin again.
+  - If the outcome of $P_i$ ’s first coin toss was set to 1, the leader values of all other processors are 0. After this atomic step, $P_i$ finds out that it is the only processor whose $leader$ value is 1, and thus it will not toss a coin in this case as well.
+- Therefore, the combined probability of the strategy of luck is at least $1/2^n$.
+
+Thus we conclude that, after a maximum of $2n$ rounds, every processor $P_i$ does not toss a coin anymore; moreover, that during these $2n$ rounds, $P_i$ can toss a coin at most once.
+
+Therefore luck wins the game within $2n$ rounds and with $1/2^n$ combined probability. (End)
 
 *证明：*
 
@@ -270,19 +288,37 @@ Thus we conclude that, after a maximum of $2n$ rounds, every processor $P_i$ doe
 
 运气的策略如下：每当某个处理器 $P_i$ 掷硬币时，运气介入；如果对于所有 $j \neq i$，${leader}_j = 0$，那么运气将硬币结果固定为 1；否则，将硬币结果固定为 0。由于我们假设粗粒度原子性，算法意味着在这个原子步骤结束时，${leader}_i$ 持有硬币结果。该策略的正确性来自以下观察。
 
-第一个观察是，在少于 $2n$ 连续轮次内，每个处理器 $P_i$ 读取所有 $leader$ 寄存器，然后在需要时掷硬币并将结果写入 ${leader}_i$。因此，如果在前 $2n$ 轮内没有处理器掷硬币，系统达到安全配置。原因是，在这 $2n$ 轮内没有处理器在其 $leader$ 寄存器中写入；因此，每个处理器在这 $2n$ 轮内读取 $leader$ 变量的固定值。${leader}_i = 0$ 的处理器 $P_i$ 必须找到另一个 ${leader}_j = 1$ 的处理器 $P_j$，而 ${leader}_j = 1$ 的处理器必须发现它是唯一一个 ${leader}_j = 1$ 的处理器。
+第一个观察是，在少于 $2n$ 连续轮次内，每个处理器 $P_i$ 读取所有 $leader$ 寄存器，然后在需要时掷硬币并将结果写入 ${leader}_i$。
 
-如果有处理器掷硬币，那么根据运气的策略，在第一次掷硬币后，至少有一个 $leader$ 寄存器的值为 1。此外，一旦某个 $j$ 的 ${leader}_j = 1$，则存在一个 $k$ 使得在整个执行过程中 ${leader}_k = 1$。为此，设 $S$ 为第一次掷硬币后 $leader$ 寄存器值为 1 的处理器集合。如果存在一个处理器 $P_k ∈ S$ 再也不掷硬币，那么 ${leader}_k = 1$ 永远保持不变。否则，$S$ 中的每个处理器都掷硬币；在这种情况下，我们将 $P_k$ 视为 $S$ 中最后一个掷硬币的处理器。运气的策略保证，在 $P_k$ 掷硬币期间，所有剩余的 $leader$ 值为 0，因此运气将 $P_k$ 的硬币结果设置为 1。从现在起，${leader}_k = 1$，对于 $j \neq k$，${leader}_j = 0$。
+因此，如果在前 $2n$ 轮内没有处理器掷硬币，系统达到安全配置。
 
-接下来我们计算运气策略的综合概率。每个处理器 $P_i$ 最多可以掷一次硬币：如果 $P_i$ 的第一次掷硬币结果被运气设置为 0，那么在所有后续读取中，$P_i$ 发现 ${leader}_k = 1$（其中 $P_k$ 是达到的安全配置中的领导者），因此不会再掷硬币。如果 $P_i$ 的第一次掷硬币结果被设置为 1，所有其他处理器的领导者值为 0。在这个原子步骤之后，$P_i$ 发现它是唯一一个 ${leader}$ 值为 1 的处理器，因此在这种情况下也不会再掷硬币。因此，运气策略的综合概率至少为 $1/2^n$。
+- 原因是，在这 $2n$ 轮内没有处理器在其 $leader$ 寄存器中写入；因此，每个处理器在这 $2n$ 轮内读取了 $leader$ 变量的固定值。
+- ${leader}_i = 0$ 的处理器 $P_i$ 必须找到另一个 ${leader}_j = 1$ 的处理器 $P_j$，而 ${leader}_j = 1$ 的处理器必须发现它是唯一一个 ${leader}_j = 1$ 的处理器。
 
-因此，我们得出结论，在最多 $2n$ 轮后，每个处理器 $P_i$ 不再掷硬币；此外，在这 $2n$ 轮内，$P_i$ 最多掷一次硬币。因此，运气在 $2n$ 轮内以 $1/2^n$ 的综合概率赢得游戏。（完）
+如果有处理器掷硬币，那么根据运气的策略，在第一次掷硬币后，至少有一个 $leader$ 寄存器的值为 1。此外，一旦某个 $j$ 的 ${leader}_j = 1$，则存在一个 $k$ 使得在整个执行过程中 ${leader}_k = 1$。
+
+为此，设 $S$ 为第一次掷硬币后 $leader$ 寄存器值为 1 的处理器集合。**如果存在一个处理器 $P_k ∈ S$ 再也不掷硬币，那么 ${leader}_k = 1$ 永远保持不变。**否则，$S$ 中的每个处理器都掷硬币；在这种情况下，我们将 $P_k$ 视为 $S$ 中最后一个掷硬币的处理器。
+
+运气的策略保证，在 $P_k$ 掷硬币期间，所有剩余的 $leader$ 值为 0，因此运气将 $P_k$ 的硬币结果设置为 1。
+
+从现在起，${leader}_k = 1$，对于 $j \neq k$，${leader}_j = 0$。
+
+接下来我们计算运气策略的综合概率。
+
+- 每个处理器 $P_i$ 最多可以掷一次硬币：
+  - 如果 $P_i$ 的第一次掷硬币结果被运气设置为 0，那么在所有后续读取中，$P_i$ 发现 ${leader}_k = 1$（其中 $P_k$ 是达到的安全配置中的领导者），因此不会再掷硬币。
+  - 如果 $P_i$ 的第一次掷硬币结果被设置为 1，所有其他处理器的领导者值为 0。在这个原子步骤之后，$P_i$ 发现它是唯一一个 ${leader}$ 值为 1 的处理器，因此在这种情况下也不会再掷硬币。
+- 因此，运气策略的综合概率至少为 $1/2^n$。
+
+因此，我们得出结论，在最多 $2n$ 轮后，每个处理器 $P_i$ 不再掷硬币；此外，在这 $2n$ 轮内，$P_i$ 最多掷一次硬币。
+
+因此，运气在 $2n$ 轮内以 $1/2^n$ 的综合概率赢得游戏。（完）
 
 ---
 
 We have presented a simple proof, using the *sl-game* method, that the algorithm stabilizes within a maximum expected $2n2^n$ rounds. We conclude this section by proving, in the next lemma, that the algorithm does not stabilize under fine atomicity, in which a coin-toss is a separate atomic step. We present a winning strategy for the scheduler, guaranteeing that the obtained schedule is a fair schedule with probability 1.
 
-我们使用 *sl-game* 方法提出了一个简单的证明，证明算法在期望的最多 $2n2^n$ 轮内稳定。我们在接下来的引理中证明，在细粒度原子性下，算法不会稳定，其中掷硬币是一个单独的原子步骤。我们提出了一个调度程序的获胜策略，保证获得的调度是概率为 1 的公平调度。
+我们使用 *sl-game* 方法提出了一个简单的证明，证明算法在期望的最多 $2n 2^n$ 轮内稳定。我们在接下来的引理中证明，在细粒度原子性下，算法不会稳定，其中掷硬币是一个单独的原子步骤。我们提出了一个调度程序的获胜策略，保证获得的调度是概率为 1 的公平调度。
 
 ---
 
@@ -292,11 +328,27 @@ We have presented a simple proof, using the *sl-game* method, that the algorithm
 
 *Proof:*
 
-The following scheduler strategy ensures that the algorithm never stabilizes under fine atomicity. Start the system in a configuration in which all $leader$ registers hold 1. Let one processor notice that it must toss a coin. If the coin toss result is 1, let this processor toss a coin again until the coin toss result is 0. Now, stop the processor before it writes 0 in its $leader$ register, and activate another processor in the same way. Once all processors are about to write 0, let them all write. Now, all the $leader$ registers hold 0 and the scheduler can force all processors to write 1 in their registers in a similar way, and so on. This strategy thus ensures that the system never stabilizes. (End)
+The following scheduler strategy ensures that the algorithm never stabilizes under fine atomicity.
+
+- Start the system in a configuration in which all $leader$ registers hold 1.
+- Let one processor notice that it must toss a coin. If the coin toss result is 1, let this processor toss a coin again until the coin toss result is 0. Now, stop the processor before it writes 0 in its $leader$ register, and activate another processor in the same way.
+- Once all processors are about to write 0, let them all write.
+- Now, all the $leader$ registers hold 0
+- and the scheduler can force all processors to write 1 in their registers in a similar way, and so on.
+
+This strategy thus ensures that the system never stabilizes. (End)
 
 *证明：*
 
-以下调度策略确保算法在细粒度原子性下永远不会稳定。将系统启动在所有 $leader$ 寄存器都为 1 的配置中。让一个处理器注意到它必须掷硬币。如果掷硬币结果为 1，让这个处理器再次掷硬币，直到掷硬币结果为 0。现在，在处理器将 0 写入其 $leader$ 寄存器之前停止它，并以相同的方式激活另一个处理器。一旦所有处理器都准备写 0，让它们全部写入。现在，所有 $leader$ 寄存器都为 0，调度程序可以以类似的方式强制所有处理器在其寄存器中写 1，依此类推。因此，这种策略确保系统永远不会稳定。（完）
+以下调度策略确保算法在细粒度原子性下永远不会稳定。
+
+- 将系统启动在所有 $leader$ 寄存器都为 1 的配置中。
+- 让一个处理器注意到它必须掷硬币。如果掷硬币结果为 1，让这个处理器再次掷硬币，直到掷硬币结果为 0。现在，在处理器将 0 写入其 $leader$ 寄存器之前停止它，并以相同的方式激活另一个处理器。
+- 一旦所有处理器都准备写 0，让它们全部写入。
+- 现在，所有 $leader$ 寄存器都为 0，
+- 调度程序可以以类似的方式强制所有处理器在其寄存器中写 1，依此类推。
+
+因此，这种策略确保系统永远不会稳定。（完）
 
 ---
 
