@@ -44,16 +44,16 @@ Leader election algorithms are a crucial building block for achieving fault tole
 >
 > 一个自稳定算法假设每个处理器都有一个唯一的标识符，范围在 1 到 $N$ 之间，其中 $N$ 是系统中处理器数量的上限。领导者选举任务是通知每个处理器系统中某个处理器的标识符。这个具有被选标识符的处理器是领导者。通常，具有最小（或最大）标识符的处理器被选为领导者。
 
-注意到这些处理器的标识符是唯一的，并且是范围在 1 到 $N$ 之间，$N$ 只是上限，举例：
+注意到这些处理器的标识符是唯一的，并且是范围是 $1 - N$，$N$ 只是上限，举例：
 
-总共有 $N-2$ 个处理器，处理器的标识符可能为 1 ~ $N$，但是不包括 2 和 3 这两个标识符。这两个其实就是下面所说的浮动标识符（floating identifier）。
+总共有 $N-2$ 个处理器，处理器的标识符可能为 $1 - N$，但是不包括 2 和 3 这两个标识符。这两个其实就是下面所说的浮动标识符（floating identifier）。
 
 ---
 
 > The following simple (non-terminating) algorithm elects a leader in a non-stabilizing manner.
 >
 > - Each processor $P_i$ has a candidate for a leader; in the beginning, the candidate is $P_i$ itself.
->- $P_i$ repeatedly communicates the identifier $x$ of its current candidate to its neighbors.
+> - $P_i$ repeatedly communicates the identifier $x$ of its current candidate to its neighbors.
 > - Whenever $P_i$ receives an identifier $y$ of a candidate of a neighbor, if $x > y$, $P_i$ changes its candidate to be the processor with identifier $y$.
 >
 >**The term *floating identifier* is used to describe an identifier that appears in the initial configuration**.
