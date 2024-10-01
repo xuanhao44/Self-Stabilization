@@ -42,36 +42,41 @@ Under fine atomicity---more power to the adversary
 
 ## Self-Stabilizing Leader Election in Complete Graphs
 
-### 一些术语
+### uniform, anonymous systems, symmetry, Randomization
 
-#### 关于 Central daemon 和 Distributed Demon
+An algorithm that solves the leader election task requires that, when its execution terminates, a single processor be designated as a $leader$, and every processor know whether it is a leader or not. By definition, whenever a leader election algorithm terminates successfully, the system is in a nonsymmetric configuration. Any leader-election algorithm that has a symmetric initial state requires some means of symmetry-breaking.
 
-Under the central demon model: **exactly one among all processors** is arbitrarily selected by an adversarial scheduler to take a single atomic step.
+**In *id-based* systems, each processor has a unique identifier called its *id*; thus, the system has no symmetric configuration. In *uniform* (or *anonymous*) systems all processors are identical. Randomization is often used to break symmetry in such systems.**
 
-Under the distributed demon model: **an arbitrary number of processors** are selected by an adversarial scheduler to concurrently take atomic steps.
+解决领导者选举任务的算法要求在其执行终止时，单个处理器被指定为 $leader$，并且每个处理器都知道自己是否是领导者。根据定义，每当领导者选举算法成功终止时，系统处于非对称配置中。任何具有对称初始状态的领导者选举算法都需要某种对称性破坏手段。
 
-书中没有提到 distributed demon，但是实际上就是指 central daemon 不存在的情况。在这种情况下，其实很容易出现所有人同时站起来，然后所有人同时坐下，这种行为可以永远重复。这挺像（操作系统）哲学家就餐中的活锁问题。
+**在 *基于标识符* 的系统中，每个处理器都有一个称为 *id* 的唯一标识符；因此，系统没有对称配置。在 *统一*（或 *匿名*）系统中，所有处理器都是相同的。随机化通常用于在此类系统中打破对称性。**
 
-> Thus, there is no self-stabilizing uniform leader election algorithm without a central daemon.
->
-> 因此，没有中央守护进程就没有自稳定的统一领导者选举算法。
+### 行文逻辑
 
-Unfortunately, there is no deterministic solution under distributed demon.
+![note_2_7_logic](images/note_2_7_logic.png)
 
-我们不会研究 distributed demon，因为在领导者选举算法的前提下，没有与之对应的确定性的解。
+本次提到的 Leader Election in Complete Graphs 和上次的 Leader Election in a General Communication Network，后者可被称为 ID-based，有原文为证：
 
-### 关于假设前提
+> A self-stabilizing algorithm for this task assumes that every processor has a unique identifier in the range 1 to $N$, where $N$ is an upper bound on the number of processors in the system.
 
-> Our simple randomized self-stabilizing leader-election algorithm does not assume the existence of a central daemon. The settings presented in section 2.1 of this chapter are assumed: each step consists of a single read or a single write operation.
->
-> 我们的简单随机自稳定领导者选举算法不假设中央守护进程的存在。假设本章第 2.1 节中提出的设置：每一步由单个读取或单个写入操作组成。
+对于这个问题设计自稳定算法，有两种不同的思路，一种是非随机的，确定性的自稳定算法，一种是使用随机的自稳定算法。
 
-前面提到，没有中央守护进程就没有自稳定的统一领导者选举算法。
+对于前者，书中给出了在假设存在中央守护进程调度器的情况下的（确定性）自稳定算法。然而如果不存在这个中央守护进程（也即书中未提到的 distributed demon），所有人同时站起来，然后所有人同时坐下，这种行为可以永远重复，那么就会出现像（操作系统）哲学家就餐中的活锁问题。所以我们说，**没有中央守护进程就没有自稳定的统一领导者选举的（确定性）算法**。
 
-但实际上我们可能并不是一定要求中央守护进程，而是它的一个重要性质（必要条件），也就是每一步由单个读取或单个写入操作组成。按照 2.1 的说法，我们是假设并发是不会影响的。
+- Under the central demon model: **exactly one among all processors** is arbitrarily selected by an adversarial scheduler to take a single atomic step.
+- Under the distributed demon model: **an arbitrary number of processors** are selected by an adversarial scheduler to concurrently take atomic steps.
 
-实际上我们在作业中看到了很奇特的说法：
+对于后者，书中给出了简单的**随机**自稳定领导者选举算法，并不假设中央守护进程的存在。假设本章第 2.1 节中提出的设置：每一步由单个读取或单个写入操作组成。然后就是详细的解释和证明过程。
 
-> Consider an asynchronous computer network with a distributed but fair scheduler, i.e., not a central daemon.
+### Coarse vs. Fine Atomicity
 
-这说明 distributed but fair scheduler 也应该能满足要求。
+Under coarse atomicity---less power to the adversary
+
+- **a coin toss is an internal operation that is not separable from the next read or write operation**.
+- the adversary **is unaware to the algorithm random choices** before its first read or write operation
+
+Under fine atomicity---more power to the adversary
+
+- a coin toss is **a separate operation** from the next read or write operation.
+- **the adversary is aware to the algorithm random choices before its first read or write operation**

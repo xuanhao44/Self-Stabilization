@@ -84,7 +84,7 @@ It is possible to prove the correctness of a self-stabilizing algorithm by provi
 
 ## Example: Leader Election in a General Communication Network
 
-A self-stabilizing algorithm for this task assumes that every processor has a unique identifier in the range 1 to $N$, where $N$ is an upper bound on the number of processors in the system. The leader election task is to inform every processor of the identifier of a single processor in the system. This single processor with the elected identifier is the leader. Usually the processor with the minimal (or maximal) identifier is elected to be the leader.
+A self-stabilizing algorithm for this task assumes that every processor has a unique identifier in the range 1 to $N$, where $N$ is an upper bound on the number of processors in the system. where $N$ is an upper bound on the number of processors in the system. The leader election task is to inform every processor of the identifier of a single processor in the system. This single processor with the elected identifier is the leader. Usually the processor with the minimal (or maximal) identifier is elected to be the leader.
 
 一个自稳定算法假设每个处理器都有一个唯一的标识符，范围在 1 到 $N$ 之间，其中 $N$ 是系统中处理器数量的上限。领导者选举任务是通知每个处理器系统中某个处理器的标识符。这个具有被选标识符的处理器是领导者。通常，具有最小（或最大）标识符的处理器被选为领导者。
 
@@ -206,9 +206,9 @@ A simple randomized leader election algorithm that stabilizes within an exponent
 
 It is worth mentioning that a simple deterministic (i.e., non-randomized) self-stabilizing algorithm exists for leader election in a complete graph uniform system when the existence of the powerful central daemon scheduler is assumed. Say that a group of people is gathered in a circle and that each person can be either sitting or standing. The goal is to reach a situation in which a single person is standing while all others are sitting. A scheduler chooses one person at a time and lets this person look at all the other people and decide to stand up or sit down. A person decides to stand up if no other person is standing; otherwise the person sits down. Clearly there is at least one person standing following the first choice of the central daemon. If more than one person is standing after this first choice—say there are $x$ people standing—then, once $x − 1$ of them are scheduled by the central daemon, a situation in which exactly one person is standing is reached. From this point on, every person except this single person is sitting.
 
-值得一提的是，在假设存在强大的中央守护进程调度器的情况下，完全图统一系统中存在一个简单的确定性（即非随机）自稳定算法用于领导者选举。假设一群人围成一个圈，每个人可以坐着或站着。目标是达到一种只有一个人站着而其他人都坐着的情况。调度器一次选择一个人，让这个人观察其他所有人并决定站起来或坐下。如果没有其他人站着，这个人决定站起来；否则，这个人坐下。显然，在中央守护进程的第一次选择之后，至少有一个人站着。如果在第一次选择后有多于一个人站着——假设有 $x$ 个人站着——那么，一旦中央守护进程调度了其中的 $x − 1$ 人，就会达到一种只有一个人站着的情况。从此时起，除了这个人以外的所有人都坐着。
-
 On the other hand, if no central daemon exists, then it is possible to let all the participants find out that no one is standing, decide to stand up (according to their common deterministic algorithm), and then stand up. Once every person is standing, it is possible to let each of the participants find out that they should sit and let them sit. This behavior can be repeated forever. **Thus, there is no self-stabilizing uniform leader election algorithm without a central daemon.**
+
+值得一提的是，在假设存在强大的中央守护进程调度器的情况下，完全图统一系统中存在一个简单的确定性（即非随机）自稳定算法用于领导者选举。假设一群人围成一个圈，每个人可以坐着或站着。目标是达到一种只有一个人站着而其他人都坐着的情况。调度器一次选择一个人，让这个人观察其他所有人并决定站起来或坐下。如果没有其他人站着，这个人决定站起来；否则，这个人坐下。显然，在中央守护进程的第一次选择之后，至少有一个人站着。如果在第一次选择后有多于一个人站着——假设有 $x$ 个人站着——那么，一旦中央守护进程调度了其中的 $x − 1$ 人，就会达到一种只有一个人站着的情况。从此时起，除了这个人以外的所有人都坐着。
 
 另一方面，如果不存在中央守护进程，那么可以让所有参与者发现没有人站着，决定站起来（根据他们共同的确定性算法），然后站起来。一旦每个人都站起来，就可以让每个参与者发现他们应该坐下并让他们坐下。这种行为可以永远重复。**因此，没有中央守护进程就没有自稳定的统一领导者选举算法。**
 
