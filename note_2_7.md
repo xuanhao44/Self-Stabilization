@@ -50,10 +50,20 @@ Under the distributed demon model: **an arbitrary number of processors** are sel
 
 Unfortunately, there is no deterministic solution under distributed demon.
 
-我们不会研究 distributed demon，因为没有与之对应的确定性的解。
+我们不会研究 distributed demon，因为在领导者选举算法的前提下，没有与之对应的确定性的解。
+
+### 关于假设前提
 
 > Our simple randomized self-stabilizing leader-election algorithm does not assume the existence of a central daemon. The settings presented in section 2.1 of this chapter are assumed: each step consists of a single read or a single write operation.
 >
 > 我们的简单随机自稳定领导者选举算法不假设中央守护进程的存在。假设本章第 2.1 节中提出的设置：每一步由单个读取或单个写入操作组成。
 
-实际上这里近似的把中央守护进程和每一步由单个读取或单个写入操作组成等价了。按照 2.1 的说法，我们是假设并发是不会影响的。
+前面提到，没有中央守护进程就没有自稳定的统一领导者选举算法。
+
+但实际上我们可能并不是一定要求中央守护进程，而是它的一个重要性质（必要条件），也就是每一步由单个读取或单个写入操作组成。按照 2.1 的说法，我们是假设并发是不会影响的。
+
+实际上我们在作业中看到了很奇特的说法：
+
+> Consider an asynchronous computer network with a distributed but fair scheduler, i.e., not a central daemon.
+
+这说明 distributed but fair scheduler 也应该能满足要求。
