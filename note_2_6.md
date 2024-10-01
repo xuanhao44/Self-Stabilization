@@ -38,32 +38,28 @@ Leader election algorithms are a crucial building block for achieving fault tole
 
 这些机制确保了分布式系统在面对各种故障和挑战时，仍然能够保持稳定和一致的运行。
 
-## 简单的（非终止）非自稳定算法
+## 简单的非自稳定算法
 
-> 以下简单的（非终止）算法以非稳定的方式选举领导者。
+> A self-stabilizing algorithm for this task assumes that every processor has a unique identifier in the range 1 to $N$, where $N$ is an upper bound on the number of processors in the system. The leader election task is to inform every processor of the identifier of a single processor in the system. This single processor with the elected identifier is the leader. Usually the processor with the minimal (or maximal) identifier is elected to be the leader.
 >
-> - 每个处理器 $P_i$ 都有一个领导者候选人；一开始，**候选人是 $P_i$ 自己**。
+> 一个自稳定算法假设每个处理器都有一个唯一的标识符，范围在 1 到 $N$ 之间，其中 $N$ 是系统中处理器数量的上限。领导者选举任务是通知每个处理器系统中某个处理器的标识符。这个具有被选标识符的处理器是领导者。通常，具有最小（或最大）标识符的处理器被选为领导者。
+
+注意到这些处理器的标识符是唯一的，并且是范围在 1 到 $N$ 之间，$N$ 只是上限，举例：
+
+总共有 $N-2$ 个处理器，处理器的标识符可能为 1 ~ $N$，但是不包括 2 和 3 这两个标识符。这两个其实就是下面所说的浮动标识符（floating identifier）。
+
+---
+
+> The following simple (non-terminating) algorithm elects a leader in a non-stabilizing manner.
 >
-> - $P_i$ 反复将其当前候选人的标识符 $x$ 传达给其邻居。
-> - 每当 $P_i$ 收到邻居候选人的标识符 $y$ 时，如果 $x > y$，$P_i$ 会将其候选人更改为标识符为 $y$ 的处理器。
+> - Each processor $P_i$ has a candidate for a leader; in the beginning, the candidate is $P_i$ itself.
+>- $P_i$ repeatedly communicates the identifier $x$ of its current candidate to its neighbors.
+> - Whenever $P_i$ receives an identifier $y$ of a candidate of a neighbor, if $x > y$, $P_i$ changes its candidate to be the processor with identifier $y$.
 >
-> 算法不是自稳定的，因为在系统的第一个（任意）配置中，最小标识符 $z$ 可能不是系统中某个处理器的标识符。
->
-> **术语 *浮动标识符* 用于描述在初始配置中出现的标识符，而系统中没有处理器具有该标识符**。
+>**The term *floating identifier* is used to describe an identifier that appears in the initial configuration**.
 
 为什么算法不是自稳定的？
 
-- 因为这个算法是选举标识符最小的领导者，也就是说在互相比较的过程中会不断变小，因此一开始可能会设置一个比较大的值；
-- 但是他并没有规定这个值的范围，故而可能是大于 $N$ 的；
-- 那么就有这样一种可能，其中最小的，也即最小标识符 $z$ 就不是系统中某个处理器的标识符。
-- 那么你虽然通过算法得到了最小标识符，但是它不在系统内，没有意义。
+> It is possible that the minimal identifier $z$—which is a candidate in the first (arbitrary) configuration of the system—is not an identifier of a processor in the system. Nevertheless, eventually every processor declares that $z$ is the identifier of the leader.
 
 ## 领导者选举算法
-
-> 处理器 $P_i$ 反复读取其邻居为领导者选择的标识符。$P_i$ 选择读取值中最小的标识符 $x$，使得到 $x$ 的距离小于 $N$。如果 $y$ 是从邻居读取的最小距离以及标识符 $x$，那么 $P_i$ 将 $y+1$ 分配给其距离字段。
-
-这里就很清楚，首先这个距离要小于 $N$，也就是保证合法性。
-
-### 正确性证明
-
-我不明白这里对于浮动标识符的消除的证明。如果一开始所有处理器的标识符都大于 N，那么这个算法无法进行下去。
