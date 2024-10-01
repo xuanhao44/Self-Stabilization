@@ -4,13 +4,13 @@
 
 ## Dijkstra 算法
 
-The system consists of $n$ processors $P_1, P_2,··· , P_n$ that are connected in a ring. Each processor has a *left* and a *right* neighbor. The left neighbor of every processor $P_i$, $1 < i ≤ n$, is  $P_{i −1}$ and the left neighbor of $P_1$ is $P_n$. Similarly, the right neighbor of every processor $P_i$ , $1 ≤ i < n$, is  $P_{i +1}$ and the right neighbor of $P_n$ is $P_1$.
+The system consists of $n$ processors $P_1, P_2, ···, P_n$ that are connected in a ring. Each processor has a *left* and a *right* neighbor. The left neighbor of every processor $P_i$, $1 < i \leq n$, is  $P_{i−1}$ and the left neighbor of $P_1$ is $P_n$. Similarly, the right neighbor of every processor $P_i$, $1 \leq i < n$, is  $P_{i +1}$ and the right neighbor of $P_n$ is $P_1$.
 
-系统由 $n$ 个处理器 $P_1, P_2,··· , P_n$ 组成，这些处理器连接成一个环。每个处理器都有一个左邻居和一个右邻居。每个处理器 $P_i$ 的左邻居（$1 < i ≤ n$）是 $P_{i−1}$，而 $P_1$ 的左邻居是 $P_n$。同样，每个处理器 $P_i$ 的右邻居（$1 ≤ i < n$）是 $P_{i+1}$，而 $P_n$ 的右邻居是 $P_1$。
+系统由 $n$ 个处理器 $P_1, P_2,··· , P_n$ 组成，这些处理器连接成一个环。每个处理器都有一个左邻居和一个右邻居。每个处理器 $P_i$ 的左邻居（$1 < i \leq n$）是 $P_{i−1}$，而 $P_1$ 的左邻居是 $P_n$。同样，每个处理器 $P_i$ 的右邻居（$1 \leq i < n$）是 $P_{i+1}$，而 $P_n$ 的右邻居是 $P_1$。
 
-Each processor $P_i$ has a variable $x_i$ that stores an integer value that is no smaller than 0 and no larger than $n$. The transition functions of the processors $P_2,··· , P_n$ are identical, while the transition function of $P_1$ is distinct. We call $P_1$ the special processor. The transition functions (or programs) of $P_1$ and the other processors $P_i$ ($2 ≤ i ≤ n$) appear in figure 2.2.
+Each processor $P_i$ has a variable $x_i$ that stores an integer value that is no smaller than 0 and no larger than $n$. The transition functions of the processors $P_2,··· , P_n$ are identical, while the transition function of $P_1$ is distinct. We call $P_1$ the special processor. The transition functions (or programs) of $P_1$ and the other processors $P_i$ ($2 \leq i \leq n$) appear in figure 2.2.
 
-每个处理器 $P_i$ 有一个变量 $x_i$，该变量存储一个不小于 0 且不大于 $n$ 的整数。处理器 $P_2,··· , P_n$ 的转换函数是相同的，而 $P_1$ 的转换函数是不同的。我们称 $P_1$ 为特殊处理器。$P_1$ 和其他处理器 $P_i$（$2 ≤ i ≤ n$）的转换函数（或程序）如图 2.2 所示。
+每个处理器 $P_i$ 有一个变量 $x_i$，该变量存储一个不小于 0 且不大于 $n$ 的整数。处理器 $P_2,··· , P_n$ 的转换函数是相同的，而 $P_1$ 的转换函数是不同的。我们称 $P_1$ 为特殊处理器。$P_1$ 和其他处理器 $P_i$（$2 \leq i \leq n$）的转换函数（或程序）如图 2.2 所示。
 
 ![figure_2.2](images/figure_2.2.png)
 
@@ -40,7 +40,7 @@ The goal of this algorithm is to maintain a stable token ring network where a to
 
 题目就是数 token。
 
-除了 root 外，和上一个不一样就持有一个 token；root 则是和 n 一样那么就持有一个 token。
+除了 root 外，和上一个不一样就持有一个 token；root 则是和 $n$ 一样那么就持有一个 token。
 
 ![calc_token_num](images/calc_token_num.png)
 
@@ -80,7 +80,7 @@ This depends both on the number of colors, $n+1$, and the number of legitimate c
 
 设 $c_2$ 为 $P_2$ 改变 $x_2$ 值后立即达到的配置。在 $c_2$ 中，$x_1 = x_2$，$x_2 \neq x_3$，并且 $x_3 = x_4 = ··· = x_n$。因此，唯一能够改变状态的处理器是 $P_3$。
 
-一般来说，在 $c_i$ 中，$1 ≤ i < n$，有 $x_1 = x_2 = ··· = x_i$，$x_i \neq x_{i+1}$，并且 $x_{i+1} = x_{i+2} = ··· = x_n$。因此，唯一能够改变其变量值的处理器是 $P_{i +1}$。
+一般来说，在 $c_i$ 中，$1 \leq i < n$，有 $x_1 = x_2 = ··· = x_i$，$x_i \neq x_{i+1}$，并且 $x_{i+1} = x_{i+2} = ··· = x_n$。因此，唯一能够改变其变量值的处理器是 $P_{i+1}$。
 
 因此，在 $c_{n−1}$ 中，只有 $P_n$ 能够改变其变量的值，一旦它被激活，就会达到一个配置 $c_n$，其中所有变量的值都相同。
 
@@ -92,7 +92,7 @@ This depends both on the number of colors, $n+1$, and the number of legitimate c
 
 Proof:
 
-In accordance with lemma 2.2, a configuration $c$ in which all the $x$ variables have the same value is a safe configuration for $ME$ and Dijkstra’s algorithm.  There are $n + 1$ possible values that can be stored in each of the $x$ variables. Thus, there are $n+1$ different safe configurations.
+In accordance with lemma 2.2, a configuration $c$ in which all the $x$ variables have the same value is a safe configuration for $ME$ and Dijkstra's algorithm.  There are $n+1$ possible values that can be stored in each of the $x$ variables. Thus, there are $n+1$ different safe configurations.
 
 Now we have a configuration $c$ in which all the $x$ variables have the same value.
 
@@ -102,7 +102,7 @@ Every other processor $P_i$ cannot change the value of $x_i$ unless $x_{i−1} \
 
 Let $c_2$ be the configuration reached immediately after $P_2$ changes the value of $x_2$. In $c_2$, it holds that $x_1 = x_2$, $x_2 \neq x_3$, and $x_3 = x_4 = ··· = x_n$. Thus, the only processor that is able to change a state is $P_3$.
 
-In general, in $c_i$ , $1 ≤ i < n$, it holds that $x_1 = x_2 = ··· = x_i$, $x_i \neq x_{i+1}$, and $x_{i+1} = x_{i+2} = ··· = x_n$. Thus, the only processor that is able to change the value of its variable is  $P_{i +1}$.
+In general, in $c_i$, $1 \leq i < n$, it holds that $x_1 = x_2 = ··· = x_i$, $x_i \neq x_{i+1}$, and $x_{i+1} = x_{i+2} = ··· = x_n$. Thus, the only processor that is able to change the value of its variable is  $P_{i +1}$.
 
 Therefore, in $c_{n−1}$, only $P_n$ is able to change the value of its variable and, once it is activated, a configuration $c_n$ is reached in which the values of all the variables are the same.
 
@@ -127,7 +127,7 @@ Dijkstra 的自稳定算法的设计目的是确保系统能够从任何初始�
 
 在实际执行中，处理器的激活顺序可以是：
 
-- 循环顺序（例如 1, 2, 3, …, $n$，然后再从 1 开始）
+- 循环顺序（例如 1, 2, 3, ..., $n$，然后再从 1 开始）
 - 随机顺序
 - 其他任意顺序，只要满足公平性假设
 
@@ -139,8 +139,8 @@ The task $ME$ is defined by the set of all configuration sequences in which exac
 
 ## 引理定理合集
 
-- A configuration $c$ in which all the $x$ variables have the same value is a safe configuration for $ME$ and Dijkstra’s algorithm. (Lemma 2.2)
-- For every possible configuration $c$, there exists at least one integer $0 ≤ j ≤ n$ such that for every $1 ≤ i ≤ n$, $x_i \neq j$ in $c$. (Lemma 2.3)
+- A configuration $c$ in which all the $x$ variables have the same value is a safe configuration for $ME$ and Dijkstra's algorithm. (Lemma 2.2)
+- For every possible configuration $c$, there exists at least one integer $0 \leq j \leq n$ such that for every $1 \leq i \leq n$, $x_i \neq j$ in $c$. (Lemma 2.3)
 - For every possible configuration $c$, in every fair execution that starts in $c$, the special processor $P_1$ changes the value of $x_1$ at least once in every $n$ rounds. (Lemma 2.4)
 - For every possible configuration $c$, every fair execution that starts in $c$ reaches a safe configuration with relation to $ME$ within $O(n^2)$ rounds. (Theorem 2.1)
 
@@ -148,13 +148,13 @@ The task $ME$ is defined by the set of all configuration sequences in which exac
 
 - 引理 2.2：在配置 $c$ 中，如果所有 $x$ 变量具有相同的值，则该配置对于 $ME$ 和 Dijkstra 算法来说是安全的配置。
 
-- 引理 2.3：对于每一个可能的配置 $c$，存在至少一个整数 $0 ≤ j ≤ n$，使得对于每一个 $1 ≤ i ≤ n$，在配置 $c$ 中 $x_i \neq j$。
+- 引理 2.3：对于每一个可能的配置 $c$，存在至少一个整数 $0 \leq j \leq n$，使得对于每一个 $1 \leq i \leq n$，在配置 $c$ 中 $x_i \neq j$。
 - 引理 2.4：对于每一个可能的配置 $c$，在每个从 $c$ 开始的公平执行中，特殊处理器 $P_1$ 在每 $n$ 轮中至少改变一次 $x_1$ 的值。
 - 定理 2.1：对于每一个可能的配置 $c$，每个从 $c$ 开始的公平执行在 $O(n^2)$ 轮内达到相对于 $ME$ 的安全配置。
 
 ## 引理 2.2
 
-> LEMMA 2.2: A configuration $c$ in which all the $x$ variables have the same value is a safe configuration for $ME$ and Dijkstra’s algorithm.
+> LEMMA 2.2: A configuration $c$ in which all the $x$ variables have the same value is a safe configuration for $ME$ and Dijkstra's algorithm.
 >
 > **引理 2.2**：在配置 $c$ 中，如果所有 $x$ 变量具有相同的值，则该配置对于 $ME$ 和 Dijkstra 算法来说是安全的配置。
 
@@ -172,13 +172,13 @@ The task $ME$ is defined by the set of all configuration sequences in which exac
 
 ## 引理 2.3
 
-> LEMMA 2.3: For every possible configuration $c$, there exists at least one integer $0 ≤ j ≤ n$ such that for every $1 ≤ i ≤ n$, $x_i \neq j$ in $c$.
+> LEMMA 2.3: For every possible configuration $c$, there exists at least one integer $0 \leq j \leq n$ such that for every $1 \leq i \leq n$, $x_i \neq j$ in $c$.
 >
-> **引理 2.3**：对于每一个可能的配置 $c$，存在至少一个整数 $0 ≤ j ≤ n$，使得对于每一个 $1 ≤ i ≤ n$，在配置 $c$ 中 $x_i \neq j$。
+> **引理 2.3**：对于每一个可能的配置 $c$，存在至少一个整数 $0 \leq j \leq n$，使得对于每一个 $1 \leq i \leq n$，在配置 $c$ 中 $x_i \neq j$。
 
 证明非常简单，这里可能就是把定义细细的读一下就知道。
 
-$x$ 是什么？可以是不小于 0 且不大于 $n$ 的整数，也就是说可能的值有 $n + 1$ 个。
+$x$ 是什么？可以是不小于 0 且不大于 $n$ 的整数，也就是说可能的值有 $n+1$ 个。
 
 我们有多少个处理器？$n$ 个。
 
@@ -192,9 +192,9 @@ $x$ 是什么？可以是不小于 0 且不大于 $n$ 的整数，也就是说�
   - at least one container contains more than one item
 - Also called the Dirichlet's box principle
 
-鸽子洞原理（也称为抽屉原理）是一个简单但非常有用的数学原理。它的基本思想是：如果有 ( $n$ ) 只鸽子和 ( $m$ ) 个鸽洞，并且 ( $n > m$ )，那么至少有一个鸽洞里会有多于一只鸽子。
+鸽子洞原理（也称为抽屉原理）是一个简单但非常有用的数学原理。它的基本思想是：如果有 $n$ 只鸽子和 $m$ 个鸽洞，并且 $n > m$，那么至少有一个鸽洞里会有多于一只鸽子。
 
-假设我们有 ( $n$ ) 个物品和 ( $m$ ) 个容器。如果 ( $n > m$ )，那么根据鸽子洞原理，至少有一个容器会包含多于一个物品。这是因为如果每个容器最多只能包含一个物品，那么最多只能容纳 ( $m$ ) 个物品，而我们有 ( $n$ ) 个物品，所以至少有一个容器必须包含多于一个物品。
+假设我们有 $n$ 个物品和 $m$ 个容器。如果 $n > m$，那么根据鸽子洞原理，至少有一个容器会包含多于一个物品。这是因为如果每个容器最多只能包含一个物品，那么最多只能容纳 $m$ 个物品，而我们有 $n$ 个物品，所以至少有一个容器必须包含多于一个物品。
 
 ## 引理 2.4
 
@@ -204,7 +204,7 @@ $x$ 是什么？可以是不小于 0 且不大于 $n$ 的整数，也就是说�
 
 证明过程是反证法。
 
-引理 2.4 指明了一个很关键的事情： $p_1$ 的 $x_1$ 会永无止境的变化。具体来说就是每 $n$ 轮变化一次。
+引理 2.4 指明了一个很关键的事情：$p_1$ 的 $x_1$ 会永无止境的变化。具体来说就是每 $n$ 轮变化一次。
 
 ## 定理 2.1
 
@@ -219,7 +219,7 @@ $x$ 是什么？可以是不小于 0 且不大于 $n$ 的整数，也就是说�
    - 这意味着在初始配置 $c$ 中，所有的 $x_i$ 都不等于 $j$。
 2. **引理 2.4 的应用**：
    - 根据引理 2.4，对于每一个可能的配置 $c$，在每个从 $c$ 开始的公平执行中，特殊处理器 $P_1$ 在每 $n$ 轮中改变一次 $x_1$ 的值。
-   - 每次 $P_1$ 改变 $x_1$ 的值时，$P_1$ 将 $x_1$ 的值按模 $n + 1$ 增加。
+   - 每次 $P_1$ 改变 $x_1$ 的值时，$P_1$ 将 $x_1$ 的值按模 $n+1$ 增加。
 3. **值 $j$ 的分配**：
    - 因此，在从 $c$ 开始的任何公平执行中，$x_1$ 必定会被分配到每一个可能的值，特别是值 $j$。
    - 设 $c_j$ 为 $x_1$ 首次分配值 $j$ 后立即跟随的配置。

@@ -34,7 +34,7 @@
 
 分布式系统是抽象模型。
 
-A distributed system is modeled by a set of $n$ state machines called processors that communicate with each other. We usually denote the $i$ th processor in the system by $P_i$ . Each processor can communicate with other processors, called its neighbors.
+A distributed system is modeled by a set of $n$ state machines called processors that communicate with each other. We usually denote the $i$ th processor in the system by $P_i$. Each processor can communicate with other processors, called its neighbors.
 
 分布式系统由一组称为处理器的 $n$ 个状态机组成，它们相互通信。我们通常用 $P_i$ 表示系统中的第 $i$ 个处理器。每个处理器可以与其他处理器（称为其邻居）通信。
 
@@ -51,7 +51,7 @@ A distributed system is modeled by a set of $n$ state machines called processors
 
 ### message passing queue 消息传递队列
 
-> A unidirectional communication link from processor $P_i$ to processor $P_j$ transfers messages from $P_i$ to $P_j$ . The abstraction used for such a unidirectional link is a first-in first-out (FIFO) queue $q_{i,j}$ , that contains all messages sent by a processor $P_i$ to its neighbor $P_j$ that have not yet been received.
+> A unidirectional communication link from processor $P_i$ to processor $P_j$ transfers messages from $P_i$ to $P_j$. The abstraction used for such a unidirectional link is a first-in first-out (FIFO) queue $q_{i,j}$, that contains all messages sent by a processor $P_i$ to its neighbor $P_j$ that have not yet been received.
 >
 > 从处理器 $P_i$ 到处理器 $P_j$ 的单向通信链路将消息从 $P_i$ 传输到 $P_j$。用于这种单向链路的抽象是先进先出（FIFO）队列 $q_{i,j}$，它包含了所有由处理器 $P_i$ 发送给其邻居 $P_j$ 但尚未被接收的消息。
 
@@ -62,16 +62,16 @@ A distributed system is modeled by a set of $n$ state machines called processors
 Definition:
 
 - A full description of a message passing distributed system at a particular time consists of the state of every processor and the content of every queue (messages pending in the communication links). The term *system configuration* (or *configuration*) is used for such a description.
-  - A configuration is denoted by $c = (s_1, s_2, ..., s_n, q_{1,2}, q_{1,3}, ..., q_{i,j}, ..., q_{n-1,n})$, where $s_i$, $1 ≤ i ≤ n$, is the state of $P_i$ and $q_{i,j}$, $i ≠ j$, is the queue of messages sent by $P_i$ to $P_j$ but not yet received.
+  - A configuration is denoted by $c = (s_1, s_2, ..., s_n, q_{1,2}, q_{1,3}, ..., q_{i,j}, ..., q_{n-1,n})$, where $s_i$, $1 \leq i \leq n$, is the state of $P_i$ and $q_{i,j}$, $i ≠ j$, is the queue of messages sent by $P_i$ to $P_j$ but not yet received.
 - In the shared memory model, processors communicate by the use of shared communication registers (hereafter *registers*). Processors may write in a set of registers and may read from a possibly different set of registers. The configuration of the system consists of the state of all processors and the contents of the registers.
-  - A configuration with $n$ processors and $m$ communication registers is denoted by $c = (s_1, s_2, ..., s_n; r_1, r_2, ..., r_m)$, where $s_i$, $1 ≤ i ≤ n$, is the state of $P_i$ and for $1 ≤ j ≤ m$, $r_j$ is the contents of a communication register.
+  - A configuration with $n$ processors and $m$ communication registers is denoted by $c = (s_1, s_2, ..., s_n; r_1, r_2, ..., r_m)$, where $s_i$, $1 \leq i \leq n$, is the state of $P_i$ and for $1 \leq j \leq m$, $r_j$ is the contents of a communication register.
 
 配置的定义：
 
 - 在消息传递模型中：在特定时间对消息传递分布式系统的完整描述包括每个处理器的状态和每个队列的内容（通信链路中未处理的消息）。这种描述称为系统配置（或配置）。
-  - 配置表示为 $c = (s_1, s_2, ..., s_n, q_{1,2}, q_{1,3}, ..., q_{i,j}, ..., q_{n-1,n})$，其中 $s_i$，$1 ≤ i ≤ n$，是 $P_i$ 的状态，$q_{i,j}$，$i ≠ j$，是 $P_i$ 发送给 $P_j$ 但尚未接收的消息队列。
+  - 配置表示为 $c = (s_1, s_2, ..., s_n, q_{1,2}, q_{1,3}, ..., q_{i,j}, ..., q_{n-1,n})$，其中 $s_i$，$1 \leq i \leq n$，是 $P_i$ 的状态，$q_{i,j}$，$i ≠ j$，是 $P_i$ 发送给 $P_j$ 但尚未接收的消息队列。
 - 在共享内存模型中：处理器通过使用共享通信寄存器（以下简称寄存器）进行通信。处理器可以写入一组寄存器，并且可以从可能不同的一组寄存器中读取。系统的配置包括所有处理器的状态和寄存器的内容。
-  - 具有 $n$ 个处理器和 $m$ 个通信寄存器的配置表示为 $c = (s_1, s_2, ..., s_n; r_1, r_2, ..., r_m)$，其中 $s_i$，$1 ≤ i ≤ n$，是 $P_i$ 的状态，对于 $1 ≤ j ≤ m$，$r_j$ 是通信寄存器的内容。
+  - 具有 $n$ 个处理器和 $m$ 个通信寄存器的配置表示为 $c = (s_1, s_2, ..., s_n; r_1, r_2, ..., r_m)$，其中 $s_i$，$1 \leq i \leq n$，是 $P_i$ 的状态，对于 $1 \leq j \leq m$，$r_j$ 是通信寄存器的内容。
 
 ## interleaving model 交错模型
 
@@ -108,7 +108,7 @@ denote a step (together with the identity of the processor that executes it) by 
 
 Let $c_1$ and $c_2$ be two configurations of the system, **where $c_2$ is reached from $c_1$ by a single step $a$ of a processor; we denote this fact by $c_1 \xrightarrow{a} c_2$**.
 
-The step $a$ is applicable to a configuration $c$ if (and only if) there exists a configuration $c’$ such that $c \xrightarrow{a} c’$.
+The step $a$ is applicable to a configuration $c$ if (and only if) there exists a configuration $c'$ such that $c \xrightarrow{a} c'$.
 
 用 $a$ 表示一个步骤（以及执行该步骤的处理器的身份）。
 
@@ -130,7 +130,7 @@ A *fair* execution is **an execution in which every step that is applicable infi
 
 In a **message-passing system**, it is possible that a message will be lost during the execution of the algorithm; the reason is unreliable communication media that may lose or corrupt messages in transit. Error-detection codes are used to identify and discard corrupted messages, and these messages can be considered lost messages. To model such systems, we extend the definition of a step to include *environment steps* of type $loss_{i,j}(m)$.
 
-The environment step $loss_{i,j}(m)$ is applicable to a configuration $c_k$ in which the queue $q_{i,j}$ contains the message $m$. The application of $loss_{i,j}(m)$ to $c_k$ results in a configuration $c_{k+1}$ in which $m$ is **removed** from $q_{i,j}$ , and $c_k$ and $c_{k+1}$ are identical in the rest of their components.
+The environment step $loss_{i,j}(m)$ is applicable to a configuration $c_k$ in which the queue $q_{i,j}$ contains the message $m$. The application of $loss_{i,j}(m)$ to $c_k$ results in a configuration $c_{k+1}$ in which $m$ is **removed** from $q_{i,j}$, and $c_k$ and $c_{k+1}$ are identical in the rest of their components.
 
 Unlike steps executed by processors, we do not require that, in every infinite fair execution, the environment steps that are applicable infinitely often will be executed infinitely often. **We do require that, in a fair execution in which a message is sent infinitely often, the message must be received infinitely often.** To satisfy fairness the receive step must be executed infinitely often, while the loss step should not be executed infinitely often.
 
@@ -168,7 +168,7 @@ A processor that, eventually, **stops taking steps forever** is said to be **cra
 
 But how to distinguish, asynchronous networks, between a slow processor and a crashed one?
 
-What is the maximum power we can grant to the adversary in “slowing down” processors without allowing the adversary to render a slow processor to be completely nonfunctional?
+What is the maximum power we can grant to the adversary in "slowing down" processors without allowing the adversary to render a slow processor to be completely nonfunctional?
 
 Every step that is applicable infinitely often is executed infinitely often. In other words, even if the HP Frontier is an exponentially growing number of steps more than the Arduino, the execution is still fair.
 
@@ -200,16 +200,16 @@ The following actions are performed between each successive pulses of a synchron
 
 Typical latency numbers for RDMA and socket-based communication can vary significantly based on various factors, including hardware, network conditions, and the specific use case. However, some rough estimation can give you a general idea of the differences in latency.
 
-1. **RDMA Latency is in microseconds Range:** RDMA can achieve extremely low latencies in the range of microseconds (μs). Latencies as low as 1-2 μs are possible with RDMA, especially when using high-performance network technologies like InfiniBand or RoCE.
+1. **RDMA Latency is in microseconds Range**: RDMA can achieve extremely low latencies in the range of microseconds (μs). Latencies as low as 1-2 μs are possible with RDMA, especially when using high-performance network technologies like InfiniBand or RoCE.
 
-2. **Socket-Based Communication Latency is in milliseconds Range:** Socket-based communication typically has higher latencies compared to RDMA. In a typical Ethernet-based network, socket communication latencies can be in the range of milliseconds (ms) or more, especially in scenarios with network congestion or when communication involves multiple layers of software.
+2. **Socket-Based Communication Latency is in milliseconds Range**: Socket-based communication typically has higher latencies compared to RDMA. In a typical Ethernet-based network, socket communication latencies can be in the range of milliseconds (ms) or more, especially in scenarios with network congestion or when communication involves multiple layers of software.
 
 It is important to note that these latency numbers are very rough estimates and can vary widely depending on the specific hardware, software stack, and network conditions. Additionally, advancements in both RDMA and socket-based communication technologies may lead to improvements or changes in these latency figures over time.
 
 典型的 RDMA 和基于套接字的通信延迟数字可能会因各种因素而显著变化，包括硬件、网络条件和具体使用情况。然而，一些粗略的估计可以让你大致了解延迟的差异。
 
-1. **RDMA 延迟在微秒范围内：** RDMA 可以实现极低的延迟，范围在微秒（μs）级别。使用高性能网络技术如 InfiniBand 或 RoCE 时，延迟可以低至 1-2 微秒。
-2. **基于套接字的通信延迟在毫秒范围内：** 与 RDMA 相比，基于套接字的通信通常具有更高的延迟。在典型的以太网网络中，套接字通信的延迟可以在毫秒（ms）级别或更高，特别是在网络拥塞或通信涉及多个软件层的情况下。
+1. **RDMA 延迟在微秒范围内**：RDMA 可以实现极低的延迟，范围在微秒（μs）级别。使用高性能网络技术如 InfiniBand 或 RoCE 时，延迟可以低至 1-2 微秒。
+2. **基于套接字的通信延迟在毫秒范围内**：与 RDMA 相比，基于套接字的通信通常具有更高的延迟。在典型的以太网网络中，套接字通信的延迟可以在毫秒（ms）级别或更高，特别是在网络拥塞或通信涉及多个软件层的情况下。
 
 需要注意的是，这些延迟数字是非常粗略的估计，可能会因具体的硬件、软件栈和网络条件而有很大差异。此外，RDMA 和基于套接字的通信技术的进步可能会导致这些延迟数字随时间而改善或变化。
 
@@ -250,7 +250,7 @@ It is important to note that these latency numbers are very rough estimates and 
 
 ![legal_execution](images/legal_execution.png)
 
-- A self-stabilizing system can be started in any arbitrary configuration and will eventually exhibit a desired “legal” behavior.
+- A self-stabilizing system can be started in any arbitrary configuration and will eventually exhibit a desired "legal" behavior.
 - We define the desired legal behavior by a set of legal executions denoted $LE$.
 - Every system execution of a self-stabilizing system should have a suffix that appears in $LE$.
 - A configuration $c$ is safe with regard to a task $LE$ and an algorithm if every fair execution of the algorithm that starts from $c$ belongs to $LE$.
@@ -272,7 +272,7 @@ It is important to note that these latency numbers are very rough estimates and 
 
 ### asynchronous round 异步轮
 
-In order to evaluate and compare different asynchronous algorithms, it is convenient to use the number of *asynchronous rounds* to measure the time complexity of a particular execution. The first *asynchronous round* (or *round*) in an execution $E$ is the **shortest prefix** $E’$ of E **such that each processor executes at least one step in $E’$**. Let $E’’$ be the suffix of $E$ that follows $E’$, $E = E’E’’$. The second round of $E$ is the first round of $E’’$, and so on. The number of rounds in the execution of an algorithm is used to measure the time complexity of the algorithm.
+In order to evaluate and compare different asynchronous algorithms, it is convenient to use the number of *asynchronous rounds* to measure the time complexity of a particular execution. The first *asynchronous round* (or *round*) in an execution $E$ is the **shortest prefix** $E'$ of E **such that each processor executes at least one step in $E'$**. Let $E''$ be the suffix of $E$ that follows $E'$, $E = E'E''$. The second round of $E$ is the first round of $E''$, and so on. The number of rounds in the execution of an algorithm is used to measure the time complexity of the algorithm.
 
 The definition of an asynchronous round nullifies the speed differences of the processors by stretching the round to be long enough to include a step (including a communication operation) of the slowest processor in this execution segment. Thus, information can be transferred through the slowest processor even if that processor resides in a node that can separate the communication graph.
 
@@ -287,8 +287,8 @@ The definition of an asynchronous round nullifies the speed differences of the p
 E.g., let $P={p_i, p_j}$ and $E=(c_0, a^i_0, c_1, a^i_1, c_2 , a^i_2, c_3, a^j_3, c_4, a^i_4, c_5,…)$
 
 - where $a^k_x$ is the $x$ th step in execution $E$ taking by $p_k$.
-  - The first asynchronous round is $E’=(c_0, a^i_0, c_1, a^i_1, c_2 , a^i_2, c_3, a^j_3)$
-  - The second asynchronous round in $E$ is the first asynchronous round in $E’’=(c_4, a^i_4, c_5,…)$.
+  - The first asynchronous round is $E'=(c_0, a^i_0, c_1, a^i_1, c_2 , a^i_2, c_3, a^j_3)$
+  - The second asynchronous round in $E$ is the first asynchronous round in $E''=(c_4, a^i_4, c_5,…)$.
 
 很明显的至少一步，但是没说不能多步，所以 $E$ 中尽管 $p_i$ 执行了三步（$a^i_0, a^i_1, a^i_2$），但是最终在 $a^j_3$ 后才结束。并且 $E'$ 没包含 $c_4$，是因为定义中没提到这个配置也在一轮中。
 

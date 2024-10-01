@@ -7,7 +7,7 @@
 Assumptions and Definitions
 
 - Processor activity is managed by a scheduler
-- The scheduler’s assumption
+- The scheduler's assumption
   - at most one atomic step is executed in every given time
   - Each atomic step includes a single read or write operation and a finite sequence of local computation.
 - The scheduler is regarded as an adversary
@@ -51,6 +51,10 @@ An algorithm that solves the leader election task requires that, when its execut
 解决领导者选举任务的算法要求在其执行终止时，单个处理器被指定为 $leader$，并且每个处理器都知道自己是否是领导者。根据定义，每当领导者选举算法成功终止时，系统处于非对称配置中。任何具有对称初始状态的领导者选举算法都需要某种对称性破坏手段。
 
 **在 *基于标识符* 的系统中，每个处理器都有一个称为 *id* 的唯一标识符；因此，系统没有对称配置。在 *统一*（或 *匿名*）系统中，所有处理器都是相同的。随机化通常用于在此类系统中打破对称性。**
+
+---
+
+这里就凸现出本节中完全图和之前的一般图的区别了。一般图中处理器有唯一标识符 id，故而没有对称性；而完全图中，没有 id，所有处理器相同，那么就需要进入随机化来显示区别。
 
 ### 行文逻辑
 
@@ -117,7 +121,7 @@ if some, processor $p_i$, tosses a coin (line 06), luck intervenes;
 - 否则结果虽然为 0，但是因为条件不满足，故而是存在 $j$ 使得 ${leader}_j = 1$ 的。
 - 所以可以说，**在第一次掷硬币后，至少有一个 $leader$ 寄存器的值为 1。**
 
-设 $S$ 为第一次掷硬币后 $leader$ 寄存器值为 1 的处理器集合。**如果存在一个处理器 $P_k ∈ S$ 再也不掷硬币，那么 ${leader}_k = 1$ 永远保持不变。**否则，$S$ 中的每个处理器都掷硬币；在这种情况下，我们将 $P_k$ 视为 $S$ 中最后一个掷硬币的处理器：
+设 $S$ 为第一次掷硬币后 $leader$ 寄存器值为 1 的处理器集合。**如果存在一个处理器 $P_k \in S$ 再也不掷硬币，那么 ${leader}_k = 1$ 永远保持不变。**否则，$S$ 中的每个处理器都掷硬币；在这种情况下，我们将 $P_k$ 视为 $S$ 中最后一个掷硬币的处理器：
 
 - 不掷硬币就不改变值，这是很正常的，故而一直是 1 保持不变；
 - 本来 ${leader}_k = 1$ 是否保持不变是由算法和运气共同决定的，现在他不掷硬币，所以不用关注运气；看算法，不掷硬币说明不存在其他处理器的 $leader$ 寄存器是 1，也就是其他的处理器的 $leader$ 寄存器都是 0。
@@ -136,12 +140,12 @@ if some, processor $p_i$, tosses a coin (line 06), luck intervenes;
 
 ### Coarse vs. Fine Atomicity
 
-Under coarse atomicity---less power to the adversary
+Under coarse atomicity - less power to the adversary
 
 - **a coin toss is an internal operation that is not separable from the next read or write operation**.
 - the adversary **is unaware to the algorithm random choices** before its first read or write operation
 
-Under fine atomicity---more power to the adversary
+Under fine atomicity - more power to the adversary
 
 - a coin toss is **a separate operation** from the next read or write operation.
 - **the adversary is aware to the algorithm random choices before its first read or write operation**

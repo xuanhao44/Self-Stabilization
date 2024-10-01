@@ -60,4 +60,5 @@ A maximal matching cannot be extended by adding more edges, while a maximum matc
 最后看一下变元函数 $VF$ 的返回值——向量 $(m+s, w, f, c)$。$m$ 和 $s$ 放在一起是因为他们都是最终状态；$w, f, c$ 这三个按照顺序越来越原始。故而 $VF$ 的值按字典顺序进行比较就是顺理成章的，并且算法的每次指针值变化都会增加 $VF$ 的值，也就是向最终状态 $VF(c) = (n, 0, 0, 0)$ 靠近。
 
 > the system reaches a safe configuration within $O(n^3)$ pointer-value changes.
+>
 > 系统在 $O(n^3)$ 次指针值变化内达到安全配置。

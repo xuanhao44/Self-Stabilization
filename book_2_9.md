@@ -78,9 +78,9 @@ We can conclude that, indeed, every change in a pointer value increments the val
 
 ## Convergence Stairs
 
-It is possible to prove the correctness of a self-stabilizing algorithm by proving that it converges to fulfill $k > 1$ predicates $\mathcal{A}_1,\mathcal{A}_2, · · · ,\mathcal{A}_k$ such that, for every $1 ≤ i < k$, $\mathcal{A}_{i+1}$ is a *refinement* of $\mathcal{A}_i$. Here a predicate $\mathcal{A}_{i+1}$ *refines* the predicate $\mathcal{A}_i$ if $\mathcal{A}_i$ holds whenever $\mathcal{A}_{i+1}$ holds. The term *attractor* is often used for each such $\mathcal{A}_i$ predicate. The proof is done in “stairs” by proving that, from some point of the execution, every configuration satisfies $\mathcal{A}_1$ and then proving that an execution in which $\mathcal{A}_1$ holds reaches a configuration after which every configuration satisfies $\mathcal{A}_2$ and, in general, proving that $\mathcal{A}_{i+1}$ holds after $\mathcal{A}_i$ does. The goal is to prove that the system reaches a configuration in which the last predicate $\mathcal{A}_k$ holds, which is a predicate for a safe configuration. The method is demonstrated by a self-stabilizing leader-election algorithm. Leader election is a fundamental task in distributed computing: often a distributed task can be performed by electing a leader and then using a centralized computation by that leader.
+It is possible to prove the correctness of a self-stabilizing algorithm by proving that it converges to fulfill $k > 1$ predicates $\mathcal{A}_1,\mathcal{A}_2, · · · ,\mathcal{A}_k$ such that, for every $1 \leq i < k$, $\mathcal{A}_{i+1}$ is a *refinement* of $\mathcal{A}_i$. Here a predicate $\mathcal{A}_{i+1}$ *refines* the predicate $\mathcal{A}_i$ if $\mathcal{A}_i$ holds whenever $\mathcal{A}_{i+1}$ holds. The term *attractor* is often used for each such $\mathcal{A}_i$ predicate. The proof is done in "stairs" by proving that, from some point of the execution, every configuration satisfies $\mathcal{A}_1$ and then proving that an execution in which $\mathcal{A}_1$ holds reaches a configuration after which every configuration satisfies $\mathcal{A}_2$ and, in general, proving that $\mathcal{A}_{i+1}$ holds after $\mathcal{A}_i$ does. The goal is to prove that the system reaches a configuration in which the last predicate $\mathcal{A}_k$ holds, which is a predicate for a safe configuration. The method is demonstrated by a self-stabilizing leader-election algorithm. Leader election is a fundamental task in distributed computing: often a distributed task can be performed by electing a leader and then using a centralized computation by that leader.
 
-可以通过证明自稳定算法收敛以满足 $k > 1$ 个谓词 $\mathcal{A}_1,\mathcal{A}_2, · · · ,\mathcal{A}_k$ 来证明其正确性，其中对于每个 $1 ≤ i < k$，$\mathcal{A}_{i+1}$ 是 $\mathcal{A}_i$ 的 *细化*。这里，如果 $\mathcal{A}_{i+1}$ 成立，则 $\mathcal{A}_i$ 也成立，则谓词 $\mathcal{A}_{i+1}$ *细化* 了谓词 $\mathcal{A}_i$。术语 *吸引子* 通常用于每个这样的 $\mathcal{A}_i$ 谓词。证明是通过“阶梯”完成的，首先证明从执行的某个点开始，每个配置都满足 $\mathcal{A}_1$，然后证明在 $\mathcal{A}_1$ 成立的执行中达到一个配置，此后每个配置都满足 $\mathcal{A}_2$，一般来说，证明 $\mathcal{A}_{i+1}$ 在 $\mathcal{A}_i$ 之后成立。目标是证明系统达到一个配置，其中最后一个谓词 $\mathcal{A}_k$ 成立，这是一个安全配置的谓词。该方法通过一个自稳定的领导者选举算法来演示。领导者选举是分布式计算中的一项基本任务：通常可以通过选举一个领导者来执行分布式任务，然后由该领导者进行集中计算。
+可以通过证明自稳定算法收敛以满足 $k > 1$ 个谓词 $\mathcal{A}_1,\mathcal{A}_2, · · · ,\mathcal{A}_k$ 来证明其正确性，其中对于每个 $1 \leq i < k$，$\mathcal{A}_{i+1}$ 是 $\mathcal{A}_i$ 的 *细化*。这里，如果 $\mathcal{A}_{i+1}$ 成立，则 $\mathcal{A}_i$ 也成立，则谓词 $\mathcal{A}_{i+1}$ *细化* 了谓词 $\mathcal{A}_i$。术语 *吸引子* 通常用于每个这样的 $\mathcal{A}_i$ 谓词。证明是通过“阶梯”完成的，首先证明从执行的某个点开始，每个配置都满足 $\mathcal{A}_1$，然后证明在 $\mathcal{A}_1$ 成立的执行中达到一个配置，此后每个配置都满足 $\mathcal{A}_2$，一般来说，证明 $\mathcal{A}_{i+1}$ 在 $\mathcal{A}_i$ 之后成立。目标是证明系统达到一个配置，其中最后一个谓词 $\mathcal{A}_k$ 成立，这是一个安全配置的谓词。该方法通过一个自稳定的领导者选举算法来演示。领导者选举是分布式计算中的一项基本任务：通常可以通过选举一个领导者来执行分布式任务，然后由该领导者进行集中计算。
 
 ## Example: Leader Election in a General Communication Network
 
@@ -120,9 +120,9 @@ The proof of correctness uses two convergence stairs.
 - 第一个收敛阶梯是系统配置上的谓词 $\mathcal{A}_1$，用于验证不存在浮动标识符。
 - 第二个收敛阶梯是安全配置的谓词 $\mathcal{A}_2$，用于验证每个处理器选择系统中处理器的最小标识符作为领导者的标识符。
 
-The value of a floating identifier can appear in the local arrays of every processor $P_i$, $l_i [1..δ]$, in the $candidate$ local variable, and in the field ${leader}_i$ of the communication register. The $distance$ of *a floating identifier* appearing in $l_i [ j ]$, $candidate$, or ${leader}_i$ is $d_i [ j ]$, $distance$, or ${dis}_i$, respectively.
+The value of a floating identifier can appear in the local arrays of every processor $P_i$, $l_i [1..\delta]$, in the $candidate$ local variable, and in the field ${leader}_i$ of the communication register. The $distance$ of *a floating identifier* appearing in $l_i[j]$, $candidate$, or ${leader}_i$ is $d_i[j]$, $distance$, or ${dis}_i$, respectively.
 
-浮动标识符的值可以出现在每个处理器 $P_i$ 的本地数组 $l_i [1..δ]$ 中，在 $candidate$ 局部变量中，以及在通信寄存器的字段 ${leader}_i$ 中。出现在 $l_i [j]$、$candidate$ 或 ${leader}_i$ 中的浮动标识符的 $distance$ 分别是 $d_i [j]$、$distance$ 或 ${dis}_i$。
+浮动标识符的值可以出现在每个处理器 $P_i$ 的本地数组 $l_i [1..\delta]$ 中，在 $candidate$ 局部变量中，以及在通信寄存器的字段 ${leader}_i$ 中。出现在 $l_i[j]$、$candidate$ 或 ${leader}_i$ 中的浮动标识符的 $distance$ 分别是 $d_i[j]$、$distance$ 或 ${dis}_i$。
 
 To show that the first attractor holds, we argue that, if a floating identifier exists, then during any $O(\triangle)$ rounds, the minimal distance of a floating identifier increases.
 
@@ -172,13 +172,13 @@ In each turn of the game, the scheduler chooses the next processor to be activat
 
 在游戏的每一轮中，调度器选择下一个要激活的处理器，然后该处理器执行一步。如果在这一步中，激活的处理器使用了随机函数，那么**运气可能会 *干预* —— 即运气可以决定随机函数的结果（或期望结果的某个子集）。如果运气干预并将结果固定为可能的 $h$ 个结果中的任意 $g$ 个值，那么这种干预的概率为 $p = g/h$。**请注意，即使激活的处理器调用了随机函数，运气也可以选择不干预；在这种情况下，每个可能的结果都有相同的发生概率。假设两个玩家都有无限的计算资源，并且他们的决策基于迄今为止的游戏历史。当激活的处理器的步骤结束时，新的一轮开始。
 
-If luck intervenes several times, say $f$ times, in order to force the system to reach a safe configuration, and if the probability of the $i$ th intervention is $p_i$, then the combined probability of these interventions is $cp = \prod^f_{i=1} p_i$. Luck has a $(cp,r)-strategy$ to win the game if it has a strategy to reach a safe configuration in the game in an expected number of at most r rounds, and with interventions that yield a combined probability of no more than cp. We claim that the existence of a $(cp,r)-strategy$ implies that the algorithm reaches a safe configuration within $r/cp$ expected number of rounds.
+If luck intervenes several times, say $f$ times, in order to force the system to reach a safe configuration, and if the probability of the $i$ th intervention is $p_i$, then the combined probability of these interventions is $cp = \prod^f_{i=1} p_i$. Luck has a $(cp, r)-strategy$ to win the game if it has a strategy to reach a safe configuration in the game in an expected number of at most r rounds, and with interventions that yield a combined probability of no more than cp. We claim that the existence of a $(cp, r)-strategy$ implies that the algorithm reaches a safe configuration within $r/cp$ expected number of rounds.
 
-如果运气干预了几次，比如说 $f$ 次，以迫使系统达到安全配置，并且第 $i$ 次干预的概率是 $p_i$，那么这些干预的综合概率是 $cp = \prod^f_{i=1} p_i$。如果运气有一个 $(cp,r)$-策略来赢得游戏，即它有一个策略在预期不超过 $r$ 轮的游戏中达到安全配置，并且干预的综合概率不超过 $cp$，那么我们声称 $(cp,r)$-策略的存在意味着算法在 $r/cp$ 的预期轮数内达到安全配置。
+如果运气干预了几次，比如说 $f$ 次，以迫使系统达到安全配置，并且第 $i$ 次干预的概率是 $p_i$，那么这些干预的综合概率是 $cp = \prod^f_{i=1} p_i$。如果运气有一个 $(cp, r)$-策略来赢得游戏，即它有一个策略在预期不超过 $r$ 轮的游戏中达到安全配置，并且干预的综合概率不超过 $cp$，那么我们声称 $(cp, r)$-策略的存在意味着算法在 $r/cp$ 的预期轮数内达到安全配置。
 
-We give only an informal proof of our claim. When the algorithm is executed it is possible that the results of the random function invocations may differ from the results luck chooses in the *sl-game*. Following such undesired results, the system may reach an arbitrary state. Fortunately, a new *sl-game* can be started from this arbitrary configuration, in which a safe configuration may be reached within $r$ expected rounds and with probability $cp$. The probability that the second try is successful (in having the results luck chooses) but the first try is not is $(1−cp) · cp$. In general, the probability that the $i$ th try succeeds is $(1 − cp)^{i−1} · cp$. Thus, the expected number of tries until a safe configuration is reached is $\sum^∞_{i=1} i · (1 − cp)^{i−1} · cp = 1/cp$. Note that the expected number of rounds in each such try is $r$.
+We give only an informal proof of our claim. When the algorithm is executed it is possible that the results of the random function invocations may differ from the results luck chooses in the *sl-game*. Following such undesired results, the system may reach an arbitrary state. Fortunately, a new *sl-game* can be started from this arbitrary configuration, in which a safe configuration may be reached within $r$ expected rounds and with probability $cp$. The probability that the second try is successful (in having the results luck chooses) but the first try is not is $(1−cp) · cp$. In general, the probability that the $i$ th try succeeds is $(1−cp)^{i−1} · cp$. Thus, the expected number of tries until a safe configuration is reached is $\sum^\infty_{i=1} i · (1−cp)^{i−1} · cp = 1/cp$. Note that the expected number of rounds in each such try is $r$.
 
-我们仅给出我们的主张的非正式证明。当算法执行时，随机函数调用的结果可能与运气在 *sl-game* 中选择的结果不同。由于这些不期望的结果，系统可能会达到一个任意状态。幸运的是，可以从这个任意配置开始一个新的 *sl-game*，在预期的 $r$ 轮内并以概率 $cp$ 达到一个安全配置。第二次尝试成功（即结果符合运气的选择）而第一次尝试不成功的概率是 $(1−cp) · cp$。一般来说，第 $i$ 次尝试成功的概率是 $(1 − cp)^{i−1} · cp$。因此，直到达到安全配置的预期尝试次数是 $\sum^∞_{i=1} i · (1 − cp)^{i−1} · cp = 1/cp$。请注意，每次尝试的预期轮数是 $r$。
+我们仅给出我们的主张的非正式证明。当算法执行时，随机函数调用的结果可能与运气在 *sl-game* 中选择的结果不同。由于这些不期望的结果，系统可能会达到一个任意状态。幸运的是，可以从这个任意配置开始一个新的 *sl-game*，在预期的 $r$ 轮内并以概率 $cp$ 达到一个安全配置。第二次尝试成功（即结果符合运气的选择）而第一次尝试不成功的概率是 $(1−cp) · cp$。一般来说，第 $i$ 次尝试成功的概率是 $(1−cp)^{i−1} · cp$。因此，直到达到安全配置的预期尝试次数是 $\sum^\infty_{i=1} i · (1−cp)^{i−1} · cp = 1/cp$。请注意，每次尝试的预期轮数是 $r$。
 
 Since the expectation of a sum is the sum of the expectations, the expected number of rounds in an execution until a safe configuration is reached is $r/cp$. The above discussion is summarized by the following theorem.
 
@@ -186,9 +186,9 @@ Since the expectation of a sum is the sum of the expectations, the expected numb
 
 ---
 
-> THEOREM 2.4: If luck has an $(cp,r)-strategy$, then $\mathcal{AL}$ reaches a safe configuration within, at most, $r/cp$ expected number of rounds.
+> THEOREM 2.4: If luck has an $(cp, r)-strategy$, then $\mathcal{AL}$ reaches a safe configuration within, at most, $r/cp$ expected number of rounds.
 >
-> 定理 2.4：如果运气有一个 $(cp,r)$-策略，那么 $\mathcal{AL}$ 在最多 $r/cp$ 的预期轮数内达到一个安全配置。
+> 定理 2.4：如果运气有一个 $(cp, r)$-策略，那么 $\mathcal{AL}$ 在最多 $r/cp$ 的预期轮数内达到一个安全配置。
 
 ## Example: Self-Stabilizing Leader Election in Complete Graphs
 
@@ -228,19 +228,19 @@ Starting the system with any possible combination of binary values of the $leade
 
 We define the task $LE$ to be the set of executions in which there exists a single fixed leader throughout the execution. We define a configuration to be safe if it satisfies the following:
 
-- For exactly one processor, say $P_i \, , {leader}_i = 1$ and $∀ j \neq i \,\, l_i[j] = 0$.
+- For exactly one processor, say $P_i$, ${leader}_i = 1$ and $∀ j \neq i \,\, l_i[j] = 0$.
 - For every other processor, $P_j \neq P_i$, ${leader}_j = 0$ and $l_j[i] = 1$.
 
-It is easy to verify that in any (fair) execution $E$ that starts with a safe configuration, as defined above, $P_i$ is a single leader, and thus $E ∈ LE$.
+It is easy to verify that in any (fair) execution $E$ that starts with a safe configuration, as defined above, $P_i$ is a single leader, and thus $E \in LE$.
 
 The stabilization time of the algorithm is exponential, as shown in the next two lemmas.
 
 我们将任务 $LE$ 定义为在执行过程中存在单个固定领导者的执行集合。我们定义一个配置是安全的，如果它满足以下条件：
 
-- 对于确切的一个处理器，例如 $P_i \, , {leader}_i = 1$ 并且 $∀ j \neq i \,\, l_i[j] = 0$。
+- 对于确切的一个处理器，例如 $P_i$，${leader}_i = 1$ 并且 $∀ j \neq i \,\, l_i[j] = 0$。
 - 对于每个其他处理器，$P_j \neq P_i$，${leader}_j = 0$ 并且 $l_j[i] = 1$。
 
-很容易验证，在任何从上述定义的安全配置开始的（公平）执行 $E$ 中，$P_i$ 是单个领导者，因此 $E ∈ LE$。
+很容易验证，在任何从上述定义的安全配置开始的（公平）执行 $E$ 中，$P_i$ 是单个领导者，因此 $E \in LE$。
 
 如接下来的两个引理所示，算法的稳定时间是指数级的。
 
@@ -252,9 +252,9 @@ The stabilization time of the algorithm is exponential, as shown in the next two
 
 *Proof:*
 
-We use theorem 2.4 to show that the expected number of rounds before the algorithm stabilizes is bounded from above by $2n2^n$. To do this, we present an $(1/2^n, 2n)$-strategy for luck to win the *sl-game* defined by the algorithm, the set of all possible configurations, and the set of all safe configurations.
+We use theorem 2.4 to show that the expected number of rounds before the algorithm stabilizes is bounded from above by $2n 2^n$. To do this, we present an $(1/2^n, 2n)$-strategy for luck to win the *sl-game* defined by the algorithm, the set of all possible configurations, and the set of all safe configurations.
 
-Luck’s strategy is as follows: whenever some processor $P_i$ tosses a coin, luck intervenes; if for all $j \neq i$, ${leader}_j = 0$, then luck fixes the coin toss to be 1; otherwise, it fixes the coin toss to be 0. Since we assume coarse atomicity, the algorithm implies that, at the end of this atomic step, ${leader}_i$ holds the result of the coin toss. The correctness of this strategy follows from the following observations.
+Luck's strategy is as follows: whenever some processor $P_i$ tosses a coin, luck intervenes; if for all $j \neq i$, ${leader}_j = 0$, then luck fixes the coin toss to be 1; otherwise, it fixes the coin toss to be 0. Since we assume coarse atomicity, the algorithm implies that, at the end of this atomic step, ${leader}_i$ holds the result of the coin toss. The correctness of this strategy follows from the following observations.
 
 The first observation is that, within less than $2n$ successive rounds, every processor $P_i$ reads all the $leader$ registers, and then, if needed, it tosses a coin and writes the outcome in ${leader}_i$.
 
@@ -263,19 +263,19 @@ Therefore, if within the first $2n$ rounds no processor tosses a coin, the syste
 - The reason is that no processor writes in its $leader$ register during these $2n$ rounds; therefore every processor reads the fixed value of the $leader$ variables during the $2n$ rounds.
 - A processor $P_i$ with ${leader}_i = 0$ must find another processor $P_j$ with ${leader}_j = 1$, and a processor with ${leader}_j = 1$ must find that it is the only processor with ${leader}_j = 1$.
 
-If there is a processor that does toss a coin, then, in accordance with luck’s strategy, it is the case that, after the first coin toss, there is at least one $leader$ register whose value is 1.Moreover, once ${leader}_j = 1$ for some $j$, there exists a $k$ such that ${leader}_k = 1$ throughout the rest of the execution.
+If there is a processor that does toss a coin, then, in accordance with luck's strategy, it is the case that, after the first coin toss, there is at least one $leader$ register whose value is 1.Moreover, once ${leader}_j = 1$ for some $j$, there exists a $k$ such that ${leader}_k = 1$ throughout the rest of the execution.
 
-To see this, let $S$ be the set of processors whose $leader$ register holds 1 after the first coin toss. **If there exists a processor $P_k ∈ S$ that never tosses a coin again, then ${leader}_k = 1$ forever**. Otherwise, every processor in $S$ tosses a coin; in this case, we take $P_k$ to be the last processor in $S$ that tosses a coin.
+To see this, let $S$ be the set of processors whose $leader$ register holds 1 after the first coin toss. **If there exists a processor $P_k \in S$ that never tosses a coin again, then ${leader}_k = 1$ forever**. Otherwise, every processor in $S$ tosses a coin; in this case, we take $P_k$ to be the last processor in $S$ that tosses a coin.
 
-Luck’s strategy guarantees that, during Pk ’s coin toss, all the remaining $leader$ values are 0, and hence luck sets the result of $P_k$ ’s coin toss to 1.
+Luck's strategy guarantees that, during Pk 's coin toss, all the remaining $leader$ values are 0, and hence luck sets the result of $P_k$ 's coin toss to 1.
 
 From now on, ${leader}_k = 1$ and for $j \neq k$, ${leader}_j = 0$.
 
-Next we compute the combined probability of luck’s strategy.
+Next we compute the combined probability of luck's strategy.
 
 - Every processor $P_i$ may toss a coin at most once:
-  - if the outcome of $P_i$ ’s first coin toss is set by luck to 0, then, in all successive readings, $P_i$ finds out that ${leader}_k = 1$ (where $P_k$ is the $leader$ in the safe configuration reached) and hence will not toss a coin again.
-  - If the outcome of $P_i$ ’s first coin toss was set to 1, the leader values of all other processors are 0. After this atomic step, $P_i$ finds out that it is the only processor whose $leader$ value is 1, and thus it will not toss a coin in this case as well.
+  - if the outcome of $P_i$ 's first coin toss is set by luck to 0, then, in all successive readings, $P_i$ finds out that ${leader}_k = 1$ (where $P_k$ is the $leader$ in the safe configuration reached) and hence will not toss a coin again.
+  - If the outcome of $P_i$ 's first coin toss was set to 1, the leader values of all other processors are 0. After this atomic step, $P_i$ finds out that it is the only processor whose $leader$ value is 1, and thus it will not toss a coin in this case as well.
 - Therefore, the combined probability of the strategy of luck is at least $1/2^n$.
 
 Thus we conclude that, after a maximum of $2n$ rounds, every processor $P_i$ does not toss a coin anymore; moreover, that during these $2n$ rounds, $P_i$ can toss a coin at most once.
@@ -284,7 +284,7 @@ Therefore luck wins the game within $2n$ rounds and with $1/2^n$ combined probab
 
 *证明：*
 
-我们使用定理 2.4 来证明算法稳定之前的期望轮数上界为 $2n2^n$。为此，我们提出了一个 $(1/2^n, 2n)$ 策略，使运气赢得由算法、所有可能配置集合和所有安全配置集合定义的 *sl-game*。
+我们使用定理 2.4 来证明算法稳定之前的期望轮数上界为 $2n 2^n$。为此，我们提出了一个 $(1/2^n, 2n)$ 策略，使运气赢得由算法、所有可能配置集合和所有安全配置集合定义的 *sl-game*。
 
 运气的策略如下：每当某个处理器 $P_i$ 掷硬币时，运气介入；如果对于所有 $j \neq i$，${leader}_j = 0$，那么运气将硬币结果固定为 1；否则，将硬币结果固定为 0。由于我们假设粗粒度原子性，算法意味着在这个原子步骤结束时，${leader}_i$ 持有硬币结果。该策略的正确性来自以下观察。
 
@@ -297,7 +297,7 @@ Therefore luck wins the game within $2n$ rounds and with $1/2^n$ combined probab
 
 如果有处理器掷硬币，那么根据运气的策略，在第一次掷硬币后，至少有一个 $leader$ 寄存器的值为 1。此外，一旦某个 $j$ 的 ${leader}_j = 1$，则存在一个 $k$ 使得在整个执行过程中 ${leader}_k = 1$。
 
-为此，设 $S$ 为第一次掷硬币后 $leader$ 寄存器值为 1 的处理器集合。**如果存在一个处理器 $P_k ∈ S$ 再也不掷硬币，那么 ${leader}_k = 1$ 永远保持不变。**否则，$S$ 中的每个处理器都掷硬币；在这种情况下，我们将 $P_k$ 视为 $S$ 中最后一个掷硬币的处理器。
+为此，设 $S$ 为第一次掷硬币后 $leader$ 寄存器值为 1 的处理器集合。**如果存在一个处理器 $P_k \in S$ 再也不掷硬币，那么 ${leader}_k = 1$ 永远保持不变。**否则，$S$ 中的每个处理器都掷硬币；在这种情况下，我们将 $P_k$ 视为 $S$ 中最后一个掷硬币的处理器。
 
 运气的策略保证，在 $P_k$ 掷硬币期间，所有剩余的 $leader$ 值为 0，因此运气将 $P_k$ 的硬币结果设置为 1。
 
@@ -362,7 +362,7 @@ In this section we present a technique used to prove memory lower bounds. In con
 
 The technique can be applied to a set of self-stabilizing algorithms called *silent self-stabilizing* algorithms. Roughly speaking, a self-stabilizing algorithm is silent if the communication between the processors is fixed from some point of the execution.
 
-We start by defining silent self-stabilizing algorithms for the shared memory model. A self-stabilizing algorithm is silent if the value stored in every communication register $r_i$ is fixed in every execution that starts in a safe configuration. Note that this definition allows the processors to change state repeatedly. In particular, a processor may repeatedly read and verify that the contents of the registers are not changed due to transient faults. One example of an algorithm in this class is the spanning-tree construction presented in section 2.5. In the message passing case, a self-stabilizing algorithm is silent if, in every execution, each processor $P_i$ repeatedly sends the same message $m_{ij}$ to each neighbor $P_j$ .
+We start by defining silent self-stabilizing algorithms for the shared memory model. A self-stabilizing algorithm is silent if the value stored in every communication register $r_i$ is fixed in every execution that starts in a safe configuration. Note that this definition allows the processors to change state repeatedly. In particular, a processor may repeatedly read and verify that the contents of the registers are not changed due to transient faults. One example of an algorithm in this class is the spanning-tree construction presented in section 2.5. In the message passing case, a self-stabilizing algorithm is silent if, in every execution, each processor $P_i$ repeatedly sends the same message $m_{ij}$ to each neighbor $P_j$.
 
 The neighborhood-resemblance technique uses a configuration $c_0$ that is claimed to be a safe configuration and constructs a non-safe configuration $c_1$ in which every processor has the same neighborhood and therefore cannot distinguish $c_0$ from $c_1$.
 

@@ -12,9 +12,9 @@ Existing algorithms such as routing algorithms are designed to stabilize startin
 
 现有的算法，如路由算法，被设计为稳定从任意初始状态出发。在一个大型的、分布式的、异构的通信网络中，很难提前预测将要发生的故障的确切组合或它们的结果。自稳定特性通过假设任意初始状态来处理这种复杂的情况。从任意的初始状态，系统应该恢复并表现出期望的行为。例如，像航天飞机这样的自主飞行器的控制系统必须设计成自稳定的，这一点很重要。航天飞机可能出现故障——例如电源问题——必须自动恢复。如果航天飞机因为一时的电力问题而发生故障，可能会出现一段时间的故障，但只要使用自稳定算法进行控制，就不会丢失，因为该算法会使控制自动恢复并继续执行任务。
 
-To gain some idea of what a self-stabilizing algorithm is, let us use a pictorial example that we call “the stabilizing orchestra example.” On a windy evening, an orchestra is invited to play outdoors. Unfortunately, the conductor is unable to participate. Players listen to the players who are sitting nearby in order to play in harmony. The orchestra is required to play the same piece of music over and over again. Each player has a score to follow in the performance, starting from the beginning of the score again whenever he or she finishes playing the last page.
+To gain some idea of what a self-stabilizing algorithm is, let us use a pictorial example that we call "the stabilizing orchestra example". On a windy evening, an orchestra is invited to play outdoors. Unfortunately, the conductor is unable to participate. Players listen to the players who are sitting nearby in order to play in harmony. The orchestra is required to play the same piece of music over and over again. Each player has a score to follow in the performance, starting from the beginning of the score again whenever he or she finishes playing the last page.
 
-为了了解什么是自稳定算法，让我们使用一个形象的例子，我们称之为”稳定管弦乐队示例”。在一个有风的晚上，一个管弦乐队被邀请到户外演奏。不幸的是，指挥不能参加。乐团成员通过听坐在附近的其他成员来保持和谐演奏。乐团被要求一遍又一遍地演奏同一首乐曲。每个成员都有一个乐谱，在演奏完最后一页后，从头开始重新演奏。
+为了了解什么是自稳定算法，让我们使用一个形象的例子，我们称之为“稳定管弦乐队示例”。在一个有风的晚上，一个管弦乐队被邀请到户外演奏。不幸的是，指挥不能参加。乐团成员通过听坐在附近的其他成员来保持和谐演奏。乐团被要求一遍又一遍地演奏同一首乐曲。每个成员都有一个乐谱，在演奏完最后一页后，从头开始重新演奏。
 
 Since the orchestra is playing outdoors, the wind can, from time to time, turn some of the pages in the score; moreover, the players may not even notice the change. We would like to guarantee that harmony is achieved at some point following the last such undesired page turn. It seems that the demand that harmony be achieved at some point following the last undesired page change is too weak; what happens if the wind continues turning the pages forever, but there are long periods in which no change occurs? Would the players be playing out of synchrony all the time? Fortunately, the players do not know whether a page change is the last page change, so our demand forces them to achieve synchrony during the long periods in which the wind does not turn the pages. Later harmony may be repeatedly lost again due to page changes, and then repeatedly achieved in every long enough period of time.
 
@@ -36,7 +36,7 @@ The case still to be considered is that in which a player goes to the first page
 
 还需要考虑的情况是，在和谐实现之前，有演奏者翻到了乐谱的第一页。这种情况在后续部分会详细讨论；在这个阶段，我们只给出一个论点的概要，读者可以选择跳过。不能从某个演奏最小页码的演奏者开始论证，因为其他演奏者可能会在稍后开始演奏更早的页面。然而，如果乐谱足够长，我们可以论证，在某个演奏者翻到第一页之后，所有演奏者都会在某个时间点演奏书的开头几页。假设鼓手是翻到第一页的演奏者；鼓手的邻居会翻到前几页之一，鼓手邻居的邻居也会如此，依此类推。一旦每个演奏者都在演奏前几页，并且没有演奏者在足够长的时间内翻到第一页，我们就可以用第一种情况的论点来说服自己，和谐已经实现。
 
-We can conclude that in every long enough period in which the wind does not turn a page, the orchestra resumes playing in synchrony. This is the spirit of self-stabilization — coping with transient faults by designing an algorithm that ensures restablishment of a desired property. In the orchestra case, the transient faults are the wind’s page turns and the desired property is the synchronization among the players. After the last transient fault, an arbitrary situation is reached where each player may be playing a different page. From every such arbitrary situation, the orchestra reaches a stage after which it is playing in harmony.
+We can conclude that in every long enough period in which the wind does not turn a page, the orchestra resumes playing in synchrony. This is the spirit of self-stabilization — coping with transient faults by designing an algorithm that ensures restablishment of a desired property. In the orchestra case, the transient faults are the wind's page turns and the desired property is the synchronization among the players. After the last transient fault, an arbitrary situation is reached where each player may be playing a different page. From every such arbitrary situation, the orchestra reaches a stage after which it is playing in harmony.
 
 我们可以得出结论，在每一个足够长的时间段内，如果风没有翻页，乐团就会恢复同步演奏。这就是自稳定的精神——通过设计一种算法来应对瞬时故障，确保重新建立所需的特性。在乐团的例子中，瞬时故障是风翻动页面，而所需的特性是演奏者之间的同步。在最后一次瞬时故障之后，会出现一个任意的情况，每个演奏者可能在演奏不同的页面。从每一个这样的任意情况开始，乐团最终会达到一个阶段，在这个阶段之后，它将和谐地演奏。
 
@@ -44,15 +44,15 @@ Note that, although the algorithm is guaranteed to achieve synchrony after the l
 
 请注意，尽管算法保证在最后一次瞬时故障后实现同步，观众仍可能注意到风引起的干扰（瞬时故障的发生）。
 
-Let us continue with few historical notes. Research on self-stabilizing algorithms started with the pioneering work of Edsger W. Dijkstra in 1973. Dijkstra demonstrated the new self-stabilization concept by presenting self stabilizing mutual exclusion algorithms. Dijkstra’s work was not widely noticed until Leslie Lamport’s invited talk at the ACM Symposium on Principles of Distributed Computing in 1983. In his report on Dijkstra’s work on self stabilization, Leslie Lamport stated:
+Let us continue with few historical notes. Research on self-stabilizing algorithms started with the pioneering work of Edsger W. Dijkstra in 1973. Dijkstra demonstrated the new self-stabilization concept by presenting self stabilizing mutual exclusion algorithms. Dijkstra's work was not widely noticed until Leslie Lamport's invited talk at the ACM Symposium on Principles of Distributed Computing in 1983. In his report on Dijkstra's work on self stabilization, Leslie Lamport stated:
 
 让我们继续一些历史注释。自稳定算法的研究始于 1973 年 Edsger W. Dijkstra 的开创性工作。Dijkstra 通过提出自稳定互斥算法展示了新的自稳定概念。Dijkstra 的工作直到 1983 年 Leslie Lamport 在 ACM 分布式计算原理研讨会上的特邀演讲才引起广泛关注。在他关于 Dijkstra 自稳定工作的报告中，Leslie Lamport 指出：
 
-I regard this as Dijkstra’s most brilliant work — at least, his most brilliant published paper. It’s almost completely unknown. I regard it to be a milestone in work on fault tolerance... I regard self-stabilization to be a very important concept in fault tolerance, and to be a very fertile field for research.
+I regard this as Dijkstra's most brilliant work — at least, his most brilliant published paper. It's almost completely unknown. I regard it to be a milestone in work on fault tolerance... I regard self-stabilization to be a very important concept in fault tolerance, and to be a very fertile field for research.
 
 “我认为这是 Dijkstra 最杰出的工作——至少是他最杰出的已发表论文。它几乎完全不为人知。我认为这是容错工作中的一个里程碑……我认为自稳定是容错中的一个非常重要的概念，也是一个非常富有研究潜力的领域。
 
-As often happens with Lamport’s predictions, self-stabilization research is one of the most active research fields in distributed computing. Innovative theoretical results that can be used in practice have been presented in recent years. Distributed algorithms that were successfully implemented have now been identified as self-stabilizing. Self-stabilization is a concept of interest to both theoreticians and practitioners.
+As often happens with Lamport's predictions, self-stabilization research is one of the most active research fields in distributed computing. Innovative theoretical results that can be used in practice have been presented in recent years. Distributed algorithms that were successfully implemented have now been identified as self-stabilizing. Self-stabilization is a concept of interest to both theoreticians and practitioners.
 
 正如经常发生在 Lamport 预测中的那样，自稳定研究是分布式计算中最活跃的研究领域之一。近年来，已经提出了可以在实践中使用的创新理论成果。成功实施的分布式算法现在已被确定为自稳定的。自稳定是理论家和实践者都感兴趣的一个概念。
 

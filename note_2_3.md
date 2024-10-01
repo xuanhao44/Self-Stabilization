@@ -127,7 +127,7 @@ This pseudocode outlines the BFS algorithm for constructing a directed tree star
 ### Non-self-stabilizing Distributed BFT
 
 ```pseudocode
-variables: distance, initially 0 for root and ∞ for non-root processors;
+variables: distance, initially 0 for root and \infty for non-root processors;
 
 root:
   send distance to all neighbors
@@ -166,9 +166,9 @@ non-root:
 
 我们来看算法中和 First-BFS 有关的部分：
 
-${lr}_{mi}.dis = dist -1$ 很好理解，就是这个节点 $i$ 的邻居 $m$ 是它的最短路径（到根节点）的来源，符合这个条件的节点 $i$ 可能有多个，但是我只要“第一个”，我只将我找到的第一个作为父节点，所以我将 $r_{im}$ 标记为 $<1, dist>$，并且将 $FirstFound$ 标记为 true。
+${lr}_{mi}.dis = dist - 1$ 很好理解，就是这个节点 $i$ 的邻居 $m$ 是它的最短路径（到根节点）的来源，符合这个条件的节点 $i$ 可能有多个，但是我只要“第一个”，我只将我找到的第一个作为父节点，所以我将 $r_{im}$ 标记为 $<1, dist>$，并且将 $FirstFound$ 标记为 true。
 
-那么之后，首先是对于其他的满足 ${lr}_{mi}.dis = dist -1$ 的节点 $i$，我不会将其认作父节点，故而 $parent$ 字段就标为 0；其他的就更不可能，所以也是 0。
+那么之后，首先是对于其他的满足 ${lr}_{mi}.dis = dist - 1$ 的节点 $i$，我不会将其认作父节点，故而 $parent$ 字段就标为 0；其他的就更不可能，所以也是 0。
 
 至于 $distance$ 字段，没什么好需要说的，节点 $i$ 就是单纯在通告它和根节点的距离。
 
@@ -176,43 +176,43 @@ ${lr}_{mi}.dis = dist -1$ 很好理解，就是这个节点 $i$ 的邻居 $m$ �
 
 最后是怎么理解 **Decide on the order using local identifiers**：我们来看原文。
 
-> Let $α = (α_1, α_2, ...α_n)$ be the arbitrary ordering of the edges incident to each node $v_i ∈ V$. The first *BFS* tree of a communication graph $G$ is uniquely defined by the choice of the root $v_1$ and $α$. When a node $v_i$ of distance $x +1$ from $v_1$ has more than a single neighbor of distance $x$ from $v_1$, **$v_i$ is connected to its first neighbor according to $α_i$**, whose distance from $v_1$ is $x$.
+> Let $\alpha = (\alpha_1, \alpha_2, ..., \alpha_n)$ be the arbitrary ordering of the edges incident to each node $v_i \in V$. The first *BFS* tree of a communication graph $G$ is uniquely defined by the choice of the root $v_1$ and $\alpha$. When a node $v_i$ of distance $x +1$ from $v_1$ has more than a single neighbor of distance $x$ from $v_1$, **$v_i$ is connected to its first neighbor according to $\alpha_i$**, whose distance from $v_1$ is $x$.
 >
-> 设 $α = (α_1, α_2, ...α_n)$ 为每个节点 $v_i ∈ V$ 的边的任意排序。通信图 $G$ 的 *第一个 BFS 树* 由根 $v_1$ 和 $α$ 唯一定义。当距离 $v_1$ 为 $x + 1$ 的节点 $v_i$ 有多个距离 $v_1$ 为 $x$ 的邻居时，**$v_i$ 根据 $α_i$ 连接到其第一个邻居**，该邻居距离 $v_1$ 为 $x$。
+> 设 $\alpha = (\alpha_1, \alpha_2, ..., \alpha_n)$ 为每个节点 $v_i \in V$ 的边的任意排序。通信图 $G$ 的 *第一个 BFS 树* 由根 $v_1$ 和 $\alpha$ 唯一定义。当距离 $v_1$ 为 $x+1$ 的节点 $v_i$ 有多个距离 $v_1$ 为 $x$ 的邻居时，**$v_i$ 根据 $\alpha_i$ 连接到其第一个邻居**，该邻居距离 $v_1$ 为 $x$。
 
 $\alpha$ 是一个任意的序列，那么显然在选择最近的邻居的时候，这个序列是谁的呢？自然就是当前正在做选择的这个处理器对其他处理器的标号，也就是本地编号（local identifiers）。
 
 ## 自稳定算法证明
 
-**The task $ST$ of legitimate sequences is defined as the set of all configuration sequences in which every configuration encodes a *BFS* tree of the communication graph. In fact, a particular *BFS* tree called the *first BFS tree* is encoded.** Let $α = (α_1, α_2, ...α_n)$ be the arbitrary ordering of the edges incident to each node $v_i ∈ V$. The first *BFS* tree of a communication graph $G$ is uniquely defined by the choice of the root $v_1$ and $α$. When a node $v_i$ of distance $x +1$ from $v_1$ has more than a single neighbor of distance $x$ from $v_1$, **$v_i$ is connected to its first neighbor according to $α_i$**, whose distance from $v_1$ is $x$. In the lemma below, we use the definition of the first *BFS* tree to characterize the set of safe configurations for the algorithm.
+**The task $ST$ of legitimate sequences is defined as the set of all configuration sequences in which every configuration encodes a *BFS* tree of the communication graph. In fact, a particular *BFS* tree called the *first BFS tree* is encoded.** Let $\alpha = (\alpha_1, \alpha_2, ..., \alpha_n)$ be the arbitrary ordering of the edges incident to each node $v_i \in V$. The first *BFS* tree of a communication graph $G$ is uniquely defined by the choice of the root $v_1$ and $\alpha$. When a node $v_i$ of distance $x +1$ from $v_1$ has more than a single neighbor of distance $x$ from $v_1$, **$v_i$ is connected to its first neighbor according to $\alpha_i$**, whose distance from $v_1$ is $x$. In the lemma below, we use the definition of the first *BFS* tree to characterize the set of safe configurations for the algorithm.
 
 The lemma below shows that, in every execution, a safe configuration is reached. **We use $\triangle$ to denote the maximum number of links adjacent to a processor**, and use the following definitions of *floating distances* and *smallest floating distance* in our proof.
 
 > DEFINITION 2.1: A floating distance in some configuration c is a value in a register $r_{ij}.dis$ that is smaller than the distance of $P_i$ from the root. The smallest floating distance in some configuration $c$ is the smallest value among the floating distances.
 >
-> LEMMA 2.1: For every $k > 0$ and for every configuration that follows $\triangle+ 4k\triangle$ rounds, it holds that:
+> LEMMA 2.1: For every $k > 0$ and for every configuration that follows $\triangle + 4k\triangle$ rounds, it holds that:
 >
 > *Assertion 1:* If there exists a floating distance, then the value of the smallest floating distance is at least $k$.
 >
 > *Assertion 2:* The value in the registers of every processor that is within distance $k$ from the root is equal to its distance from the root.
 
-The next corollary is implied by lemma 2.1. Note that once the value in the registers of every processor is equal to its distance from the root, a processor $P_i$ chooses its parent to be the parent in the first *BFS* tree — $P_i$ chooses the first neighbor according to $α_i$, with distance smaller than its own.
+The next corollary is implied by lemma 2.1. Note that once the value in the registers of every processor is equal to its distance from the root, a processor $P_i$ chooses its parent to be the parent in the first *BFS* tree — $P_i$ chooses the first neighbor according to $\alpha_i$, with distance smaller than its own.
 
 > COROLLARY 2.1: The algorithm presented above is self-stabilizing for $ST$.
 
-**合法序列任务 $ST$ 定义为所有配置序列的集合，其中每个配置都编码了通信图的一个 *BFS* 树。实际上，编码的是一个特定的 *BFS* 树，称为 *第一个 BFS 树*。**设 $α = (α_1, α_2, ...α_n)$ 为每个节点 $v_i ∈ V$ 的边的任意排序。通信图 $G$ 的 *第一个 BFS 树* 由根 $v_1$ 和 $α$ 唯一定义。当距离 $v_1$ 为 $x + 1$ 的节点 $v_i$ 有多个距离 $v_1$ 为 $x$ 的邻居时，**$v_i$ 根据 $α_i$ 连接到其第一个邻居**，该邻居距离 $v_1$ 为 $x$。在下面的引理中，我们使用第一个 *BFS* 树的定义来描述算法的一组安全配置。
+**合法序列任务 $ST$ 定义为所有配置序列的集合，其中每个配置都编码了通信图的一个 *BFS* 树。实际上，编码的是一个特定的 *BFS* 树，称为 *第一个 BFS 树*。**设 $\alpha = (\alpha_1, \alpha_2, ..., \alpha_n)$ 为每个节点 $v_i \in V$ 的边的任意排序。通信图 $G$ 的 *第一个 BFS 树* 由根 $v_1$ 和 $\alpha$ 唯一定义。当距离 $v_1$ 为 $x+1$ 的节点 $v_i$ 有多个距离 $v_1$ 为 $x$ 的邻居时，**$v_i$ 根据 $\alpha_i$ 连接到其第一个邻居**，该邻居距离 $v_1$ 为 $x$。在下面的引理中，我们使用第一个 *BFS* 树的定义来描述算法的一组安全配置。
 
 下面的引理表明，在每次执行中，都会达到一个安全配置。**我们用 $\triangle$ 表示与处理器相邻的最大链接数**，并在证明中使用以下 *浮动距离* 和 *最小浮动距离* 的定义。
 
 > 定义 2.1：在某个配置 $c$ 中，浮动距离是寄存器 $r_{ij}.dis$ 中的一个值，该值小于 $P_i$ 到根的距离。在某个配置 $c$ 中，最小浮动距离是浮动距离中的最小值。
 >
-> 引理 2.1：对于每个 $k > 0$ 和每个经过 $\triangle+ 4k\triangle$ 轮次后的配置，满足以下条件：
+> 引理 2.1：对于每个 $k>0$ 和每个经过 $\triangle + 4k\triangle$ 轮次后的配置，满足以下条件：
 >
 > *断言 1：*如果存在浮动距离，那么最小浮动距离的值至少为 $k$。
 >
 > *断言 2：*每个距离根为 $k$ 以内的处理器的寄存器中的值等于其与根的距离。
 
-下一个推论由引理 2.1 推导得出。注意，一旦每个处理器的寄存器中的值等于其与根的距离，处理器 $P_i$ 会选择其父节点为第一个 *BFS* 树中的父节点——$P_i$ 根据 $α_i$ 选择第一个距离小于其自身距离的邻居。
+下一个推论由引理 2.1 推导得出。注意，一旦每个处理器的寄存器中的值等于其与根的距离，处理器 $P_i$ 会选择其父节点为第一个 *BFS* 树中的父节点——$P_i$ 根据 $\alpha_i$ 选择第一个距离小于其自身距离的邻居。
 
 > 推论 2.1：上述算法对于 $ST$ 是自稳定的。
 
@@ -220,7 +220,7 @@ The next corollary is implied by lemma 2.1. Note that once the value in the regi
 
 关于引理 2.1 的证明，使用了归纳推理法，也就是首先证明 $k=1$ 的时候成立，然后再证明若 $k$ 的情况成立能推导出 $k+1$ 的情况也成立。
 
-关于 $\triangle$：与处理器相邻的最大链接数，其实就是所有 $δ$ 中的最大值 $\max_{δ}$（参数 $δ$ 是处理器的邻居数量）。它就是来保证在 $\triangle$ 轮后，$δ$ 循环一定结束（仅包含一个读/写操作的循环）。
+关于 $\triangle$：与处理器相邻的最大链接数，其实就是所有 $\delta$ 中的最大值 $\max_{\delta}$（参数 $\delta$ 是处理器的邻居数量）。它就是来保证在 $\triangle$ 轮后，$\delta$ 循环一定结束（仅包含一个读/写操作的循环）。
 
 对于 root 来说，$\triangle$ 轮完成一个循环；对于其他处理器来说，$4 \triangle$ 轮完成一个循环。
 
