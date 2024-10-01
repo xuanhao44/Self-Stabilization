@@ -168,7 +168,7 @@ In each turn of the game, the scheduler chooses the next processor to be activat
 
 在游戏的每一轮中，调度器选择下一个要激活的处理器，然后该处理器执行一步。如果在这一步中，激活的处理器使用了随机函数，那么运气可能会 *干预* —— 即运气可以决定随机函数的结果（或期望结果的某个子集）。如果运气干预并将结果固定为可能的 $h$ 个结果中的任意 $g$ 个值，那么这种干预的概率为 $p = g/h$。请注意，即使激活的处理器调用了随机函数，运气也可以选择不干预；在这种情况下，每个可能的结果都有相同的发生概率。假设两个玩家都有无限的计算资源，并且他们的决策基于迄今为止的游戏历史。当激活的处理器的步骤结束时，新的一轮开始。
 
-If luck intervenes several times, say f times, in order to force the system to reach a safe configuration, and if the probability of the $i$ th intervention is $p_i$, then the combined probability of these interventions is $cp = \prod^f_{i=1} p_i$. Luck has a $(cp,r)-strategy$ to win the game if it has a strategy to reach a safe configuration in the game in an expected number of at most r rounds, and with interventions that yield a combined probability of no more than cp. We claim that the existence of a $(cp,r)-strategy$ implies that the algorithm reaches a safe configuration within $r/cp$ expected number of rounds.
+If luck intervenes several times, say $f$ times, in order to force the system to reach a safe configuration, and if the probability of the $i$ th intervention is $p_i$, then the combined probability of these interventions is $cp = \prod^f_{i=1} p_i$. Luck has a $(cp,r)-strategy$ to win the game if it has a strategy to reach a safe configuration in the game in an expected number of at most r rounds, and with interventions that yield a combined probability of no more than cp. We claim that the existence of a $(cp,r)-strategy$ implies that the algorithm reaches a safe configuration within $r/cp$ expected number of rounds.
 
 如果运气干预了几次，比如说 $f$ 次，以迫使系统达到安全配置，并且第 $i$ 次干预的概率是 $p_i$，那么这些干预的综合概率是 $cp = \prod^f_{i=1} p_i$。如果运气有一个 $(cp,r)$-策略来赢得游戏，即它有一个策略在预期不超过 $r$ 轮的游戏中达到安全配置，并且干预的综合概率不超过 $cp$，那么我们声称 $(cp,r)$-策略的存在意味着算法在 $r/cp$ 的预期轮数内达到安全配置。
 
@@ -188,9 +188,13 @@ Since the expectation of a sum is the sum of the expectations, the expected numb
 
 ## Example: Self-Stabilizing Leader Election in Complete Graphs
 
-An algorithm that solves the leader election task requires that, when its execution terminates, a single processor be designated as a $leader$, and every processor know whether it is a leader or not. By definition, whenever a leader election algorithm terminates successfully, the system is in a nonsymmetric configuration. Any leader-election algorithm that has a symmetric initial state requires some means of symmetry-breaking. In *id-based* systems, each processor has a unique identifier called its *id*; thus, the system has no symmetric configuration. In *uniform* (or *anonymous*) systems all processors are identical. Randomization is often used to break symmetry in such systems.
+An algorithm that solves the leader election task requires that, when its execution terminates, a single processor be designated as a $leader$, and every processor know whether it is a leader or not. By definition, whenever a leader election algorithm terminates successfully, the system is in a nonsymmetric configuration. Any leader-election algorithm that has a symmetric initial state requires some means of symmetry-breaking.
 
-解决领导者选举任务的算法要求在其执行终止时，单个处理器被指定为 $leader$，并且每个处理器都知道自己是否是领导者。根据定义，每当领导者选举算法成功终止时，系统处于非对称配置中。任何具有对称初始状态的领导者选举算法都需要某种对称性破坏手段。在 *基于标识符* 的系统中，每个处理器都有一个称为 *id* 的唯一标识符；因此，系统没有对称配置。在 *统一*（或 *匿名*）系统中，所有处理器都是相同的。随机化通常用于在此类系统中打破对称性。
+**In *id-based* systems, each processor has a unique identifier called its *id*; thus, the system has no symmetric configuration. In *uniform* (or *anonymous*) systems all processors are identical. Randomization is often used to break symmetry in such systems.**
+
+解决领导者选举任务的算法要求在其执行终止时，单个处理器被指定为 $leader$，并且每个处理器都知道自己是否是领导者。根据定义，每当领导者选举算法成功终止时，系统处于非对称配置中。任何具有对称初始状态的领导者选举算法都需要某种对称性破坏手段。
+
+**在 *基于标识符* 的系统中，每个处理器都有一个称为 *id* 的唯一标识符；因此，系统没有对称配置。在 *统一*（或 *匿名*）系统中，所有处理器都是相同的。随机化通常用于在此类系统中打破对称性。**
 
 A simple randomized leader election algorithm that stabilizes within an exponential expected number of rounds is presented here. The algorithm works in complete graph systems in which every processor can communicate with every other processor via shared memory. It can be argued that the complete graph topology is too simple. In the id-based model, there exists a trivial self-stabilizing leader-election algorithm for this topology in which each processor repeatedly appoints the processor with maximal *id* as a leader. As often happens, it turns out that the intricacy of the problem depends on the exact system settings. Uniform self-stabilizing algorithms are more subtle than non-stabilizing algorithms, even in such simple topologies.
 
@@ -200,19 +204,19 @@ It is worth mentioning that a simple deterministic (i.e., non-randomized) self-s
 
 值得一提的是，在假设存在强大的中央守护进程调度器的情况下，完全图统一系统中存在一个简单的确定性（即非随机）自稳定算法用于领导者选举。假设一群人围成一个圈，每个人可以坐着或站着。目标是达到一种只有一个人站着而其他人都坐着的情况。调度器一次选择一个人，让这个人观察其他所有人并决定站起来或坐下。如果没有其他人站着，这个人决定站起来；否则，这个人坐下。显然，在中央守护进程的第一次选择之后，至少有一个人站着。如果在第一次选择后有多于一个人站着——假设有 $x$ 个人站着——那么，一旦中央守护进程调度了其中的 $x − 1$ 人，就会达到一种只有一个人站着的情况。从此时起，除了这个人以外的所有人都坐着。
 
-On the other hand, if no central daemon exists, then it is possible to let all the participants find out that no one is standing, decide to stand up (according to their common deterministic algorithm), and then stand up. Once every person is standing, it is possible to let each of the participants find out that they should sit and let them sit. This behavior can be repeated forever. Thus, there is no self-stabilizing uniform leader election algorithm without a central daemon.
+On the other hand, if no central daemon exists, then it is possible to let all the participants find out that no one is standing, decide to stand up (according to their common deterministic algorithm), and then stand up. Once every person is standing, it is possible to let each of the participants find out that they should sit and let them sit. This behavior can be repeated forever. **Thus, there is no self-stabilizing uniform leader election algorithm without a central daemon.**
 
-另一方面，如果不存在中央守护进程，那么可以让所有参与者发现没有人站着，决定站起来（根据他们的共同确定性算法），然后站起来。一旦每个人都站起来，就可以让每个参与者发现他们应该坐下并让他们坐下。这种行为可以永远重复。因此，没有中央守护进程就没有自稳定的统一领导者选举算法。
+另一方面，如果不存在中央守护进程，那么可以让所有参与者发现没有人站着，决定站起来（根据他们的共同确定性算法），然后站起来。一旦每个人都站起来，就可以让每个参与者发现他们应该坐下并让他们坐下。这种行为可以永远重复。**因此，没有中央守护进程就没有自稳定的统一领导者选举算法。**
 
 ![figure_2.10](images/figure_2.10.png)
 
-Our simple randomized self-stabilizing leader-election algorithm does not assume the existence of a central daemon. The settings presented in section 2.1 of this chapter are assumed: each step consists of a single read or a single write operation. Each processor communicates with all other processors using a single-writer multi-reader binary register called the leader register, where ${leader}_i$ denotes the $leader$ register of processor $P_i$.
+**Our simple randomized self-stabilizing leader-election algorithm does not assume the existence of a central daemon. The settings presented in section 2.1 of this chapter are assumed: each step consists of a single read or a single write operation.** Each processor communicates with all other processors using a single-writer multi-reader binary register called the leader register, where ${leader}_i$ denotes the $leader$ register of processor $P_i$.
 
 The random function used simulates a coin toss and returns *heads* or *tails* with equal probability. One can assume that heads is mapped to 1 and tails to 0. The algorithm in figure 2.10 is correct in the presence of *coarse atomicity* that assumes a coin toss is an internal operation that is not separable from the next read or write operation.
 
 Starting the system with any possible combination of binary values of the $leader$ registers, the algorithm eventually fixes all the $leader$ registers except one to hold 0. The single processor whose $leader$ value is 1 is the elected leader. The algorithm is straightforward: each processor $P_i$ repeatedly reads all $leader$ registers; if no single leader exists, $P_i$ decides whether it is a candidate for a leader and, if it is, tosses a coin and assigns its value to its register.
 
-我们的简单随机自稳定领导者选举算法不假设中央守护进程的存在。假设本章第 2.1 节中提出的设置：每一步由单个读取或单个写入操作组成。每个处理器使用一个称为 $leader$ 寄存器的单写多读二进制寄存器与所有其他处理器通信，其中 ${leader}_i$ 表示处理器 $P_i$ 的 $leader$ 寄存器。
+**我们的简单随机自稳定领导者选举算法不假设中央守护进程的存在。假设本章第 2.1 节中提出的设置：每一步由单个读取或单个写入操作组成。**每个处理器使用一个称为 $leader$ 寄存器的单写多读二进制寄存器与所有其他处理器通信，其中 ${leader}_i$ 表示处理器 $P_i$ 的 $leader$ 寄存器。
 
 所使用的随机函数模拟掷硬币，并以相等的概率返回 *正面* 或 *反面*。可以假设正面映射为 1，反面映射为 0。图 2.10 中的算法在存在 *粗粒度原子性* 的情况下是正确的，假设掷硬币是一个内部操作，不可与下一个读取或写入操作分离。
 
