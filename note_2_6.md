@@ -63,3 +63,13 @@ Leader election algorithms are a crucial building block for achieving fault tole
 > It is possible that the minimal identifier $z$—which is a candidate in the first (arbitrary) configuration of the system—is not an identifier of a processor in the system. Nevertheless, eventually every processor declares that $z$ is the identifier of the leader.
 
 ## 领导者选举算法
+
+- We will use two convergence stairs:
+  - $\mathcal{A}_1$ - no floating identifier exists (LEMMA 2.5: Every fair execution that starts from any arbitrary configuration has a suffix in which no floating identifier exists.)
+    - After the first stair, $\mathcal{A}_1$, only the correct identifiers exist, so the minimum idetifier can be chosen correctly
+    - Notice: if $\mathcal{A}_1$ was not true, we could not prove the correctness
+    - To show that $\mathcal{A}_1$ holds, we argue that, if a floating identifier exists, then within $O(\triangle)$ rounds, the minimum distance of a floating identifier increases.
+  - $\mathcal{A}_2$ (for a safe configuration) every processor chooses the minimum identifier of a processor in the system as the identifier of the leader
+- From that point on, every fair execution that starts from an arbitrary configuration reaches a safe configuration (THEOREM 2.3)
+  - due to the spanning tree algorithm learnt in class （最后居然绕到生成树了吗？）
+

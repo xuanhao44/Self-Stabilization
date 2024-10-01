@@ -136,11 +136,15 @@ To show that the first attractor holds, we argue that, if a floating identifier 
 
 *Proof:*
 
-To prove the lemma, we first show that, as long as a floating identifier exists, the minimal distance of a floating identifier increases during any $O(\triangle)$ rounds. Let $P_i$ be a processor that holds in its local variables or in its communication registers a floating identifier with the minimal distance. Once $P_i$ starts executing the do forever loop, it must choose (either its own identifier for ${leader}_i$ or) a distance that is at least one greater than the distance read from a neighbor (line 8 of the code). Thus, if $P_i$ chooses to assign a floating identifier to ${leader}_i$, it must choose a distance that is greater by one than the distance it read. Once the minimal distance of a floating identifier reaches $N$, all processors do not choose a floating identifier. Therefore, all the floating identifiers are eventually eliminated. (End)
+- To prove the lemma, we first show that, as long as a floating identifier exists, the minimal distance of a floating identifier increases during any $O(\triangle)$ rounds.
+  - Let $P_i$ be a processor that holds in its local variables or in its communication registers a floating identifier with the minimal distance. Once $P_i$ starts executing the do forever loop, it must choose (either its own identifier for ${leader}_i$ or) a distance that is at least one greater than the distance read from a neighbor (line 8 of the code). Thus, if $P_i$ chooses to assign a floating identifier to ${leader}_i$, it must choose a distance that is greater by one than the distance it read.
+- Once the minimal distance of a floating identifier reaches $N$, all processors do not choose a floating identifier. Therefore, all the floating identifiers are eventually eliminated. (End)
 
 *证明：*
 
-为了证明这个引理，我们首先展示，只要存在浮动标识符，在任何 $O(\triangle)$ 轮次中，浮动标识符的最小距离都会增加。设 $P_i$ 是一个在其局部变量或通信寄存器中持有最小距离浮动标识符的处理器。一旦 $P_i$ 开始执行 do forever 循环，它必须选择（要么是其自己的标识符作为 ${leader}_i$，要么是）一个至少比从邻居读取的距离大一的距离（代码第 8 行）。因此，如果 $P_i$ 选择将浮动标识符分配给 ${leader}_i$，它必须选择一个比读取的距离大一的距离。一旦浮动标识符的最小距离达到 $N$，所有处理器都不会选择浮动标识符。因此，所有浮动标识符最终都会被消除。
+- 为了证明这个引理，我们首先展示，只要存在浮动标识符，在任何 $O(\triangle)$ 轮次中，浮动标识符的最小距离都会增加。
+  - 设 $P_i$ 是一个在其局部变量或通信寄存器中持有最小距离浮动标识符的处理器。一旦 $P_i$ 开始执行 do forever 循环，它必须选择（要么是其自己的标识符作为 ${leader}_i$，要么是）一个至少比从邻居读取的距离大一的距离（代码第 8 行）。因此，如果 $P_i$ 选择将浮动标识符分配给 ${leader}_i$，它必须选择一个比读取的距离大一的距离。
+- 一旦浮动标识符的最小距离达到 $N$，所有处理器都不会选择浮动标识符。因此，所有浮动标识符最终都会被消除。
 
 ---
 
