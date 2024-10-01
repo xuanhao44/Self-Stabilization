@@ -2,6 +2,17 @@
 
 包含 2.9 章部分内容和 PPT 内容。
 
+<!-- TOC -->
+
+- [note\_2\_5\_极大匹配](#note_2_5_极大匹配)
+  - [Applications to Computer Networks](#applications-to-computer-networks)
+  - [Variant Function](#variant-function)
+  - [Example: Self-Stabilizing Maximal Matching](#example-self-stabilizing-maximal-matching)
+    - [Maximal Matching 极大匹配辨析](#maximal-matching-极大匹配辨析)
+    - [几种状态的思考和记忆](#几种状态的思考和记忆)
+
+<!-- /TOC -->
+
 ## Applications to Computer Networks
 
 - Matching in wireless networks

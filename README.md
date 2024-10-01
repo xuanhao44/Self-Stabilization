@@ -6,7 +6,7 @@ Shlomi Dolev
   - [1 Introduction](book_1.md)
   - [2 Definitions, Techniques, and Paradigms](book_2.md)
 - 笔记
-  - [2_1 概念](note_2_1.md)：2.1 - 2.3 章
+  - [2_1 概念](note_2_1.md)
     - [2.1 Definitions of the Computational Model](book_2_1.md)
     - [2.2 Self-Stabilization Requirements](book_2_2.md)
     - [2.3 Complexity Measures](book_2_3.md)

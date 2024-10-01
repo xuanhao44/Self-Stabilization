@@ -2,6 +2,21 @@
 
 包含 2.9 章部分内容和 PPT 内容。
 
+<!-- TOC -->
+
+- [note\_2\_7\_完全图中的领导者选举](#note_2_7_完全图中的领导者选举)
+  - [Randomized Self-Stabilization](#randomized-self-stabilization)
+  - [Scheduler-Luck Game](#scheduler-luck-game)
+  - [Self-Stabilizing Leader Election in Complete Graphs](#self-stabilizing-leader-election-in-complete-graphs)
+    - [uniform, anonymous systems, symmetry, Randomization](#uniform-anonymous-systems-symmetry-randomization)
+    - [行文逻辑](#行文逻辑)
+    - [算法](#算法)
+    - [运气](#运气)
+    - [证明 \<- 观察](#证明---观察)
+    - [Coarse vs. Fine Atomicity](#coarse-vs-fine-atomicity)
+
+<!-- /TOC -->
+
 ## Randomized Self-Stabilization
 
 Assumptions and Definitions
@@ -17,18 +32,6 @@ Assumptions and Definitions
 An algorithm is randomized self-stabilizing for task $LE$ if, starting with any system configuration and considering any fair scheduler, the algorithm reaches a safe configuration within a finite number of rounds.
 
 **Randomized algorithms are often used to break symmetry in a system of totally identical processors.**
-
-## Coarse（粗粒度原子性）vs. Fine Atomicity
-
-Under coarse atomicity---less power to the adversary
-
-- a coin toss is an internal operation that is not separable from the next read or write operation.
-- the adversary is unaware to the algorithm random choices before its first read or write operation
-
-Under fine atomicity---more power to the adversary
-
-- a coin toss is a separate operation from the next read or write operation.
-- **the adversary is aware to the algorithm random choices before its first read or write operation**
 
 ## Scheduler-Luck Game
 

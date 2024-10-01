@@ -1,5 +1,19 @@
 # 2.9 Proof Techniques
 
+<!-- TOC -->
+
+- [2.9 Proof Techniques](#29-proof-techniques)
+  - [Variant Function](#variant-function)
+  - [Example: Self-Stabilizing Maximal Matching](#example-self-stabilizing-maximal-matching)
+  - [Convergence Stairs](#convergence-stairs)
+  - [Example: Leader Election in a General Communication Network](#example-leader-election-in-a-general-communication-network)
+  - [Scheduler-Luck Game](#scheduler-luck-game)
+  - [Example: Self-Stabilizing Leader Election in Complete Graphs](#example-self-stabilizing-leader-election-in-complete-graphs)
+  - [Neighborhood Resemblance](#neighborhood-resemblance)
+  - [Example: Spanning-Tree Construction](#example-spanning-tree-construction)
+
+<!-- /TOC -->
+
 This section describes and demonstrates several basic proof techniques, techniques that we use in subsequent chapters to prove correctness of the self-stabilizing algorithms. Proof techniques demonstrate the difficulties of designing self-stabilizing algorithms and how to cope with them.
 
 本节描述并演示了几种基本的证明技术，这些技术将在后续章节中用于证明自稳定算法的正确性。证明技术展示了设计自稳定算法的难点以及如何应对这些难点。
