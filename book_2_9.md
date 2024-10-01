@@ -206,7 +206,7 @@ It is worth mentioning that a simple deterministic (i.e., non-randomized) self-s
 
 On the other hand, if no central daemon exists, then it is possible to let all the participants find out that no one is standing, decide to stand up (according to their common deterministic algorithm), and then stand up. Once every person is standing, it is possible to let each of the participants find out that they should sit and let them sit. This behavior can be repeated forever. **Thus, there is no self-stabilizing uniform leader election algorithm without a central daemon.**
 
-另一方面，如果不存在中央守护进程，那么可以让所有参与者发现没有人站着，决定站起来（根据他们的共同确定性算法），然后站起来。一旦每个人都站起来，就可以让每个参与者发现他们应该坐下并让他们坐下。这种行为可以永远重复。**因此，没有中央守护进程就没有自稳定的统一领导者选举算法。**
+另一方面，如果不存在中央守护进程，那么可以让所有参与者发现没有人站着，决定站起来（根据他们共同的确定性算法），然后站起来。一旦每个人都站起来，就可以让每个参与者发现他们应该坐下并让他们坐下。这种行为可以永远重复。**因此，没有中央守护进程就没有自稳定的统一领导者选举算法。**
 
 ![figure_2.10](images/figure_2.10.png)
 
