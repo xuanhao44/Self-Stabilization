@@ -56,7 +56,7 @@ Leader election algorithms are a crucial building block for achieving fault tole
 > - $P_i$ repeatedly communicates the identifier $x$ of its current candidate to its neighbors.
 > - Whenever $P_i$ receives an identifier $y$ of a candidate of a neighbor, if $x > y$, $P_i$ changes its candidate to be the processor with identifier $y$.
 >
->**The term *floating identifier* is used to describe an identifier that appears in the initial configuration**.
+> **The term *floating identifier* is used to describe an identifier that appears in the initial configuration**.
 
 为什么算法不是自稳定的？
 
