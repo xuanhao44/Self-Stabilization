@@ -240,9 +240,9 @@ It is important to note that these latency numbers are very rough estimates and 
 - Can a crashed processor ever take steps in a **non-self-stabilizing** network?
   - Yes, it may take a finite number of steps before it crashes, but not after it crashes.
 - Can a crashed processor ever take steps in a **self-stabilizing** network?
-  - Yes, it may take a finite number of steps before it crashes. We model as a transient fault the case in which a crashed processor resume and takes steps after it was crashed.
+  - Yes, it may take a finite number of steps before it crashes. We model as a transient fault the case in which a crashed processor **resume** and takes steps after it was crashed.
 
-这两道题都对 crashed processor 的行为做出了评判，但是分别是非自稳定和自稳定网络。它们都会在崩溃前做出有限的操作，但是自稳定中网络中，崩溃的（或者说将要崩溃的）处理器还会在崩溃后做出一些操作。
+这两道题都对 crashed processor 的行为做出了评判，但是分别是非自稳定和自稳定网络。它们都会在崩溃前做出有限的操作，但是自稳定中网络中，崩溃的处理器崩溃后重新开始运作，我们把这个建模为瞬态故障。
 
 这和前面说的：“最终**永远停止**执行步骤的处理器被称为**崩溃**”矛盾吗？不矛盾。只是说处理器最终会永远停止。（注：我能理解这个说法，但是我认为语言表述确实是有问题的）
 
