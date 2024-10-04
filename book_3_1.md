@@ -62,6 +62,6 @@ We note that the pumping technique can also be used when the first frame sent af
 
 我们注意到，当参考执行中的崩溃后发送的第一个帧是接收方发送的帧，或者在另一方发送响应之前发送方（或接收方）发送了多个帧时，也可以使用抽水技术。细节留给读者作为练习。
 
-By similar arguments, it is also possible to show that there is no guarantee that the kth message that is fetched following the last crash will be received. So if no specific guarantee can be given, we may want to require that eventually every message fetched by the sender reaches the receiver — in other words, to require that our data-link algorithm will be self-stabilizing.
+By similar arguments, it is also possible to show that there is no guarantee that the $k$ th message that is fetched following the last crash will be received. So if no specific guarantee can be given, we may want to require that eventually every message fetched by the sender reaches the receiver — in other words, to require that our data-link algorithm will be self-stabilizing.
 
-通过类似的论证，还可以证明无法保证最后一次崩溃后获取的第 k 条消息会被接收。因此，如果不能给出具体的保证，我们可能希望要求最终发送方获取的每条消息都能到达接收方——换句话说，要求我们的数据链路算法是自稳定的。
+通过类似的论证，还可以证明无法保证最后一次崩溃后获取的第 $k$ 条消息会被接收。因此，如果不能给出具体的保证，我们可能希望要求最终发送方获取的每条消息都能到达接收方——换句话说，要求我们的数据链路算法是自稳定的。

@@ -284,11 +284,11 @@ The definition of an asynchronous round nullifies the speed differences of the p
 
 例子：
 
-E.g., let $P={p_i, p_j}$ and $E=(c_0, a^i_0, c_1, a^i_1, c_2 , a^i_2, c_3, a^j_3, c_4, a^i_4, c_5,…)$
+E.g., let $P={p_i, p_j}$ and $E = (c_0, a^i_0, c_1, a^i_1, c_2, a^i_2, c_3, a^j_3, c_4, a^i_4, c_5, …)$
 
 - where $a^k_x$ is the $x$ th step in execution $E$ taking by $p_k$.
-  - The first asynchronous round is $E'=(c_0, a^i_0, c_1, a^i_1, c_2 , a^i_2, c_3, a^j_3)$
-  - The second asynchronous round in $E$ is the first asynchronous round in $E''=(c_4, a^i_4, c_5,…)$.
+  - The first asynchronous round is $E' = (c_0, a^i_0, c_1, a^i_1, c_2, a^i_2, c_3, a^j_3)$
+  - The second asynchronous round in $E$ is the first asynchronous round in $E''=(c_4, a^i_4, c_5, …)$.
 
 很明显的至少一步，但是没说不能多步，所以 $E$ 中尽管 $p_i$ 执行了三步（$a^i_0, a^i_1, a^i_2$），但是最终在 $a^j_3$ 后才结束。并且 $E'$ 没包含 $c_4$，是因为定义中没提到这个配置也在一轮中。
 

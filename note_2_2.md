@@ -6,11 +6,11 @@
 
 The system consists of $n$ processors $P_1, P_2, ···, P_n$ that are connected in a ring. Each processor has a *left* and a *right* neighbor. The left neighbor of every processor $P_i$, $1 < i \leq n$, is  $P_{i−1}$ and the left neighbor of $P_1$ is $P_n$. Similarly, the right neighbor of every processor $P_i$, $1 \leq i < n$, is  $P_{i +1}$ and the right neighbor of $P_n$ is $P_1$.
 
-系统由 $n$ 个处理器 $P_1, P_2,··· , P_n$ 组成，这些处理器连接成一个环。每个处理器都有一个左邻居和一个右邻居。每个处理器 $P_i$ 的左邻居（$1 < i \leq n$）是 $P_{i−1}$，而 $P_1$ 的左邻居是 $P_n$。同样，每个处理器 $P_i$ 的右邻居（$1 \leq i < n$）是 $P_{i+1}$，而 $P_n$ 的右邻居是 $P_1$。
+系统由 $n$ 个处理器 $P_1, P_2, ···, P_n$ 组成，这些处理器连接成一个环。每个处理器都有一个左邻居和一个右邻居。每个处理器 $P_i$ 的左邻居（$1 < i \leq n$）是 $P_{i−1}$，而 $P_1$ 的左邻居是 $P_n$。同样，每个处理器 $P_i$ 的右邻居（$1 \leq i < n$）是 $P_{i+1}$，而 $P_n$ 的右邻居是 $P_1$。
 
-Each processor $P_i$ has a variable $x_i$ that stores an integer value that is no smaller than 0 and no larger than $n$. The transition functions of the processors $P_2,··· , P_n$ are identical, while the transition function of $P_1$ is distinct. We call $P_1$ the special processor. The transition functions (or programs) of $P_1$ and the other processors $P_i$ ($2 \leq i \leq n$) appear in figure 2.2.
+Each processor $P_i$ has a variable $x_i$ that stores an integer value that is no smaller than 0 and no larger than $n$. The transition functions of the processors $P_2, ···, P_n$ are identical, while the transition function of $P_1$ is distinct. We call $P_1$ the special processor. The transition functions (or programs) of $P_1$ and the other processors $P_i$ ($2 \leq i \leq n$) appear in figure 2.2.
 
-每个处理器 $P_i$ 有一个变量 $x_i$，该变量存储一个不小于 0 且不大于 $n$ 的整数。处理器 $P_2,··· , P_n$ 的转换函数是相同的，而 $P_1$ 的转换函数是不同的。我们称 $P_1$ 为特殊处理器。$P_1$ 和其他处理器 $P_i$（$2 \leq i \leq n$）的转换函数（或程序）如图 2.2 所示。
+每个处理器 $P_i$ 有一个变量 $x_i$，该变量存储一个不小于 0 且不大于 $n$ 的整数。处理器 $P_2, ···, P_n$ 的转换函数是相同的，而 $P_1$ 的转换函数是不同的。我们称 $P_1$ 为特殊处理器。$P_1$ 和其他处理器 $P_i$（$2 \leq i \leq n$）的转换函数（或程序）如图 2.2 所示。
 
 ![figure_2.2](images/figure_2.2.png)
 
@@ -108,7 +108,7 @@ Therefore, in $c_{n−1}$, only $P_n$ is able to change the value of its variabl
 
 Note that in every execution that starts in $c$ and ends in $c_n$ exactly one processor is able to change the value of its variable and each processor changes the value of its variable exactly once. So we say, this execution belongs to $ME$, and this set of configurations is safe.
 
-That is, $c_1, c_2, c_3,... , c_{n-1}$ are all safe configurations ($c_n$ is not mentioned, but it is obvious), and the number is $n-1$.
+That is, $c_1, c_2, c_3, ..., c_{n-1}$ are all safe configurations ($c_n$ is not mentioned, but it is obvious), and the number is $n-1$.
 
 In general, there are $n+1$ different safe configurations, in which all the $x$ variables have the same value, and each configuration can generate $n-1$ different safe configuration, so the final number of safe configurations is $n+1 + (n+1)(n-1) = n(n+1)$.
 
