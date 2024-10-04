@@ -21,3 +21,4 @@ This chapter is devoted to formalizing the distributed system, the basic assumpt
     - [Example: Self-Stabilizing Leader Election in Complete Graphs](book_2_9.md#example-self-stabilizing-leader-election-in-complete-graphs)
     - [Neighborhood Resemblance](book_2_9.md#neighborhood-resemblance)
     - [Example: Spanning-Tree Construction](book_2_9.md#example-spanning-tree-construction)
+  - [2.10 Pseudo-Self-Stabilization](book_2_10.md)
