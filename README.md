@@ -5,6 +5,8 @@ Shlomi Dolev
 - 正文
   - [1 Introduction](book_1.md)
   - [2 Definitions, Techniques, and Paradigms](book_2.md)
+  - [3 Motivating Self-Stabilization](book_3.md)
+  - [4 Self-Stabilizing Algorithms for Model Conversions](book_4.md)
 - 笔记
   - [2_1 概念](note_2_1.md)
     - [2.1 Definitions of the Computational Model](book_2_1.md)
