@@ -54,11 +54,11 @@ Can the assumption on the timeout mechanism be used by the algorithm designer? F
 
 The lower bound presented in this section is proved for an arbitrary *weak-exclusion* task $WE$. A task is in the weak-exclusion set of tasks if, in every legal execution $E$, there exists a combination of steps, a step for each processor (the sender and the receiver), such that both steps appear in $E$ but are never applicable simultaneously. In other words, these steps are never executed concurrently. The $TP$ task does not allow two simultaneous steps in which the sender and the receiver receive the token. To simplify the proof of the lower bound, we assume in what follows that every computation step starts with a message receive followed by local computation and ending with a message send. Note that such a scheduling policy results in a possible execution.
 
-For any configuration $c$ and any directed link $(x, y)$ from $P_x$ to $P_y$ (where $P_x$ is the sender and $P_y$ is the receiver or vice versa), let $q_{x,y}(c)$ be the sequence of messages pending on the link from $P_x$ to $P_y$ in $c$. For any execution $E$, let ${qs}_{x,y}(E)$ be the sequence of messages sent by $P_x$ on the link leading to $P_y$ during $E$. Similarly, let ${qr}_{x,y}(E)$ be the sequence of messages received by $P_y$ from the link $(x, y)$ during $E$. We use the notation $p ◦ q$ for the concatenation of $p$ and $q$.
+For any configuration $c$ and any directed link $(x, y)$ from $P_x$ to $P_y$ (where $P_x$ is the sender and $P_y$ is the receiver or vice versa), let $q_{x,y}(c)$ be the sequence of messages pending on the link from $P_x$ to $P_y$ in $c$. For any execution $E$, let ${qs}_{x,y}(E)$ be the sequence of messages sent by $P_x$ on the link leading to $P_y$ during $E$. Similarly, let ${qr}_{x,y}(E)$ be the sequence of messages received by $P_y$ from the link $(x, y)$ during $E$. We use the notation $p \circ q$ for the concatenation of $p$ and $q$.
 
 ---
 
-> LEMMA 4.2: For every execution $E = (c_1, a_1,··· , a_k, c_{k+1})$ in which no message is lost, it holds that $q_{x,y}(c_1) ◦ {qs}_{x,y}(E) = {qr}_{x,y}(E) ◦ q_{x,y}(c_{k+1})$.
+> LEMMA 4.2: For every execution $E = (c_1, a_1,··· , a_k, c_{k+1})$ in which no message is lost, it holds that $q_{x,y}(c_1) \circ {qs}_{x,y}(E) = {qr}_{x,y}(E) \circ q_{x,y}(c_{k+1})$.
 
 *Proof:*
 
@@ -66,21 +66,20 @@ The left-hand side of the equation contains the messages on the link $(x, y)$ in
 
 ---
 
-An execution $E = (c_1, a_1, \ldots, c_{l-1}, a_{l-1})$ whose result configuration $c_l$ is equal to its initial configuration $c_1$ is called a *circular execution*. Repeating a circular execution $E$ forever yields an infinite execution $E^\infty$. Observe that an execution in which a certain configuration appears more than once has a circular sub-execution $\overline E = (c_i, a_i, ···, a_{i+l−1}, c_{i+l})$ $≡$ $(\overline c_1, \overline a_1, ···, \overline a_{l−1}, \overline c_l)$,
-where $c_i = c_{i+l} = \overline c_1 = \overline c_l$.
+An execution $E = (c_1, a_1, \ldots, c_{l-1}, a_{l-1})$ whose result configuration $c_l$ is equal to its initial configuration $c_1$ is called a *circular execution*. Repeating a circular execution $E$ forever yields an infinite execution $E^\infty$. Observe that an execution in which a certain configuration appears more than once has a circular sub-execution $\overline E = (c_i, a_i, ···, a_{i+l−1}, c_{i+l})$ $≡$ $(\overline c_1, \overline a_1, ···, \overline a_{l−1}, \overline c_l)$, where $c_i = c_{i+l} = \overline c_1 = \overline c_l$.
 
 Let $\mathcal{AL}$ be an arbitrary self-stabilizing algorithm for a $WE$ task. To show that, in every execution of $\mathcal{AL}$,  all the configurations are distinct, we assume that $\mathcal{AL}$ has a circular sub-execution $\overline E$ and reach a contradiction by showing that $\mathcal{AL}$ is not self-stabilizing. Using $\overline E$, we now construct an initial configuration $c_{init}$ by changing the list of messages in transit on the system's links. For each link $(x, y)$, the list of messages in transit on $(x, y)$ at $c_{init}$ is obtained by concatenating the list of messages in transit on $(x, y)$ at $\overline c_1$ with the list of all messages sent on $(x, y)$ during $\overline E$.
 
 Roughly speaking, the effect of this change is to create an additional "padding layer" of messages that helps to decouple each *send* from its counterpart *receive* and achieve additional flexibility in the system, and this which enables us to prove the lower bound. Formally, $c_{init}$ is obtained from $\overline c_1$ as follows:
 
 - The state of each processor in $c_{init}$ is equal to its state in $\overline c_1$.
-- For any link $(x, y)$, $q_{x,y}(c_{init}) = q_{x,y}(c_1) ◦ {qs}_x,y(\overline E)$.
+- For any link $(x, y)$, $q_{x,y}(c_{init}) = q_{x,y}(c_1) \circ {qs}_x,y(\overline E)$.
 
 Let $\mathcal{S}_x (\overline E)$ be the sequence of steps executed by $P_x$ during $\overline E$. Define $merge(\overline S)$ to be the set of sequences obtained by all possible merging of the sequences $\mathcal{S}_s(\overline E)$ and $\mathcal{S}_r (\overline E)$, while keeping the internal order in $\mathcal{S}_s (\overline E)$ and $\mathcal{S}_r (\overline E)$. Note that all the sequences in $merge(\overline S)$ have the same finite length and contain the same steps in different orders.
 
 ---
 
-> LEMMA 4.3: Every $S ∈ merge(\overline S)$ is applicable to $c_{init}$, and the resulting execution is a circular execution of $\mathcal{AL}$.
+> LEMMA 4.3: Every $S \in merge(\overline S)$ is applicable to $c_{init}$, and the resulting execution is a circular execution of $\mathcal{AL}$.
 
 *Proof:*
 
@@ -88,31 +87,31 @@ Let $S$ be an arbitrary sequence in $merge(\overline S)$ and let $P_x$ be an arb
 
 To prove that the execution obtained is circular, it remains to show that the content of every link in the result configuration $c_{res}$ is equal to its content in $c_{init}$: in other words, that $q_{x,y}(c_{init}) = q_{x,y}(c_{res})$. For every link $(x, y)$, it holds that:
 
-1. $q_{x,y}(c_{init}) ◦ {qs}_{x,y}(\overline E) = {qr}_{x,y}(\overline E) ◦ q_{x,y}(c_{res})$ (by lemma 4.2 above and the fact that ${qs}_{x,y}(E_S) = {qs}_{x,y}(\overline E)$ and ${qr}_{x,y}(E_S) = {qr}_{x,y}(\overline E)$).
+1. $q_{x,y}(c_{init}) \circ {qs}_{x,y}(\overline E) = {qr}_{x,y}(\overline E) \circ q_{x,y}(c_{res})$ (by lemma 4.2 above and the fact that ${qs}_{x,y}(E_S) = {qs}_{x,y}(\overline E)$ and ${qr}_{x,y}(E_S) = {qr}_{x,y}(\overline E)$).
 
-2. $q_{x,y}(\overline c_1) ◦ {qs}_{x,y}(\overline E) = {qr}_{x,y}(\overline E) ◦ q_{x,y}(\overline c_1)$ (by lemma 4.2 and the circularity of $\overline E$).
+2. $q_{x,y}(\overline c_1) \circ {qs}_{x,y}(\overline E) = {qr}_{x,y}(\overline E) \circ q_{x,y}(\overline c_1)$ (by lemma 4.2 and the circularity of $\overline E$).
 
 Replacing $q_{x,y}(c_{init})$ in equation 1 with its explicit contents yields:
 
-3. $q_{x,y}(\overline c_1) ◦ {qs}_{x,y}(\overline E) ◦ {qs}_{x,y}(\overline E) = {qr}_{x,y}(\overline E) ◦ q_{x,y}(c_{res})$.
+3. $q_{x,y}(\overline c_1) \circ {qs}_{x,y}(\overline E) \circ {qs}_{x,y}(\overline E) = {qr}_{x,y}(\overline E) \circ q_{x,y}(c_{res})$.
 
-Using equation 2 to replace $q_{x,y}(\overline c_1) ◦ {qs}_{x,y}(\overline E)$ by ${qr}_{x,y}(\overline E) ◦ q_{x,y}(\overline c_1)$ in equation 3 gives:
+Using equation 2 to replace $q_{x,y}(\overline c_1) \circ {qs}_{x,y}(\overline E)$ by ${qr}_{x,y}(\overline E) \circ q_{x,y}(\overline c_1)$ in equation 3 gives:
 
-4. ${qr}_{x,y}(\overline E) ◦ q_{x,y}(\overline c_1) ◦ q_{x,y}(\overline E) = {qr}_{x,y}(\overline E) ◦ q_{x,y}(c_{res})$.
+4. ${qr}_{x,y}(\overline E) \circ q_{x,y}(\overline c_1) \circ q_{x,y}(\overline E) = {qr}_{x,y}(\overline E) \circ q_{x,y}(c_{res})$.
 
-Eliminating ${qr}_{x,y}(\overline E)$ from both sides of equation 4 yields the desired result: $q_{x,y}(c_{init}) = q_{x,y}(\overline c_1) ◦ {qs}_{x,y}(\overline E) = q_{x,y}(c_{res})$, which proves the lemma. (End)
-
----
-
-Define $blowup(\overline E)$ as the set of executions whose initial state is $c_{init}$ and whose sequence of steps belongs to $merge(\overline S)$. Notice that, for every circular execution $\overline E$ and every execution $E ∈ blowup(\overline E)$, it holds that $\mathcal{S}_x(E)  = \mathcal{S}_x(E)$.
+Eliminating ${qr}_{x,y}(\overline E)$ from both sides of equation 4 yields the desired result: $q_{x,y}(c_{init}) = q_{x,y}(\overline c_1) \circ {qs}_{x,y}(\overline E) = q_{x,y}(c_{res})$, which proves the lemma. (End)
 
 ---
 
-> LEMMA 4.4: For any set of steps $B = \{a_1, a_2\}$, where $a_1 ∈ \mathcal{S}_s(\overline E)$ and $a_2 ∈ \mathcal{S}_r(\overline E)$, there is an execution $E ∈ blowup(\overline E)$ that contains a configuration for which the atomic steps in $B$ are concurrently applicable.
+Define $blowup(\overline E)$ as the set of executions whose initial state is $c_{init}$ and whose sequence of steps belongs to $merge(\overline S)$. Notice that, for every circular execution $\overline E$ and every execution $E \in blowup(\overline E)$, it holds that $\mathcal{S}_x(E) = \mathcal{S}_x(E)$.
+
+---
+
+> LEMMA 4.4: For any set of steps $B = \{a_1, a_2\}$, where $a_1 \in \mathcal{S}_s(\overline E)$ and $a_2 \in \mathcal{S}_r(\overline E)$, there is an execution $E \in blowup(\overline E)$ that contains a configuration for which the atomic steps in $B$ are concurrently applicable.
 
 *Proof:*
 
-Let $S ∈ merge(\overline S)$ be the sequence constructed as follows: first take all the steps in $\mathcal{S}_s(\overline E)$ that precede $a_1$; then take all the steps in $\mathcal{S}_r(\overline E)$ that precede $a_2$. Applying the sequence constructed so far to $c_{init}$ results in a configuration in which both $a_1$ and $a_2$ are applicable. This sequence is completed to a sequence $S$ in $merge(\overline S)$ by taking the remaining steps in an arbitrary order that keeps the internal order of each $\mathcal{S}_x (\overline E)$. (End)
+Let $S \in merge(\overline S)$ be the sequence constructed as follows: first take all the steps in $\mathcal{S}_s(\overline E)$ that precede $a_1$; then take all the steps in $\mathcal{S}_r(\overline E)$ that precede $a_2$. Applying the sequence constructed so far to $c_{init}$ results in a configuration in which both $a_1$ and $a_2$ are applicable. This sequence is completed to a sequence $S$ in $merge(\overline S)$ by taking the remaining steps in an arbitrary order that keeps the internal order of each $\mathcal{S}_x (\overline E)$. (End)
 
 ---
 
@@ -122,9 +121,7 @@ Let $S ∈ merge(\overline S)$ be the sequence constructed as follows: first tak
 
 Let $E$ be an arbitrary execution in $blowup(\overline E)$. Define $E^\infty$ as the infinite execution obtained by repeating $E$ forever. We show that no configuration in $E^\infty$ is safe.
 
-Assume by way of contradiction that some configuration $c_1$ in $E^\infty$ is safe. Now we construct a finite circular execution $E'$ whose sequence of steps $S'$ is obtained by concatenating sequences from $merge(\overline S)$, that is $\mathcal{S}_x(E') = \mathcal{S}_x(\overline E)$. Since $\mathcal{AL}$ is an algorithm for some weak-exclusion task, $E'$ should have some set of steps $B = \{a_1, a_2\}$, where $a_i ∈ \mathcal{S}_i$, that are never applicable to a single configuration $c$ during $E'$. We reach a contradiction by refuting this statement for $E'$. To do this we choose some arbitrary enumeration $\mathcal{B} = B_1, ···, B_e$ of all the sets containing two steps, one of $P_s$ and the other of $P_r$. Execution $E'$ is constructed by first continuing the computation from $c_1$ as in $E$ until configuration $c_{init}$ is reached. Then we apply lemma 4.4 to extend $E'$ by $s$ consecutive executions $E_1, ···, E_e$, where $E_k$, $1 ≤ k ≤ e$, contains a configuration in which the steps in $B_k$ are applicable and that ends with $c_{init}$. The proof follows.
-
-(End)
+Assume by way of contradiction that some configuration $c_1$ in $E^\infty$ is safe. Now we construct a finite circular execution $E'$ whose sequence of steps $S'$ is obtained by concatenating sequences from $merge(\overline S)$, that is $\mathcal{S}_x(E') = \mathcal{S}_x(\overline E)$. Since $\mathcal{AL}$ is an algorithm for some weak-exclusion task, $E'$ should have some set of steps $B = \{a_1, a_2\}$, where $a_i \in \mathcal{S}_i$, that are never applicable to a single configuration $c$ during $E'$. We reach a contradiction by refuting this statement for $E'$. To do this we choose some arbitrary enumeration $\mathcal{B} = B_1, ···, B_e$ of all the sets containing two steps, one of $P_s$ and the other of $P_r$. Execution $E'$ is constructed by first continuing the computation from $c_1$ as in $E$ until configuration $c_{init}$ is reached. Then we apply lemma 4.4 to extend $E'$ by $s$ consecutive executions $E_1, ···, E_e$, where $E_k$, $1 \leq k \leq e$, contains a configuration in which the steps in $B_k$ are applicable and that ends with $c_{init}$. The proof follows. (End)
 
 ---
 
