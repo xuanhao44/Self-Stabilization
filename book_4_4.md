@@ -2,7 +2,7 @@
 
 In this section we present a self-stabilizing algorithm for the update task. The task of the most basic form of the update algorithm is to inform each processor of the identifiers of the processors that are in its *connected component*. Processors that can communicate directly or indirectly are in the same connected component. Therefore, every processor knows the maximal identifier in the system and a single leader is in fact elected. The self-stabilizing algorithm for the leader-election task given in section 2.9 can be used to convert self-stabilizing algorithms that are designed for systems with a unique leader to id-based systems.
 
-在本节中，我们提出了一个用于更新任务的自稳定算法。更新算法最基本形式的任务是通知每个处理器其*连接组件*中的处理器标识符。能够直接或间接通信的处理器在同一个连接组件中。因此，每个处理器都知道系统中的最大标识符，并且实际上选出了一个领导者。第 2.9 节中给出的用于领导者选举任务的自稳定算法可以用于将为具有唯一领导者的系统设计的自稳定算法转换为基于标识符的系统。
+在本节中，我们提出了一个用于更新任务的自稳定算法。更新算法最基本形式的任务是通知每个处理器其 *连接组件* 中的处理器标识符。能够直接或间接通信的处理器在同一个连接组件中。因此，每个处理器都知道系统中的最大标识符，并且实际上选出了一个领导者。第 2.9 节中给出的用于领导者选举任务的自稳定算法可以用于将为具有唯一领导者的系统设计的自稳定算法转换为基于标识符的系统。
 
 The leader-election algorithm presented in section 2.9 stabilizes in $O(N)$ cycles, where $N$ is an upper bound on the number of processors in the entire system. This is a drawback in dynamic systems where link and processor failures can partition the system into several connected components, each with a small number of processors. A question to ask at this stage is whether there is a leader-election algorithm that stabilizes within $O(d)$ cycles, where $d$ is the actual diameter of the connected component. The self-stabilizing update algorithm that is presented here gives a positive answer to the above question.
 
@@ -50,7 +50,7 @@ We define the task $UP$ to be the set of executions in which every processor has
 
 The update algorithm constructs the *first BFS tree* that is rooted at each processor: a graph may have more than a single *BFS* tree rooted at the same node. We define the *first BFS tree* of $G$ relative to $P_i$ to be a *BFS* tree rooted at $P_i$. When a node $P_j$ of distance $k+1$ from $P_i$ has more than one neighbor at distance $k$ from $P_i$, $P_j$ is connected to the neighbor with the maximal identifier among all its neighbors whose distance from $P_i$ is $k$ (other conventions such as the *last BFS tree* could be used as well, as long as the *BFS* tree is fixed).
 
-更新算法构建了以每个处理器为根的*第一 BFS 树*：一个图可能有多个以同一节点为根的*BFS*树。我们定义相对于 $P_i$ 的 $G$ 的*第一 BFS 树*为以 $P_i$ 为根的*BFS*树。当距离 $P_i$ 为 $k+1$ 的节点 $P_j$ 有多个距离 $P_i$ 为 $k$ 的邻居时，$P_j$ 连接到其所有距离 $P_i$ 为 $k$ 的邻居中标识符最大的邻居（也可以使用其他约定，例如*最后 BFS 树*，只要*BFS*树是固定的）。
+更新算法构建了以每个处理器为根的*第一 BFS 树*：一个图可能有多个以同一节点为根的*BFS*树。我们定义相对于 $P_i$ 的 $G$ 的 *第一 BFS 树* 为以 $P_i$ 为根的*BFS*树。当距离 $P_i$ 为 $k+1$ 的节点 $P_j$ 有多个距离 $P_i$ 为 $k$ 的邻居时，$P_j$ 连接到其所有距离 $P_i$ 为 $k$ 的邻居中标识符最大的邻居（也可以使用其他约定，例如*最后 BFS 树*，只要*BFS*树是固定的）。
 
 Denote the upper bound on the number of processors in the system by $N$. During the execution of the algorithm, each processor $P_i$ maintains a set ${Processors}_i$ of no more than $N$ tuples $<id, dis>$. Each tuple in ${Processors}_i$ represents a processor in the system, where $id$ is the identifier of the processor and $dis$ is the distance (i.e., the number of edges) from $P_i$ to the processor with the identifier $id$. The value of the $id$ and the $dis$ fields is in the range 0 to $N$. $P_i$ communicates with any of its neighbors $P_j \in N(i)$ by writing (or sending) the value of ${Processors}_i$ and reading (or receiving, if message passing is used for communication) the value of ${Processors}_j$. In what follows, we describe the case when the processors communicate using shared memory. However, the same algorithm can be applied to message passing when each message arriving from $P_i$ to $P_j$ is written in an input buffer $r_{ij}$ of $P_j$.
 
@@ -186,7 +186,7 @@ The update algorithm is one of the best examples of a *memory-adaptive*, *time-a
 
 A self-stabilizing algorithm is *memory-adaptive* if the amount of memory used in the system after a safe configuration is reached is proportional to the *actual* parameters of the system, such as the *actual* diameter or the *actual* number of processors. In contrast, a self-stabilizing algorithm is not memory-adaptive if the amount of memory used by the algorithm is proportional to an upper bound on the parameters of the system.
 
-如果在达到安全配置后系统中使用的内存量与系统的实际参数（例如实际直径或实际处理器数量）成比例，则自稳定算法是*内存自适应*的。相比之下，如果算法使用的内存量与系统参数的上限成比例，则自稳定算法不是内存自适应的。
+如果在达到安全配置后系统中使用的内存量与系统的实际参数（例如实际直径或实际处理器数量）成比例，则自稳定算法是 *内存自适应* 的。相比之下，如果算法使用的内存量与系统参数的上限成比例，则自稳定算法不是内存自适应的。
 
 Recall that a silent self-stabilizing algorithm (see section 2.9) is one for which the communication between processors is fixed. A silent self-stabilizing algorithm designed for shared memory systems guarantees that, once a safe configuration is reached, the contents of the registers are fixed. A silent self-stabilizing algorithm designed for message passing systems guarantees that the only communication between any two neighboring processors that communicate between themselves is a single message that is sent repeatedly. A silent self-stabilizing algorithm is *communication-adaptive* if the number of bits that are (repeatedly) communicated between neighbors is proportional to the actual parameters of the system.
 
