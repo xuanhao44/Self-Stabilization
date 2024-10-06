@@ -1,5 +1,14 @@
 # 4.4 Update: Converting a Special Processor to an Id-based Dynamic System
 
+<!-- TOC -->
+
+- [4.4 Update: Converting a Special Processor to an Id-based Dynamic System](#44-update-converting-a-special-processor-to-an-id-based-dynamic-system)
+  - [Self-Stabilizing Convergecast for Topology Update](#self-stabilizing-convergecast-for-topology-update)
+  - [Self-Stabilizing Broadcast for Topology Update](#self-stabilizing-broadcast-for-topology-update)
+  - [Adaptive Self-Stabilizing Algorithms](#adaptive-self-stabilizing-algorithms)
+
+<!-- /TOC -->
+
 In this section we present a self-stabilizing algorithm for the update task. The task of the most basic form of the update algorithm is to inform each processor of the identifiers of the processors that are in its *connected component*. Processors that can communicate directly or indirectly are in the same connected component. Therefore, every processor knows the maximal identifier in the system and a single leader is in fact elected. The self-stabilizing algorithm for the leader-election task given in section 2.9 can be used to convert self-stabilizing algorithms that are designed for systems with a unique leader to id-based systems.
 
 在本节中，我们提出了一个用于更新任务的自稳定算法。更新算法最基本形式的任务是通知每个处理器其 *连接组件* 中的处理器标识符。能够直接或间接通信的处理器在同一个连接组件中。因此，每个处理器都知道系统中的最大标识符，并且实际上选出了一个领导者。第 2.9 节中给出的用于领导者选举任务的自稳定算法可以用于将为具有唯一领导者的系统设计的自稳定算法转换为基于标识符的系统。

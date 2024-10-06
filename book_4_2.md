@@ -1,5 +1,15 @@
 # 4.2 Data-Link Algorithms: Converting Shared Memory to Message Passing
 
+<!-- TOC -->
+
+- [4.2 Data-Link Algorithms: Converting Shared Memory to Message Passing](#42-data-link-algorithms-converting-shared-memory-to-message-passing)
+  - [Unbounded Solution](#unbounded-solution)
+  - [Lower Bound](#lower-bound)
+  - [Bounded-Link and Randomized Solutions](#bounded-link-and-randomized-solutions)
+  - [Self-Stabilizing Simulation of Shared Memory](#self-stabilizing-simulation-of-shared-memory)
+
+<!-- /TOC -->
+
 In the study of fault-tolerant message passing systems, it is customarily assumed that messages may be corrupted over links; hence, processors may enter arbitrary states and link contents may be arbitrary. Self-stabilizing algorithms handle these problems as well, since they are designed to recover from inconsistent global states.
 
 在容错消息传递系统的研究中，通常假设消息可能在链路上传输时被破坏；因此，处理器可能进入任意状态，链路内容也可能是任意的。自稳定算法也能处理这些问题，因为它们设计用于从不一致的全局状态中恢复。

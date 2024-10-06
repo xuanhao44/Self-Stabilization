@@ -6,5 +6,12 @@ Previous chapters considered several models of distributed computation. Such mod
 
 - [4.1 Token-Passing: Converting a Central Daemon to read/write](book_4_1.md)
 - [4.2 Data-Link Algorithms: Converting Shared Memory to Message Passing](book_4_2.md)
+  - [Unbounded Solution](book_4_2.md#unbounded-solution)
+  - [Lower Bound](book_4_2.md#lower-bound)
+  - [Bounded-Link and Randomized Solutions](book_4_2.md#bounded-link-and-randomized-solutions)
+  - [Self-Stabilizing Simulation of Shared Memory](book_4_2.md#self-stabilizing-simulation-of-shared-memory)
 - [4.3 Self-Stabilizing Ranking: Converting an Id-based System to a Special-processor System](book_4_3.md)
 - [4.4 Update: Converting a Special Processor to an Id-based Dynamic System](book_4_4.md)
+  - [Self-Stabilizing Convergecast for Topology Update](book_4_4.md#self-stabilizing-convergecast-for-topology-update)
+  - [Self-Stabilizing Broadcast for Topology Update](book_4_4.md#self-stabilizing-broadcast-for-topology-update)
+  - [Adaptive Self-Stabilizing Algorithms](book_4_4.md#adaptive-self-stabilizing-algorithms)
