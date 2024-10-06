@@ -8,7 +8,7 @@ We defined a self-stabilizing algorithm as an algorithm for which every fair exe
 
 我们将自稳定算法定义为每次公平执行都必须达到安全配置的算法。由于每次从安全配置开始的执行都是属于 $LE$ 的合法执行，因此一旦达到安全配置，系统就会按预期运行。
 
-The set of legal executions $LE$ defines the desired behavior of the system. In fact, defining the requirements by a set of executions $LE$ is sometimes too restrictive. $A$ task $T$ may be defined in a more abstract way, avoiding the definitions and the description of the implementation details. The variables used by the specific distributed algorithm to achieve the task are not part of this task specification. An *abstract task* is defined by a set of variables and a set of restrictions on their values. For example, let us define the token passing abstract task $\mathcal{AT}$ for a system of two processors: the sender $S$ and the receiver $R$. $S$ has a boolean variable ${token}_S$ and R has a boolean variable ${token}_R$.
+The set of legal executions $LE$ defines the desired behavior of the system. In fact, defining the requirements by a set of executions $LE$ is sometimes too restrictive. A task $T$ may be defined in a more abstract way, avoiding the definitions and the description of the implementation details. The variables used by the specific distributed algorithm to achieve the task are not part of this task specification. An *abstract task* is defined by a set of variables and a set of restrictions on their values. For example, let us define the token passing abstract task $\mathcal{AT}$ for a system of two processors: the sender $S$ and the receiver $R$. $S$ has a boolean variable ${token}_S$ and R has a boolean variable ${token}_R$.
 
 合法执行集 $LE$ 定义了系统的期望行为。事实上，通过一组执行 $LE$ 来定义需求有时过于严格。任务 $T$ 可以以更抽象的方式定义，避免定义和描述实现细节。用于实现任务的特定分布式算法所使用的变量不是该任务规范的一部分。*抽象任务* 由一组变量和一组对其值的限制定义。例如，让我们为一个由两个处理器组成的系统定义令牌传递抽象任务 $\mathcal{AT}$：发送者 $S$ 和接收者 $R$。$S$ 有一个布尔变量 ${token}_S$，$R$ 有一个布尔变量 ${token}_R$。
 
@@ -22,7 +22,7 @@ The above specification of the abstract task $\mathcal{AT}$ is a more general sp
 
 An algorithm is *pseudo-self-stabilizing* for an abstract task $\mathcal{AT}$ if every infinite execution of the algorithm has a suffix satisfying the restrictions of $\mathcal{AT}$.
 
-一个算法对于抽象任务 $\mathcal{AT}$ 是*伪自稳定的*，如果该算法的每个无限执行都有一个后缀满足 $\mathcal{AT}$ 的限制。
+一个算法对于抽象任务 $\mathcal{AT}$ 是 *伪自稳定的*，如果该算法的每个无限执行都有一个后缀满足 $\mathcal{AT}$ 的限制。
 
 Clearly a self-stabilizing algorithm for a task $LE$ such that every execution in $LE$ fulfills the restrictions of $\mathcal{AT}$ is pseudo-self-stabilizing. However, a pseudo self-stabilizing algorithm may not be self-stabilizing, since it may not reach a configuration such that for *every* execution that starts in it, the restrictions of $\mathcal{AT}$ hold.
 
@@ -40,13 +40,25 @@ To demonstrate pseudo-self-stabilization, we use the famous alternating-bit algo
 
 ![figure_2.13](images/figure_2.13.png)
 
-The task of delivering a message from one processor in the network to another remote processor is sophisticated. It is usually partitioned into several layers of algorithms and abstractions: an algorithm of a certain layer uses the services of a lower-level algorithm. The lowest layer is the physical layer for which the concern is how the physical device connecting to neighboring processors is used to transmit bits from a processor to its neighbor. Usually the physical layer can ensure transmission of bits with a certain (small) error probability that each bit is corrupted. The next layer is the *data-link layer*, which assumes the existence of a (physical layer) procedure that transmits bits. The task of the data-link layer is to transmit messages from a processor to its neighbor. The data-link layer uses error-detection codes and retransmissions to cope with the probability of bit corruption (introduced by the physical communication device). The *network layer* task is to direct messages sent from one processor to a remote (non-neighboring) processor. Routing algorithms are used to maintain routing databases (routing tables). Whenever a processor must forward an arriving message, it consults the routing database to identify the outgoing link on which the message should be sent; then the data-link procedure of the chosen link is used. Several messages that have to be forwarded may arrive at a processor simultaneously (through its input communication ports). The arriving messages may be stored in input buffers (on a disk) and then *fetched* by the data-link layer algorithm. The data-link algorithm uses *frames* to *send* the fetched message. The data-link algorithm portion that is executed at the receiver receives the sent frames (and sends acknowledgment frames). When the data-link algorithm executed at the receiver side is convinced that the message is received, it *delivers* the message to be handled by the network layer algorithm at the receiver, which in turn consults its routing database.
+The task of delivering a message from one processor in the network to another remote processor is sophisticated. It is usually partitioned into several layers of algorithms and abstractions: an algorithm of a certain layer uses the services of a lower-level algorithm.
 
-在网络中将消息从一个处理器传递到另一个远程处理器的任务是复杂的。通常将其划分为多个算法层和抽象层：某一层的算法使用低层算法的服务。最低层是物理层，其关注的是如何使用连接到相邻处理器的物理设备将比特从一个处理器传输到其邻居。通常物理层可以确保比特传输时每个比特被损坏的概率很小。下一层是 *数据链路层*，它假设存在一个传输比特的（物理层）过程。数据链路层的任务是将消息从一个处理器传输到其邻居。数据链路层使用错误检测码和重传来应对比特损坏的概率（由物理通信设备引入）。*网络层* 的任务是将从一个处理器发送的消息引导到远程（非邻居）处理器。路由算法用于维护路由数据库（路由表）。每当处理器必须转发到达的消息时，它会查询路由数据库以确定消息应发送的输出链路；然后使用所选链路的数据链路过程。多个需要转发的消息可能同时到达处理器（通过其输入通信端口）。到达的消息可以存储在输入缓冲区（在磁盘上），然后由数据链路层算法*获取*。数据链路算法使用 *帧* 来 *发送* 获取的消息。在接收方执行的数据链路算法部分接收发送的帧（并发送确认帧）。当接收方执行的数据链路算法确信消息已接收时，它会*传递*消息以由接收方的网络层算法处理，后者会查询其路由数据库。
+The lowest layer is the *physical layer* for which the concern is how the physical device connecting to neighboring processors is used to transmit bits from a processor to its neighbor. Usually the physical layer can ensure transmission of bits with a certain (small) error probability that each bit is corrupted.
+
+The next layer is the *data-link layer*, which assumes the existence of a (physical layer) procedure that transmits bits. The task of the data-link layer is to transmit messages from a processor to its neighbor. The data-link layer uses error-detection codes and retransmissions to cope with the probability of bit corruption (introduced by the physical communication device).
+
+The *network layer* task is to direct messages sent from one processor to a remote (non-neighboring) processor. Routing algorithms are used to maintain routing databases (routing tables). Whenever a processor must forward an arriving message, it consults the routing database to identify the outgoing link on which the message should be sent; then the data-link procedure of the chosen link is used. Several messages that have to be forwarded may arrive at a processor simultaneously (through its input communication ports). The arriving messages may be stored in input buffers (on a disk) and then *fetched* by the data-link layer algorithm. The data-link algorithm uses *frames* to *send* the fetched message. The data-link algorithm portion that is executed at the receiver receives the sent frames (and sends acknowledgment frames). When the data-link algorithm executed at the receiver side is convinced that the message is received, it *delivers* the message to be handled by the network layer algorithm at the receiver, which in turn consults its routing database.
+
+在网络中将消息从一个处理器传递到另一个远程处理器的任务是复杂的。通常将其划分为多个算法层和抽象层：某一层的算法使用低层算法的服务。
+
+最低层是 *物理层*，其关注的是如何使用连接到相邻处理器的物理设备将比特从一个处理器传输到其邻居。通常物理层可以确保比特传输时每个比特被损坏的概率很小。
+
+下一层是 *数据链路层*，它假设存在一个传输比特的（物理层）过程。数据链路层的任务是将消息从一个处理器传输到其邻居。数据链路层使用错误检测码和重传来应对比特损坏的概率（由物理通信设备引入）。
+
+*网络层* 的任务是将从一个处理器发送的消息引导到远程（非邻居）处理器。路由算法用于维护路由数据库（路由表）。每当处理器必须转发到达的消息时，它会查询路由数据库以确定消息应发送的输出链路；然后使用所选链路的数据链路过程。多个需要转发的消息可能同时到达处理器（通过其输入通信端口）。到达的消息可以存储在输入缓冲区（在磁盘上），然后由数据链路层算法 *获取*。数据链路算法使用 *帧* 来 *发送* 获取的消息。在接收方执行的数据链路算法部分接收发送的帧（并发送确认帧）。当接收方执行的数据链路算法确信消息已接收时，它会 *传递* 消息以由接收方的网络层算法处理，后者会查询其路由数据库。
 
 Figure 2.13 describes the *fetch*, *send*, *receive*, and *deliver* operations. A queue of messages $(m_1, m_2, m_3, ···)$ stored in a non-volatile memory are to be transmitted from the sender to the receiver. A fetch operation executed by the sender removes the first message of the queue and stores it in the (volatile) memory of the sender. Then the sender must transfer $m_1$ to the receiver. In the particular example in figure 2.13, the sender sends $m_1$ in the frame $f_1$. This is only one possibility; in fact, other data-link algorithms may send only partial information concerning $m_1$ in $f_1$. Note that in addition to the contents of $m_1$, $f_1$ may include control information, for example the label of the alternating-bit algorithm. Once the receiver receives $f_1$, it delivers $m_1$ to the output queue. Finally, the receiver sends the frame $f_2$ to the sender in order to notify it sender that a new message can be fetched.
 
-图 2.13 描述了*获取*、*发送*、*接收*和*传递*操作。存储在非易失性存储器中的消息队列 $(m_1, m_2, m_3, ···)$ 将从发送方传输到接收方。发送方执行的获取操作移除队列中的第一条消息并将其存储在发送方的（易失性）存储器中。然后发送方必须将 $m_1$ 传输到接收方。在图 2.13 的特定示例中，发送方在帧 $f_1$ 中发送 $m_1$。这只是其中一种可能性；实际上，其他数据链路算法可能仅在 $f_1$ 中发送有关 $m_1$ 的部分信息。请注意，除了 $m_1$ 的内容外，$f_1$ 还可能包含控制信息，例如交替位算法的标签。一旦接收方接收到 $f_1$，它会将 $m_1$ 传递到输出队列。最后，接收方向发送方发送帧 $f_2$ 以通知发送方可以获取新消息。
+图 2.13 描述了 *获取*、*发送*、*接收*和*传递* 操作。存储在非易失性存储器中的消息队列 $(m_1, m_2, m_3, ···)$ 将从发送方传输到接收方。发送方执行的获取操作移除队列中的第一条消息并将其存储在发送方的（易失性）存储器中。然后发送方必须将 $m_1$ 传输到接收方。在图 2.13 的特定示例中，发送方在帧 $f_1$ 中发送 $m_1$。这只是其中一种可能性；实际上，其他数据链路算法可能仅在 $f_1$ 中发送有关 $m_1$ 的部分信息。请注意，除了 $m_1$ 的内容外，$f_1$ 还可能包含控制信息，例如交替位算法的标签。一旦接收方接收到 $f_1$，它会将 $m_1$ 传递到输出队列。最后，接收方向发送方发送帧 $f_2$ 以通知发送方可以获取新消息。
 
 The abstract task of the alternating-bit algorithm can be defined as follows. The sender $S$ has an infinite queue of input messages $({im}_1, {im}_2, ···)$ that should be transferred to the receiver in the same order without duplications, reordering, or omissions. The receiver has an output queue of messages $({om}_1, {om}_2, ···)$. The sequence of messages in the output queue of the receiver should always be a prefix of the sequence of messages in the input queue of the sender. Moreover, to eliminate solutions in which no input message is transfered to the receiver, we require that infinitely often a new message is included in the output queue.
 
@@ -54,9 +66,25 @@ The abstract task of the alternating-bit algorithm can be defined as follows. Th
 
 ![figure_2.14](images/figure_2.14.png)
 
-The alternating-bit algorithm in figure 2.14 is not a self-stabilizing algorithm: it is assumed that both the sender and the receiver perform the initialization instructions (lines 1 to 6 and 19 to 23) when the system starts operating. During the initialization the sender fetches the first message ${im}_1$ from the buffer of the networks layer, and sends a frame with this message together with label 0 (the value of ${bit}_s$) to the receiver. A timeout mechanism copes with frame loss triggering frame retransmission (lines 7 and 8). Once the receiver executes the initialization procedure, it waits for a frame with label 0 (line 27) while acknowledging arriving frames. When a frame with a (new) label different from the current value of ${bit}_r$ arrives at the receiver, the receiver delivers the message of this frame to the network layer (line 31). The indices $i$ (line 15) and $j$ (line 30) are used only to describe the interface with the network layer. In fact, the input buffer from which ${im}_i$ is fetched is a queue from which messages are fetched without identifying their index. The first fetch operation (implicitly executed in line 5) fetches the first message in the input queue, the second fetch (implicitly executed in line 17) operation fetches the second message in this queue, and so on. Similarly, the first deliver operation (line 31) delivers the first message to the output queue, the second deliver operation (line 31) delivers the second message, and so on.
+The alternating-bit algorithm in figure 2.14 is not a self-stabilizing algorithm:
 
-图 2.14 中的交替位算法不是自稳定算法：假设系统开始运行时，发送方和接收方都执行初始化指令（第 1 到 6 行和第 19 到 23 行）。在初始化期间，发送方从网络层的缓冲区中获取第一条消息 ${im}_1$，并将带有此消息和标签 0（${bit}_s$ 的值）的帧发送给接收方。超时机制应对帧丢失，触发帧重传（第 7 和 8 行）。一旦接收方执行初始化程序，它会等待带有标签 0 的帧（第 27 行），同时确认到达的帧。当带有与当前 ${bit}_r$ 值不同的新标签的帧到达接收方时，接收方将该帧的消息传递到网络层（第 31 行）。索引 $i$（第 15 行）和 $j$（第 30 行）仅用于描述与网络层的接口。实际上，从中获取 ${im}_i$ 的输入缓冲区是一个队列，从中获取消息时不识别其索引。第一次获取操作（隐式执行于第 5 行）获取输入队列中的第一条消息，第二次获取操作（隐式执行于第 17 行）获取该队列中的第二条消息，依此类推。同样，第一次传递操作（第 31 行）将第一条消息传递到输出队列，第二次传递操作（第 31 行）传递第二条消息，依此类推。
+it is assumed that both the sender and the receiver perform the initialization instructions (lines 1 to 6 and 19 to 23) when the system starts operating. During the initialization the sender fetches the first message ${im}_1$ from the buffer of the networks layer, and sends a frame with this message together with label 0 (the value of ${bit}_s$) to the receiver. A timeout mechanism copes with frame loss triggering frame retransmission (lines 7 and 8).
+
+Once the receiver executes the initialization procedure, it waits for a frame with label 0 (line 27) while acknowledging arriving frames. When a frame with a (new) label different from the current value of ${bit}_r$ arrives at the receiver, the receiver delivers the message of this frame to the network layer (line 31).
+
+The indices $i$ (line 15) and $j$ (line 30) are used only to describe the interface with the network layer. In fact, the input buffer from which ${im}_i$ is fetched is a queue from which messages are fetched without identifying their index.
+
+The first fetch operation (implicitly executed in line 5) fetches the first message in the input queue, the second fetch (implicitly executed in line 17) operation fetches the second message in this queue, and so on. Similarly, the first deliver operation (line 31) delivers the first message to the output queue, the second deliver operation (line 31) delivers the second message, and so on.
+
+图 2.14 中的交替位算法不是自稳定算法：
+
+假设系统开始运行时，发送方和接收方都执行初始化指令（第 1 到 6 行和第 19 到 23 行）。在初始化期间，发送方从网络层的缓冲区中获取第一条消息 ${im}_1$，并将带有此消息和标签 0（${bit}_s$ 的值）的帧发送给接收方。超时机制应对帧丢失，触发帧重传（第 7 和 8 行）。
+
+一旦接收方执行初始化程序，它会等待带有标签 0 的帧（第 27 行），同时确认到达的帧。当带有与当前 ${bit}_r$ 值不同的新标签的帧到达接收方时，接收方将该帧的消息传递到网络层（第 31 行）。
+
+索引 $i$（第 15 行）和 $j$（第 30 行）仅用于描述与网络层的接口。实际上，从中获取 ${im}_i$ 的输入缓冲区是一个队列，从中获取消息时不识别其索引。
+
+第一次获取操作（隐式执行于第 5 行）获取输入队列中的第一条消息，第二次获取操作（隐式执行于第 17 行）获取该队列中的第二条消息，依此类推。同样，第一次传递操作（第 31 行）将第一条消息传递到输出队列，第二次传递操作（第 31 行）传递第二条消息，依此类推。
 
 Roughly speaking, the abstract task of a self-stabilizing alternating-bit (data-link) algorithm $\mathcal{DL}$ is eventually to guarantee exactly-once message delivery without reordering. More formally, there must exist a suffix of the queue of input messages $I = ({im}_j, {im}_{j+1}, ···)$ and a $k$ such that the suffix of the output that starts following the first $k−1$ messages, $O = ({om}_k, {om}_{k+1}, ···)$, is always a prefix of $I$. Furthermore, a new message is included in $O$ infinitely often.
 
