@@ -40,7 +40,9 @@ The code of the algorithm appears in figure 4.5.
 
 Let the *height* of a communication register $r_{ij}$ be the depth of the tree rooted at $P_i$ upon removing the edge between $P_i$ and $P_j$, where the depth of a rooted tree is the maximal number of edges from the root to a leaf.
 
-The correctness proof is by induction on the height of the registers. In the first cycle of every fair execution, the $r_{ij}.count$ field of every register of height 0 (a register of a leaf) is assigned the value 1 by $P_i$. Clearly, every further assignment of the leaf processor $P_i$ in $r_{ij}.count$ does not change the value of $r_{ij}.count$.
+The correctness proof is by induction on the height of the registers.
+
+In the first cycle of every fair execution, the $r_{ij}.count$ field of every register of height 0 (a register of a leaf) is assigned the value 1 by $P_i$. Clearly, every further assignment of the leaf processor $P_i$ in $r_{ij}.count$ does not change the value of $r_{ij}.count$.
 
 Now observe that the value of every register of height 2 is computed using only values of registers of height 1. In general, the value of every register of height $h$ is computed using the values of registers of smaller height. The height of the registers is bounded by the diameter of the system $d$; hence, it holds that a safe configuration is reached within $O(d)$ cycles.
 
@@ -52,7 +54,9 @@ The counting algorithm can be used to elect a leader (or two leaders if symmetry
 
 算法的代码见图 4.5。
 
-设通信寄存器 $r_{ij}$ 的 *高度* 为移除 $P_i$ 和 $P_j$ 之间的边后以 $P_i$ 为根的树的深度，其中有根树的深度是从根到叶的最大边数。正确性证明是基于寄存器高度的归纳法。
+设通信寄存器 $r_{ij}$ 的 *高度* 为移除 $P_i$ 和 $P_j$ 之间的边后以 $P_i$ 为根的树的深度，其中有根树的深度是从根到叶的最大边数。
+
+正确性证明是基于寄存器高度的归纳法。
 
 在每次公平执行的第一个周期中，高度为 0 的每个寄存器（叶节点的寄存器）的 $r_{ij}.count$ 字段被 $P_i$ 赋值为 1。显然，叶节点处理器 $P_i$ 在 $r_{ij}.count$ 中的进一步赋值不会改变 $r_{ij}.count$ 的值。
 
