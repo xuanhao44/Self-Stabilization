@@ -107,19 +107,23 @@ A processor $P_i$ repeatedly reads the set ${Processors}_j$ of every neighbor $P
 
 The code of the algorithm appears in figure 4.6. $P_i$ repeatedly executes lines 2 through 10 of the code.
 
-$P_i$ initializes ${ReadSet}_i$ in line 2, and then $P_i$ accumulates the tuples in the sets of its neighbors into ${ReadSet}_i$ (lines 3 and 4). Note that the current contents of ${Processors}_i$ are not used for computing the new contents of ${Processors}_i$. The distance of $P_i$ to a processor $P_j \neq P_i$ is the distance of a processor $P_k$ to $P_j$, where $P_k$ is next to $P_i$, plus one; obviously, the distance of $P_i$ from itself is 0.
+$P_i$ initializes ${ReadSet}_i$ in line 2, and then $P_i$ accumulates the tuples in the sets of its neighbors into ${ReadSet}_i$ (lines 3 and 4).
 
-In line 5, $P_i$ removes every tuple with an identifier field that is equal to the identifier of $P_i$, and then $P_i$ increments by 1 the distance of every remaining tuple (line 6). The semantics of the operators $\backslash \backslash$ and $++$ are implied in a straightforward manner by the above description.
+Note that the current contents of ${Processors}_i$ are not used for computing the new contents of ${Processors}_i$. The distance of $P_i$ to a processor $P_j \neq P_i$ is the distance of a processor $P_k$ to $P_j$, where $P_k$ is next to $P_i$, plus one; obviously, the distance of $P_i$ from itself is 0.
 
-Next, $P_i$ adds the tuple $<i, 0>$ to ${ReadSet}_i$. In computing the distance from $P_i$ to $P_j$, $P_i$ believes a neighbor $P_k$ that is closest to $P_j$. In lines 8 and 9, for every processor $P_j$, $P_i$ removes each tuple with the identifier of $P_j$ except for the tuple with the smallest distance among these tuples.
+In line 5, $P_i$ removes every tuple with an identifier field that is equal to the identifier of $P_i$, and then $P_i$ increments by 1 the distance of every remaining tuple (line 6). The semantics of the operators $\backslash \backslash$ and $++$ are implied in a straightforward manner by the above description. Next, $P_i$ adds the tuple $<i, 0>$ to ${ReadSet}_i$.
+
+In computing the distance from $P_i$ to $P_j$, $P_i$ believes a neighbor $P_k$ that is closest to $P_j$. In lines 8 and 9, for every processor $P_j$, $P_i$ removes each tuple with the identifier of $P_j$ except for the tuple with the smallest distance among these tuples.
 
 算法的代码见图 4.6。$P_i$ 反复执行代码的第 2 到第 10 行。
 
-$P_i$ 在第 2 行初始化 ${ReadSet}_i$，然后 $P_i$ 将其邻居集合中的元组累积到 ${ReadSet}_i$ 中（第 3 和第 4 行）。注意，当前 ${Processors}_i$ 的内容不用于计算新的 ${Processors}_i$ 的内容。$P_i$ 到处理器 $P_j \neq P_i$ 的距离是处理器 $P_k$ 到 $P_j$ 的距离，其中 $P_k$ 紧邻 $P_i$，加一；显然，$P_i$ 到自身的距离是 0。
+$P_i$ 在第 2 行初始化 ${ReadSet}_i$，然后 $P_i$ 将其邻居集合中的元组累积到 ${ReadSet}_i$ 中（第 3 和第 4 行）。
 
-在第 5 行，$P_i$ 移除标识符字段等于 $P_i$ 标识符的每个元组，然后 $P_i$ 将每个剩余元组的距离加 1（第 6 行）。运算符 $\backslash \backslash$ 和 $++$ 的语义由上述描述直接推导。
+注意，当前 ${Processors}_i$ 的内容不用于计算新的 ${Processors}_i$ 的内容。$P_i$ 到处理器 $P_j \neq P_i$ 的距离是处理器 $P_k$ 到 $P_j$ 的距离，其中 $P_k$ 紧邻 $P_i$，加一；显然，$P_i$ 到自身的距离是 0。
 
-接下来，$P_i$ 将元组 $<i, 0>$ 添加到 ${ReadSet}_i$ 中。在计算 $P_i$ 到 $P_j$ 的距离时，$P_i$ 选择一个最接近 $P_j$ 的邻居 $P_k$。在第 8 和第 9 行，对于每个处理器 $P_j$，$P_i$ 移除每个标识符为 $P_j$ 的元组，除了这些元组中距离最小的元组。
+在第 5 行，$P_i$ 移除标识符字段等于 $P_i$ 标识符的每个元组，然后 $P_i$ 将每个剩余元组的距离加 1（第 6 行）。运算符 $\backslash \backslash$ 和 $++$ 的语义由上述描述直接推导。接下来，$P_i$ 将元组 $<i, 0>$ 添加到 ${ReadSet}_i$ 中。
+
+在计算 $P_i$ 到 $P_j$ 的距离时，$P_i$ 选择一个最接近 $P_j$ 的邻居 $P_k$。在第 8 和第 9 行，对于每个处理器 $P_j$，$P_i$ 移除每个标识符为 $P_j$ 的元组，除了这些元组中距离最小的元组。
 
 ![figure_4.6](images/figure_4.6.png)
 
@@ -227,7 +231,7 @@ We now show how the convergecast technique is composed with our update algorithm
 
 The convergecast mechanism assumes that every processor knows its parent and children in $T$, the *BFS* tree of the leader. Note that this assumption is valid after $O(d)$ cycles. The convergecast uses for every processor $P_i$ a variable ${up}_i$ in which $P_i$ writes to its parent in $T$. When $P_i$ is a leaf in $T$, $P_i$ writes its own local topology in ${up}_i$. Otherwise $P_i$ concatenates the values of the ${up}_i$ variables of all its children in $T$ and its own local topology, and writes the result in ${up}_i$. The stabilization of the convergecast mechanism is based on the correct information in the leaves and the direction in which information is collected, namely from the leaves toward the root of the tree.
 
-汇聚广播机制假设每个处理器都知道其在领导者的*BFS*树 $T$ 中的父节点和子节点。注意，这一假设在 $O(d)$ 周期后是有效的。汇聚广播为每个处理器 $P_i$ 使用一个变量 ${up}_i$，$P_i$ 将其写入 $T$ 中的父节点。当 $P_i$ 是 $T$ 中的叶节点时，$P_i$ 将其本地拓扑写入 ${up}_i$。否则，$P_i$ 将其在 $T$ 中所有子节点的 ${up}_i$ 变量的值与其本地拓扑连接起来，并将结果写入 ${up}_i$。汇聚广播机制的稳定性基于叶节点中的正确信息以及信息收集的方向，即从叶节点向树的根节点收集。
+汇聚广播机制假设每个处理器都知道其在领导者的 *BFS* 树 $T$ 中的父节点和子节点。注意，这一假设在 $O(d)$ 周期后是有效的。汇聚广播为每个处理器 $P_i$ 使用一个变量 ${up}_i$，$P_i$ 将其写入 $T$ 中的父节点。当 $P_i$ 是 $T$ 中的叶节点时，$P_i$ 将其本地拓扑写入 ${up}_i$。否则，$P_i$ 将其在 $T$ 中所有子节点的 ${up}_i$ 变量的值与其本地拓扑连接起来，并将结果写入 ${up}_i$。汇聚广播机制的稳定性基于叶节点中的正确信息以及信息收集的方向，即从叶节点向树的根节点收集。
 
 Let the *height* of a processor $P_i$ in a rooted tree be the length of the longest path from $P_i$ to a leaf such that the path does not include the root. Obviously, following one cycle, the value of ${up}_i$ of every leaf processor is fixed and consists of its local topology. Therefore, following the second cycle of the execution, every processor whose children are leaves has fixed and correct topology information about its subtree. Similarly, following $h$ cycles, every processor of height $h−1$ or less has the correct topology on its subtree.
 
@@ -243,7 +247,7 @@ When the information concerning the topology is collected only on the tree of th
 
 The update algorithm is one of the best examples of a *memory-adaptive*, *time-adaptive*, and *communication-adaptive* self-stabilizing algorithm. In dynamic systems, the parameters of the system, such as the diameter, the number of processors, and the number of bits required to store the largest identifier in the system, are not fixed. For example, a link failure can partition the system into two independent connected components. Each connected component should stabilize independently and achieve its task. A self-stabilizing algorithm is *time-adaptive* if the number of cycles necessary to converge to a safe configuration is proportional to the actual parameters of the system, such as the *actual* diameter or *actual* number of processors in the system. Hence, the self-stabilizing leader election algorithm of section 2.9, which stabilizes in $O(N)$ cycles, is not time-adaptive, while the self-stabilizing update algorithm is time-adaptive.
 
-更新算法是*内存自适应*、*时间自适应*和*通信自适应*自稳定算法的最佳示例之一。在动态系统中，系统的参数（例如直径、处理器数量以及存储系统中最大标识符所需的位数）不是固定的。例如，链路故障可能会将系统划分为两个独立的连接组件。每个连接组件应独立稳定并完成其任务。如果收敛到安全配置所需的周期数与系统的实际参数（例如实际直径或系统中的实际处理器数量）成比例，则自稳定算法是*时间自适应*的。因此，第 2.9 节中的自稳定领导者选举算法在 $O(N)$ 周期内稳定，但不是时间自适应的，而自稳定更新算法是时间自适应的。
+更新算法是 *内存自适应*、*时间自适应* 和 *通信自适应* 自稳定算法的最佳示例之一。在动态系统中，系统的参数（例如直径、处理器数量以及存储系统中最大标识符所需的位数）不是固定的。例如，链路故障可能会将系统划分为两个独立的连接组件。每个连接组件应独立稳定并完成其任务。如果收敛到安全配置所需的周期数与系统的实际参数（例如实际直径或系统中的实际处理器数量）成比例，则自稳定算法是 *时间自适应* 的。因此，第 2.9 节中的自稳定领导者选举算法在 $O(N)$ 周期内稳定，但不是时间自适应的，而自稳定更新算法是时间自适应的。
 
 A self-stabilizing algorithm is *memory-adaptive* if the amount of memory used in the system after a safe configuration is reached is proportional to the *actual* parameters of the system, such as the *actual* diameter or the *actual* number of processors. In contrast, a self-stabilizing algorithm is not memory-adaptive if the amount of memory used by the algorithm is proportional to an upper bound on the parameters of the system.
 
