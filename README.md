@@ -25,3 +25,6 @@ Shlomi Dolev
     - [2.4 Randomized Self-Stabilization](book_2_4.md)
     - [2.9 Scheduler-Luck Game](book_2_9.md#scheduler-luck-game)
     - [2.9 Example: Self-Stabilizing Leader Election in Complete Graphs](book_2_9.md#example-self-stabilizing-leader-election-in-complete-graphs)
+  - [3_没有自稳定的数据链路算法](note_3.md)
+    - [3.1 Initialization of a Data-Link Algorithm in the Presence of Faults](book_3_1.md)
+    - [3.2 Arbitrary Configuration Because of Crashes](book_3_2.md)
