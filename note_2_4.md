@@ -2,6 +2,22 @@
 
 包含 2.7 章。这一章概念的内容比较好懂，但是给出的一般通信图的互斥的例子实在是很难懂，万幸老师也没很深入的讲。
 
+<!-- TOC -->
+
+- [note\_2\_4\_公平合成](#note_2_4_公平合成)
+  - [Fair Composition 公平合成](#fair-composition-公平合成)
+    - [概念相关](#概念相关)
+    - [A-projection（A-投影）](#a-projectiona-投影)
+      - [补课：Cartesian product（笛卡尔积）和 projection（投影）](#补课cartesian-product笛卡尔积和-projection投影)
+        - [笛卡尔积](#笛卡尔积)
+        - [投影](#投影)
+      - [A-投影的来由（作用）](#a-投影的来由作用)
+    - [构建复杂任务的自稳定算法](#构建复杂任务的自稳定算法)
+  - [Mutual Exclusion for General Communication Graphs 一般通信图的互斥](#mutual-exclusion-for-general-communication-graphs-一般通信图的互斥)
+    - [Euler tour 欧拉回路（欧拉巡游）](#euler-tour-欧拉回路欧拉巡游)
+
+<!-- /TOC -->
+
 ## Fair Composition 公平合成
 
 ### 概念相关

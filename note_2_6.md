@@ -2,6 +2,15 @@
 
 包含 2.9 章部分内容和 PPT 内容。
 
+<!-- TOC -->
+
+- [note\_2\_6\_一般通信网络中的领导者选举](#note_2_6_一般通信网络中的领导者选举)
+  - [领导者选举实际应用](#领导者选举实际应用)
+  - [简单的非自稳定算法](#简单的非自稳定算法)
+  - [领导者选举算法](#领导者选举算法)
+
+<!-- /TOC -->
+
 ## 领导者选举实际应用
 
 Leader election algorithms are fundamental in computer networks and distributed systems for various applications:

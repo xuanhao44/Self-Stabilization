@@ -2,6 +2,21 @@
 
 包含 2.5 章，以及 PPT 上内容。
 
+<!-- TOC -->
+
+- [2\_3\_生成树构造](#2_3_生成树构造)
+  - [Switching Loop 交换机环路](#switching-loop-交换机环路)
+  - [Spanning Tree Protocol (STP)](#spanning-tree-protocol-stp)
+    - [STP History](#stp-history)
+  - [BFS Construction](#bfs-construction)
+    - [sequential, non-distributed BFT](#sequential-non-distributed-bft)
+    - [Non-self-stabilizing Distributed BFT](#non-self-stabilizing-distributed-bft)
+    - [Self-stabilizing Distributed BFT](#self-stabilizing-distributed-bft)
+    - [此外谈谈我的看法](#此外谈谈我的看法)
+  - [自稳定算法证明](#自稳定算法证明)
+
+<!-- /TOC -->
+
 ## Switching Loop 交换机环路
 
 A switching loop happens when multiple data-link layer paths exist between two nodes in a network.

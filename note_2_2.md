@@ -2,6 +2,29 @@
 
 包含 2.6 章，以及 PPT 上内容。
 
+<!-- TOC -->
+
+- [2\_2\_互斥自稳定算法](#2_2_互斥自稳定算法)
+  - [Dijkstra 算法](#dijkstra-算法)
+  - [Token Ring 算法（自稳定版本）](#token-ring-算法自稳定版本)
+    - [Objective](#objective)
+    - [Assumptions](#assumptions)
+    - [Token Circulation](#token-circulation)
+    - [理解](#理解)
+    - [习题](#习题)
+  - [顺序](#顺序)
+    - [公平性假设的具体含义](#公平性假设的具体含义)
+    - [实际执行中的顺序](#实际执行中的顺序)
+  - [任务 $ME$](#任务-me)
+  - [引理定理合集](#引理定理合集)
+  - [引理 2.2](#引理-22)
+  - [引理 2.3](#引理-23)
+    - [The Pigeonhole Principle 鸽子洞原理（抽屉原理）](#the-pigeonhole-principle-鸽子洞原理抽屉原理)
+  - [引理 2.4](#引理-24)
+  - [定理 2.1](#定理-21)
+
+<!-- /TOC -->
+
 ## Dijkstra 算法
 
 The system consists of $n$ processors $P_1, P_2, ···, P_n$ that are connected in a ring. Each processor has a *left* and a *right* neighbor. The left neighbor of every processor $P_i$, $1 < i \leq n$, is  $P_{i−1}$ and the left neighbor of $P_1$ is $P_n$. Similarly, the right neighbor of every processor $P_i$, $1 \leq i < n$, is  $P_{i +1}$ and the right neighbor of $P_n$ is $P_1$.
