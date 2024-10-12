@@ -175,9 +175,9 @@ The proof is by induction on $k$, the number of cycles in the execution.
 
 We assume that, following the first $k$ cycles of the execution, assertions (1) and (2) hold for $l < min(k, d+1)$. We prove that, after one additional cycle, assertions (1) and (2) hold for $l < min(k+1, d+1)$.
 
-By the induction assumption, following the first $k$ cycles of the execution, each tuple of distance $l < min(k, d+1)$ that should appear in ${Processors}_i$ does indeed appear there. Moreover, no tuple with distance $l < min(k, d + 1)$ that should not appear in ${Processors}_i$ appears in ${Processors}_i$. In other words, the Processors variables are correct up to distance $l − 1$.
+By the induction assumption, following the first $k$ cycles of the execution, each tuple of distance $l < min(k, d+1)$ that should appear in ${Processors}_i$ does indeed appear there. Moreover, no tuple with distance $l < min(k, d + 1)$ that should not appear in ${Processors}_i$ appears in ${Processors}_i$. In other words, the Processors variables are correct up to distance $l - 1$.
 
-In the $k+1$ cycle, every processor reads the tuples of its neighbors — in particular, it reads all the correct tuples with distances up to $l−1$. Therefore, every tuple of distance $l$ that is computed during the $k+1$ cycle is a correct tuple — indeed, a processor at distance $l$ with the identifier of the tuple exists. Moreover, since every tuple of distance $l−1$ appears following $k$ cycles, no tuple of distance $l$ is missing following the $k+1$ cycle. (End)
+In the $k+1$ cycle, every processor reads the tuples of its neighbors — in particular, it reads all the correct tuples with distances up to $l-1$. Therefore, every tuple of distance $l$ that is computed during the $k+1$ cycle is a correct tuple — indeed, a processor at distance $l$ with the identifier of the tuple exists. Moreover, since every tuple of distance $l-1$ appears following $k$ cycles, no tuple of distance $l$ is missing following the $k+1$ cycle. (End)
 
 *证明：*
 
@@ -191,9 +191,9 @@ In the $k+1$ cycle, every processor reads the tuples of its neighbors — in par
 
 我们假设在执行的前 $k$ 个周期之后，对于 $l < min(k, d+1)$，断言 (1) 和 (2) 成立。我们证明，在一个额外的周期之后，对于 $l < min(k+1, d+1)$，断言 (1) 和 (2) 成立。
 
-根据归纳假设，在执行的前 $k$ 个周期之后，应该出现在 ${Processors}_i$ 中的每个距离为 $l < min(k, d+1)$ 的元组确实出现在那里。此外，不应该出现在 ${Processors}_i$ 中的每个距离为 $l < min(k, d+1)$ 的元组不会出现在 ${Processors}_i$ 中。换句话说，处理器变量在距离 $l−1$ 以内是正确的。
+根据归纳假设，在执行的前 $k$ 个周期之后，应该出现在 ${Processors}_i$ 中的每个距离为 $l < min(k, d+1)$ 的元组确实出现在那里。此外，不应该出现在 ${Processors}_i$ 中的每个距离为 $l < min(k, d+1)$ 的元组不会出现在 ${Processors}_i$ 中。换句话说，处理器变量在距离 $l-1$ 以内是正确的。
 
-在第 $k+1$ 个周期中，每个处理器读取其邻居的元组——特别是，它读取所有距离最多为 $l−1$ 的正确元组。因此，在第 $k+1$ 个周期中计算的每个距离为 $l$ 的元组都是正确的——确实存在一个距离为 $l$ 的处理器，其标识符与该元组的标识符相同。此外，由于在 $k$ 个周期之后出现了每个距离为 $l−1$ 的元组，因此在第 $k+1$ 个周期之后不会缺少任何距离为 $l$ 的元组。（完）
+在第 $k+1$ 个周期中，每个处理器读取其邻居的元组——特别是，它读取所有距离最多为 $l-1$ 的正确元组。因此，在第 $k+1$ 个周期中计算的每个距离为 $l$ 的元组都是正确的——确实存在一个距离为 $l$ 的处理器，其标识符与该元组的标识符相同。此外，由于在 $k$ 个周期之后出现了每个距离为 $l-1$ 的元组，因此在第 $k+1$ 个周期之后不会缺少任何距离为 $l$ 的元组。（完）
 
 ---
 
@@ -233,9 +233,9 @@ The convergecast mechanism assumes that every processor knows its parent and chi
 
 汇聚传输机制假设每个处理器都知道其在领导者的 *BFS* 树 $T$ 中的父节点和子节点。注意，这一假设在 $O(d)$ 周期后是有效的。汇聚传输为每个处理器 $P_i$ 使用一个变量 ${up}_i$，$P_i$ 将其写入 $T$ 中的父节点。当 $P_i$ 是 $T$ 中的叶节点时，$P_i$ 将其本地拓扑写入 ${up}_i$。否则，$P_i$ 将其在 $T$ 中所有子节点的 ${up}_i$ 变量的值与其本地拓扑连接起来，并将结果写入 ${up}_i$。汇聚传输机制的稳定性基于叶节点中的正确信息以及信息收集的方向，即从叶节点向树的根节点收集。
 
-Let the *height* of a processor $P_i$ in a rooted tree be the length of the longest path from $P_i$ to a leaf such that the path does not include the root. Obviously, following one cycle, the value of ${up}_i$ of every leaf processor is fixed and consists of its local topology. Therefore, following the second cycle of the execution, every processor whose children are leaves has fixed and correct topology information about its subtree. Similarly, following $h$ cycles, every processor of height $h−1$ or less has the correct topology on its subtree.
+Let the *height* of a processor $P_i$ in a rooted tree be the length of the longest path from $P_i$ to a leaf such that the path does not include the root. Obviously, following one cycle, the value of ${up}_i$ of every leaf processor is fixed and consists of its local topology. Therefore, following the second cycle of the execution, every processor whose children are leaves has fixed and correct topology information about its subtree. Similarly, following $h$ cycles, every processor of height $h-1$ or less has the correct topology on its subtree.
 
-设有根树中处理器 $P_i$ 的*高度*为从 $P_i$ 到叶节点的最长路径的长度，该路径不包括根节点。显然，在一个周期之后，每个叶节点处理器的 ${up}_i$ 的值是固定的，并且由其本地拓扑组成。因此，在执行的第二个周期之后，每个子节点为叶节点的处理器具有其子树的固定且正确的拓扑信息。同样地，在 $h$ 个周期之后，每个高度为 $h−1$ 或更小的处理器具有其子树的正确拓扑。
+设有根树中处理器 $P_i$ 的*高度*为从 $P_i$ 到叶节点的最长路径的长度，该路径不包括根节点。显然，在一个周期之后，每个叶节点处理器的 ${up}_i$ 的值是固定的，并且由其本地拓扑组成。因此，在执行的第二个周期之后，每个子节点为叶节点的处理器具有其子树的固定且正确的拓扑信息。同样地，在 $h$ 个周期之后，每个高度为 $h-1$ 或更小的处理器具有其子树的正确拓扑。
 
 ## Self-Stabilizing Broadcast for Topology Update
 

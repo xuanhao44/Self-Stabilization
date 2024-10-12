@@ -118,11 +118,11 @@ The step $a$ is applicable to a configuration $c$ if (and only if) there exists 
 
 ### execution（执行），以及 fair execution（公平执行）
 
-An execution $E = (c_1, a_1, c_2, a_2,···)$ (in the interleaving model) is **an alternating sequence of configurations and steps** such that $c_{i−1} \xrightarrow{a_{i−1}} c_i$ ($i > 1$); in other words, the configuration $c_i$ ($i > 1$) is obtained from $c_{i−1}$ by the execution of step $a_{i−1}$.
+An execution $E = (c_1, a_1, c_2, a_2,···)$ (in the interleaving model) is **an alternating sequence of configurations and steps** such that $c_{i-1} \xrightarrow{a_{i-1}} c_i$ ($i > 1$); in other words, the configuration $c_i$ ($i > 1$) is obtained from $c_{i-1}$ by the execution of step $a_{i-1}$.
 
 A *fair* execution is **an execution in which every step that is applicable infinitely often is executed infinitely often**. In particular, if (infinitely often) a processor has a step to execute then the processor executes this step (infinitely often).
 
-一个执行 $E = (c_1, a_1, c_2, a_2,···)$（在交错模型中）是**配置和步骤的交替序列**，使得 $c_{i−1} \xrightarrow{a_{i−1}} c_i$（$i > 1$）；换句话说，配置 $c_i$（$i > 1$）是通过执行步骤 $a_{i−1}$ 从 $c_{i−1}$ 获得的。
+一个执行 $E = (c_1, a_1, c_2, a_2,···)$（在交错模型中）是**配置和步骤的交替序列**，使得 $c_{i-1} \xrightarrow{a_{i-1}} c_i$（$i > 1$）；换句话说，配置 $c_i$（$i > 1$）是通过执行步骤 $a_{i-1}$ 从 $c_{i-1}$ 获得的。
 
 公平执行是指**每个无限次适用的步骤都被无限次执行的执行**。特别地，如果（无限次）一个处理器有一个步骤要执行，那么处理器就会执行这个步骤（无限次）。
 

@@ -27,9 +27,9 @@
 
 ## Dijkstra 算法
 
-The system consists of $n$ processors $P_1, P_2, ···, P_n$ that are connected in a ring. Each processor has a *left* and a *right* neighbor. The left neighbor of every processor $P_i$, $1 < i \leq n$, is  $P_{i−1}$ and the left neighbor of $P_1$ is $P_n$. Similarly, the right neighbor of every processor $P_i$, $1 \leq i < n$, is  $P_{i +1}$ and the right neighbor of $P_n$ is $P_1$.
+The system consists of $n$ processors $P_1, P_2, ···, P_n$ that are connected in a ring. Each processor has a *left* and a *right* neighbor. The left neighbor of every processor $P_i$, $1 < i \leq n$, is  $P_{i-1}$ and the left neighbor of $P_1$ is $P_n$. Similarly, the right neighbor of every processor $P_i$, $1 \leq i < n$, is  $P_{i +1}$ and the right neighbor of $P_n$ is $P_1$.
 
-系统由 $n$ 个处理器 $P_1, P_2, ···, P_n$ 组成，这些处理器连接成一个环。每个处理器都有一个左邻居和一个右邻居。每个处理器 $P_i$ 的左邻居（$1 < i \leq n$）是 $P_{i−1}$，而 $P_1$ 的左邻居是 $P_n$。同样，每个处理器 $P_i$ 的右邻居（$1 \leq i < n$）是 $P_{i+1}$，而 $P_n$ 的右邻居是 $P_1$。
+系统由 $n$ 个处理器 $P_1, P_2, ···, P_n$ 组成，这些处理器连接成一个环。每个处理器都有一个左邻居和一个右邻居。每个处理器 $P_i$ 的左邻居（$1 < i \leq n$）是 $P_{i-1}$，而 $P_1$ 的左邻居是 $P_n$。同样，每个处理器 $P_i$ 的右邻居（$1 \leq i < n$）是 $P_{i+1}$，而 $P_n$ 的右邻居是 $P_1$。
 
 Each processor $P_i$ has a variable $x_i$ that stores an integer value that is no smaller than 0 and no larger than $n$. The transition functions of the processors $P_2, ···, P_n$ are identical, while the transition function of $P_1$ is distinct. We call $P_1$ the special processor. The transition functions (or programs) of $P_1$ and the other processors $P_i$ ($2 \leq i \leq n$) appear in figure 2.2.
 
@@ -99,13 +99,13 @@ This depends both on the number of colors, $n+1$, and the number of legitimate c
 
 显然，在配置 $c$ 中，唯一能够改变 $x_i$ 值的处理器 $P_i$ 是 $P_1$。在每个从 $c$ 开始的公平执行中，$P_1$ 被**无限次**激活。一旦 $P_1$ 被激活，$P_1$ 会为 $x_1$ 分配一个在其他变量中不存在的值。设 $c_1$ 为在 $x_1$ 分配新值后立即跟随的配置。显然，$P_1$ 不能改变 $x_1$ 的值，直到 $x_n$ 也持有新值。
 
-每个其他处理器 $P_i$ 不能改变 $x_i$ 的值，除非 $x_{i−1} \neq x_i$。因此，唯一能够改变 $x_i$ 值的处理器 $P_i$ 是 $P_2$。在每个公平执行中，$P_2$ 被无限次激活，特别是在每个公平执行的 $c_1$ 之后无限次激活。
+每个其他处理器 $P_i$ 不能改变 $x_i$ 的值，除非 $x_{i-1} \neq x_i$。因此，唯一能够改变 $x_i$ 值的处理器 $P_i$ 是 $P_2$。在每个公平执行中，$P_2$ 被无限次激活，特别是在每个公平执行的 $c_1$ 之后无限次激活。
 
 设 $c_2$ 为 $P_2$ 改变 $x_2$ 值后立即达到的配置。在 $c_2$ 中，$x_1 = x_2$，$x_2 \neq x_3$，并且 $x_3 = x_4 = ··· = x_n$。因此，唯一能够改变状态的处理器是 $P_3$。
 
 一般来说，在 $c_i$ 中，$1 \leq i < n$，有 $x_1 = x_2 = ··· = x_i$，$x_i \neq x_{i+1}$，并且 $x_{i+1} = x_{i+2} = ··· = x_n$。因此，唯一能够改变其变量值的处理器是 $P_{i+1}$。
 
-因此，在 $c_{n−1}$ 中，只有 $P_n$ 能够改变其变量的值，一旦它被激活，就会达到一个配置 $c_n$，其中所有变量的值都相同。
+因此，在 $c_{n-1}$ 中，只有 $P_n$ 能够改变其变量的值，一旦它被激活，就会达到一个配置 $c_n$，其中所有变量的值都相同。
 
 注意，在每个从 $c$ 开始并以 $c_n$ 结束的执行中，只有一个处理器能够改变其变量的值，并且每个处理器恰好改变其变量的值一次。所以我们说，这个执行是属于 $ME$ 的，这一系列配置都是安全的。
 
@@ -121,13 +121,13 @@ Now we have a configuration $c$ in which all the $x$ variables have the same val
 
 Clearly the only processor $P_i$ that is able to change the value of $x_i$ in $c$ is $P_1$. $P_1$ is activated infinitely often in every fair execution that starts in c. Once $P_1$ is activated, $P_1$ assigns $x_1$ a value that does not exist in any other variable. Let $c_1$ be the configuration that immediately follows the assignment of this new value in $x_1$. Clearly, $P_1$ cannot change the value of $x_1$ until $x_n$ holds the new value as well.
 
-Every other processor $P_i$ cannot change the value of $x_i$ unless $x_{i−1} \neq x_i$. Thus, the only processor $P_i$ that can change the value of $x_i$ is $P_2$. $P_2$ is activated infinitely often in every fair execution, and in particular it is activated infinitely often following $c_1$ of every fair execution.
+Every other processor $P_i$ cannot change the value of $x_i$ unless $x_{i-1} \neq x_i$. Thus, the only processor $P_i$ that can change the value of $x_i$ is $P_2$. $P_2$ is activated infinitely often in every fair execution, and in particular it is activated infinitely often following $c_1$ of every fair execution.
 
 Let $c_2$ be the configuration reached immediately after $P_2$ changes the value of $x_2$. In $c_2$, it holds that $x_1 = x_2$, $x_2 \neq x_3$, and $x_3 = x_4 = ··· = x_n$. Thus, the only processor that is able to change a state is $P_3$.
 
 In general, in $c_i$, $1 \leq i < n$, it holds that $x_1 = x_2 = ··· = x_i$, $x_i \neq x_{i+1}$, and $x_{i+1} = x_{i+2} = ··· = x_n$. Thus, the only processor that is able to change the value of its variable is  $P_{i +1}$.
 
-Therefore, in $c_{n−1}$, only $P_n$ is able to change the value of its variable and, once it is activated, a configuration $c_n$ is reached in which the values of all the variables are the same.
+Therefore, in $c_{n-1}$, only $P_n$ is able to change the value of its variable and, once it is activated, a configuration $c_n$ is reached in which the values of all the variables are the same.
 
 Note that in every execution that starts in $c$ and ends in $c_n$ exactly one processor is able to change the value of its variable and each processor changes the value of its variable exactly once. So we say, this execution belongs to $ME$, and this set of configurations is safe.
 
