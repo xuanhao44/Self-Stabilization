@@ -7,6 +7,8 @@ Shlomi Dolev
   - [2 Definitions, Techniques, and Paradigms](book_2.md)
   - [3 Motivating Self-Stabilization](book_3.md)
   - [4 Self-Stabilizing Algorithms for Model Conversions](book_4.md)
+  - [6 Convergence in the Presence of Faults](book_6.md)
+  - [7 Local Stabilization](book_7.md)
 - 笔记
   - [2_1 概念](note_2_1.md)
     - [2.1 Definitions of the Computational Model](book_2_1.md)
@@ -33,3 +35,5 @@ Shlomi Dolev
     - [4.2 Data-Link Algorithms: Converting Shared Memory to Message Passing](book_4_2.md)
   - [4_2 排名算法](note_4_2.md)
     - [4.3 Self-Stabilizing Ranking: Converting an Id-based System to a Special-processor System](book_4_3.md)
+  - [note_4_3_更新算法](note_4_3.md)
+    - [4.4 Update: Converting a Special Processor to an Id-based Dynamic System](book_4_4.md)
