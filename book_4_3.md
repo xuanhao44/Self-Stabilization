@@ -14,7 +14,7 @@ The self-stabilizing counting algorithm assumes a **rooted spanning tree** syste
 
 The self-stabilizing counting algorithm is an example of the *self-stabilizing convergecast technique*. Intuitively, the *self-stabilizing convergecast* technique is based on the fact that **the correct information is repeatedly communicated from the leaves of the tree toward the root**.
 
-自稳定计数算法是 *自稳定汇聚广播技术* 的一个例子。直观地说，*自稳定汇聚广播* 技术基于以下事实：**正确的信息反复从树的叶节点传递到根节点**。
+自稳定计数算法是 *自稳定汇聚传输技术* 的一个例子。直观地说，*自稳定汇聚传输* 技术基于以下事实：**正确的信息反复从树的叶节点传递到根节点**。
 
 The naming algorithm uses the value of the *count* fields to assign unique identifiers to the processors. The code for the naming algorithm appears in figure 4.4. The identifier of a processor is stored in the ${ID}_i$ variable. A processor that executes the do loop of lines 4 through 8 or lines 14 through 18 executes one iteration of the loop for each processor in $children(i)$. The order of the iteration is arbitrary but fixed, say according to the internal labels of the links attached to $P_i$.
 
@@ -48,7 +48,7 @@ Now observe that the value of every register of height 2 is computed using only 
 
 The counting algorithm can be used to elect a leader (or two leaders if symmetry cannot be broken) in the tree and assign unique identifiers to the processors (assuming that the symmetry in the two leaders case can be broken).
 
-在继续下一个转换方法之前，我们提出一个优雅的*非根树* $T$ 的自稳定计数算法。这样的系统中的每个处理器都知道其连接的链接属于树 $T$。
+在继续下一个转换方法之前，我们提出一个优雅的*无根树* $T$ 的自稳定计数算法。这样的系统中的每个处理器都知道其连接的链接属于树 $T$。
 
 每个处理器 $P_i$ 对每个邻居 $P_j$ 都有一个变量 ${count}_i[j]$。在安全配置中，每个 ${count}_i[j]$ 的值是通过移除 $P_i$ 和 $P_j$ 之间的边获得的 $T$ 的子树中的处理器数量。每次移除一条边都会将树分成两棵子树；$P_i$ 属于其中一棵子树，$P_j$ 属于另一棵子树。${count}_i[j]$ 的值与 $P_i$ 所属子树中的处理器数量有关。
 

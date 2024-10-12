@@ -1,14 +1,14 @@
-# note_4_1
+# note_4_1_模型转换
 
 包括 4.1、4.2 部分以及 PPT 内容。
 
-> To$p_i$c: Converting Shared Memory to Message Passing (Ch. 4.2) This item is significantly shortened this year. For some theorems, we explain the meaning of their statement but skip their proofs.
+> Topic: Converting Shared Memory to Message Passing (Ch. 4.2) This item is significantly shortened this year. For some theorems, we explain the meaning of their statement but skip their proofs.
 
 跳过了相当多的证明。
 
 <!-- TOC -->
 
-- [note\_4\_1](#note_4_1)
+- [note\_4\_1\_模型转换](#note_4_1_模型转换)
   - [4.1 Token-Passing](#41-token-passing)
   - [4.2 Data-Link Algorithms](#42-data-link-algorithms)
     - [背景](#背景)
