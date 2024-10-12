@@ -1,5 +1,18 @@
 # note_3_没有自稳定的数据链路算法
 
+包含 2.10 部分、3.1 和 3.2 内容和 PPT 内容。2.10 仅包括交替位算法，3.1 和 3.2 均舍弃了大部分的证明，仅留下了算法（或者说解决方案）。
+
+包含：
+
+- 2.10 部分：仅包括交替位算法
+- 3.1 和 3.2 部分：舍弃了大部分的证明，仅留下了算法（或者说解决方案）
+
+由于从这一部分开始，老师进行了有选择性的讲解，故而我也只能根据老师的节奏进行取舍；其次，从这里开始，如第 3 章和第 4 章，其行文结构比较复杂和相对的没有逻辑，而 PPT 上有着相当精炼的提纲辅助理解。
+
+故而总的来说，之后的笔记将以 PPT 为导向。
+
+---
+
 注意这一章开头的两句话：
 
 > there is no reliable data-link algorithm that can withstand processor crashes.
@@ -8,9 +21,7 @@
 
 事实证明，没有可靠的数据链路算法能够承受处理器崩溃。然后我们扩展上述结果，表明崩溃可能导致系统达到任意状态。
 
-此外，这一章的内容 3.1 和 3.2 均舍弃了大部分的证明，仅留下了算法（或者说解决方案）。
-
-## note_3_1
+## 3.1 Initialization of a Data-Link Algorithm in the Presence of Faults
 
 ### 交替位算法
 
@@ -35,7 +46,7 @@ There is No Crash-Tolerant Data-link Algorithm:
   - $Crash_S$ – sender crash
 - $Crash_X$ causes $X$ to perform an initialization procedure
 
-## note_3_2
+## 3.2 Arbitrary Configuration Because of Crashes
 
 ### Arbitrary configuration because of crashes
 

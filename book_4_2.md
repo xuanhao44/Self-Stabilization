@@ -14,9 +14,9 @@ In the study of fault-tolerant message passing systems, it is customarily assume
 
 在容错消息传递系统的研究中，通常假设消息可能在链路上传输时被破坏；因此，处理器可能进入任意状态，链路内容也可能是任意的。自稳定算法也能处理这些问题，因为它们设计用于从不一致的全局状态中恢复。
 
-Designing a self-stabilizing algorithm for asynchronous message-passing systems can be even more subtle than designing a self-stabilizing algorithm for a system that supports read/write atomicity. The main difficulty is the messages stored in the communication links. A self-stabilizing system must cope with any possible initial state. When modeling asynchronous systems, it is commonly assumed that there is no bound on message delivery time, and the number of messages that can be in (transit and in the buffers of) a link is also unbounded. Thus, there are infinitely many initial configurations from which the system must stabilize. Again, one would like to design a self-stabilizing algorithm for the read/write atomicity model (or even the central daemon model) and then use a compiler that converts this algorithm into a self-stabilizing algorithm in the message-passing model. Our first goal in the design of such a compiler is a self-stabilizing data-link algorithm or token-passing algorithm. A self-stabilizing data-link algorithm will ensure that the unknown contents of the link are controlled, eliminating undesired messages from the link.
+**Designing a self-stabilizing algorithm for asynchronous message-passing systems can be even more subtle than designing a self-stabilizing algorithm for a system that supports read/write atomicity**. The main difficulty is the messages stored in the communication links. A self-stabilizing system must cope with any possible initial state. When modeling asynchronous systems, **it is commonly assumed that there is no bound on message delivery time, and the number of messages that can be in (transit and in the buffers of) a link is also unbounded**. Thus, **there are infinitely many initial configurations from which the system must stabilize**. Again, one would like to design a self-stabilizing algorithm for the read/write atomicity model (or even the central daemon model) and then use a compiler that converts this algorithm into a self-stabilizing algorithm in the message-passing model. Our first goal in the design of such a compiler is a self-stabilizing data-link algorithm or token-passing algorithm. A self-stabilizing data-link algorithm will ensure that the unknown contents of the link are controlled, eliminating undesired messages from the link.
 
-为异步消息传递系统设计自稳定算法比为支持读/写原子性的系统设计自稳定算法更为微妙。主要困难在于存储在通信链路中的消息。自稳定系统必须应对任何可能的初始状态。在建模异步系统时，通常假设消息传递时间没有上限，并且链路中（在传输和缓冲区中的）消息数量也是无限的。因此，系统必须从无数的初始配置中稳定下来。同样，人们希望为读/写原子性模型（甚至是中央守护进程模型）设计自稳定算法，然后使用编译器将该算法转换为消息传递模型中的自稳定算法。我们在设计这种编译器时的第一个目标是自稳定数据链路算法或令牌传递算法。自稳定数据链路算法将确保链路中未知的内容受到控制，消除链路中的不需要的消息。
+**为异步消息传递系统设计自稳定算法比为支持读/写原子性的系统设计自稳定算法更为微妙**。主要困难在于存储在通信链路中的消息。自稳定系统必须应对任何可能的初始状态。在建模异步系统时，**通常假设消息传递时间没有上限，并且链路中（在传输和缓冲区中的）消息数量也是无限的**。因此，**系统必须从无数的初始配置中稳定下来**。同样，人们希望为读/写原子性模型（甚至是中央守护进程模型）设计自稳定算法，然后使用编译器将该算法转换为消息传递模型中的自稳定算法。我们在设计这种编译器时的第一个目标是自稳定数据链路算法或令牌传递算法。自稳定数据链路算法将确保链路中未知的内容受到控制，消除链路中的不需要的消息。
 
 Recall that the data-link algorithm is designed for a system of two processors, one of which is the sender and the other the receiver. The task of the data-link algorithm is to use retransmissions in order to deliver messages from the sender to the receiver. The messages that have to be delivered are given to the sender by a higher-level algorithm of the network layer. The messages that are fetched by the sender from the network layer (at the sender side) should be delivered by the receiver to the network layer (at the receiver side) without duplications, omissions, or reordering. A message $m$ that is fetched by the sender from the network layer is sent repeatedly as part of (messages called) frames to the receiver until the sender receives an indication that $m$ was delivered by the receiver to the network layer (on the receiver side).
 
@@ -26,9 +26,9 @@ For instance, in the *stop-and-wait* data-link algorithm, each message sent by t
 
 例如，在 *停等* 数据链路算法中，发送方发送的每条消息在发送下一条消息之前都会由接收方确认。这种行为类似于令牌传递算法，其中单个令牌在发送方和接收方之间反复传递。首先注意，停等算法实现了令牌传递任务：每次发送方决定获取新消息时，令牌存在于发送方；每次接收方决定传递消息时，令牌存在于接收方。另一方面，令牌传递算法实现了数据链路任务：通过在发送方和接收方之间发送帧，令牌在发送方和接收方之间传递。因此，大致来说，发送方获取的每条消息的内容可以附加到每个用于传递令牌的帧上。每当令牌到达发送方时，就会获取新消息。一旦接收方决定令牌已到达，它就会传递附加到最后到达帧上的消息。注意，在这两种任务中，发送方和接收方不可能同时持有令牌（或同时获取和传递消息）。换句话说，不存在一种配置，其中有两个适用的步骤 $a_1$ 和 $a_2$，使得发送方在 $a_1$ 期间发送令牌（获取消息），而接收方在 $a_2$ 期间接收令牌（分别传递消息）。
 
-We abstract the requirements of the data-link algorithm and the token-passing algorithm tasks in a set of executions $TP$. The task $TP$ of legitimate sequences is defined as the set of all configuration sequences in which no more than one processor holds the token and both the sender and the receiver hold the token in infinitely many configurations in every sequence in $TP$. In what follows we consider the $TP$ task. Thus, in the next three sections there is no need to use both the terms message and frame — and hence we use only the term message.
+**We abstract the requirements of the data-link algorithm and the token-passing algorithm tasks in a set of executions $TP$. The task $TP$ of legitimate sequences is defined as the set of all configuration sequences in which no more than one processor holds the token and both the sender and the receiver hold the token in infinitely many configurations in every sequence in $TP$**. In what follows we consider the $TP$ task. Thus, in the next three sections there is no need to use both the terms message and frame — and hence we use only the term message.
 
-我们将数据链路算法和令牌传递算法任务的要求抽象为一组执行 $TP$。合法序列任务 $TP$ 定义为所有配置序列的集合，其中没有一个处理器持有令牌，并且在 $TP$ 中的每个序列中，发送方和接收方在无限多的配置中都持有令牌。在下文中，我们考虑 $TP$ 任务。因此，在接下来的三节中，不需要同时使用消息和帧这两个术语——因此我们只使用消息这个术语。
+**我们将数据链路算法和令牌传递算法任务的要求抽象为一组执行 $TP$。合法序列任务 $TP$ 定义为所有配置序列的集合，其中没有一个处理器持有令牌，并且在 $TP$ 中的每个序列中，发送方和接收方在无限多的配置中都持有令牌**。在下文中，我们考虑 $TP$ 任务。因此，在接下来的三节中，不需要同时使用消息和帧这两个术语——因此我们只使用消息这个术语。
 
 ## Unbounded Solution
 
@@ -86,9 +86,9 @@ First we claim that, in every fair execution, the value of the sender's counter 
 
 ---
 
-A question to ask at this stage is whether an algorithm that uses only bounded memory exists — in particular, whether the unbounded counter and label can be eliminated. We answer this question negatively, proving that the memory of the system must grow at a logarithmic rate, where the memory of the system is the number of bits required to encode the state of the sender, the state of the receiver, and the messages in transit (including the messages in the incoming and outgoing buffers of the links). The lower bound is proved on the *size* of the system configuration, where the size is the number of bits required to encode a configuration.
+A question to ask at this stage is **whether an algorithm that uses only bounded memory exists — in particular, whether the unbounded counter and label can be eliminated. We answer this question negatively**, proving that the memory of the system must grow at a logarithmic rate, where **the memory of the system is the number of bits required to encode the state of the sender, the state of the receiver, and the messages in transit (including the messages in the incoming and outgoing buffers of the links)**. The lower bound is proved on the *size* of the system configuration, where the size is the number of bits required to encode a configuration.
 
-在这个阶段要问的一个问题是，是否存在仅使用有限内存的算法——特别是，是否可以消除无界计数器和标签。我们对这个问题的回答是否定的，证明了系统的内存必须以对数速率增长，其中系统的内存是编码发送方状态、接收方状态和传输中的消息（包括链路的输入和输出缓冲区中的消息）所需的位数。下限是在系统配置的 *大小* 上证明的，其中大小是编码一个配置所需的位数。
+在这个阶段要问的一个问题是，**是否存在仅使用有限内存的算法——特别是，是否可以消除无界计数器和标签。我们对这个问题的回答是否定的**，证明了系统的内存必须以对数速率增长，其中**系统的内存是编码发送方状态、接收方状态和传输中的消息（包括链路的输入和输出缓冲区中的消息）所需的位数**。下限是在系统配置的 *大小* 上证明的，其中大小是编码一个配置所需的位数。
 
 ## Lower Bound
 
@@ -264,7 +264,7 @@ It is customarily assumed that a sixty-four-bit counter can implement an unbound
 
 In light of the lower bound above, it is impossible to devise a self-stabilizing bounded solution for the token-passing task in a completely asynchronous system, where the number of messages in transit is not bounded. In this section we relax the assumptions on asynchronous systems to obtain a bounded self-stabilizing algorithm for the token-passing task $TP$. For our first algorithm, we assume that a bound on the number of messages in transit is known.
 
-鉴于上述下界，在完全异步系统中设计一个自稳定的有界令牌传递任务解决方案是不可能的，其中在途消息的数量是无界的。在本节中，我们放宽了对异步系统的假设，以获得一个有界的自稳定令牌传递任务 $TP$ 的算法。对于我们的第一个算法，我们假设已知在途消息的数量上限。
+鉴于上述下界的说明，在完全异步系统中设计一个自稳定的有界令牌传递任务解决方案是不可能的，其中在途消息的数量是无界的。在本节中，我们放宽了对异步系统的假设，以获得一个有界的自稳定令牌传递任务 $TP$ 的算法。对于我们的第一个算法，我们假设已知在途消息的数量上限。
 
 **Let $cap$ be the bound on the total number of messages in both directions. Interestingly, a bounded version of the algorithm presented in figure 4.1, in which the counter of the sender is incremented modulo $cap+1$, is self-stabilizing. Roughly speaking, the reason is that the sender must eventually introduce a counter value not existing in any message in transit.**
 
@@ -272,9 +272,9 @@ In light of the lower bound above, it is impossible to devise a self-stabilizing
 
 ![figure_4.2](images/figure_4.2.png)
 
-The second self-stabilizing bounded algorithm that we propose here does not assume any bound on the number of messages in transit. In this algorithm, the sender tosses a coin to decide on the label of messages, and hence the algorithm is randomized. A randomized algorithm requires an additional (hardware) device with random output. Moreover, the stabilization to a safe configuration is with *probability* 1. Thus, there can exist executions $E$ of any finite length such that no safe configuration is reached in $E$. The code of the algorithm appears in figure 4.2. At least three labels are used, {0, 1, 2}. The sender repeatedly sends a message with a particular label $l$ until a message with the same label $l$ arrives. Then the sender chooses randomly (by invoking the procedure *ChooseLabel*) the next label $l' \neq l$ from the remaining labels. The program of the receiver is the same as in the unbounded algorithm.
+**The second self-stabilizing bounded algorithm that we propose here does not assume any bound on the number of messages in transit**. In this algorithm, **the sender tosses a coin to decide on the label of messages, and hence the algorithm is randomized**. A randomized algorithm requires an additional (hardware) device with random output. Moreover, the stabilization to a safe configuration is with *probability* 1. Thus, there can exist executions $E$ of any finite length such that no safe configuration is reached in $E$. The code of the algorithm appears in figure 4.2. **At least three labels are used, {0, 1, 2}**. **The sender repeatedly sends a message with a particular label $l$ until a message with the same label $l$ arrives. Then the sender chooses randomly (by invoking the procedure *ChooseLabel*) the next label $l' \neq l$ from the remaining labels**. The program of the receiver is the same as in the unbounded algorithm.
 
-我们在此提出的第二个自稳定有界算法不假设在途消息的数量有任何限制。在这个算法中，发送方通过抛硬币来决定消息的标签，因此该算法是随机化的。随机化算法需要一个具有随机输出的额外（硬件）设备。此外，稳定到安全配置的概率为 1。因此，可能存在任意有限长度的执行 $E$，在 $E$ 中没有达到安全配置。算法的代码见图 4.2。至少使用了三个标签，{0, 1, 2}。发送方重复发送具有特定标签 $l$ 的消息，直到收到具有相同标签 $l$ 的消息。然后，发送方从剩余标签中随机选择（通过调用 *ChooseLabel* 过程）下一个标签 $l' \neq l$。接收方的程序与无界算法中的相同。
+我们在此提出的**第二个自稳定有界算法不假设在途消息的数量有任何限制**。在这个算法中，**发送方通过抛硬币来决定消息的标签，因此该算法是随机化的**。随机化算法需要一个具有随机输出的额外（硬件）设备。此外，稳定到安全配置的概率为 1。因此，可能存在任意有限长度的执行 $E$，在 $E$ 中没有达到安全配置。算法的代码见图 4.2。**至少使用了三个标签，{0, 1, 2}**。**发送方重复发送具有特定标签 $l$ 的消息，直到收到具有相同标签 $l$ 的消息。然后，发送方从剩余标签中随机选择（通过调用 *ChooseLabel* 过程）下一个标签 $l' \neq l$**。接收方的程序与无界算法中的相同。
 
 Now we present the main ideas for proving the self-stabilization property of the algorithm in figure 4.2 (similar ideas were presented in section 2.10 for proving that the alternating-bit algorithm is pseudo self-stabilizing). In configuration $c$, let $\mathcal{L}_{sr}(c) = l_1, l_2, l_3, ···, l_k$ be the sequence of the labels of the messages that are pending from the sender to the receiver, and let $\mathcal{L}_{rs}(c) = l_{k+1}, l_{k+2}, l_{k+3}, ···, l_{k+q}$ be the sequence of the labels of the messages that are pending from the receiver to the sender. The label $l_1 (l_{k+1})$ is the label of the last message sent by the sender (receiver, respectively) and the label $l_k (l_{k+q})$ is the label of the message that is the first to arrive at the receiver (sender, respectively). Let $\mathcal{L}(c) = l_1, l_2, ···, l_k, l_{k+1}, l_{k+2}, ···, l_{k+q}$ be the concatenation of $\mathcal{L}_{sr}(c)$ with $\mathcal{L}_{rs}(c)$.
 
@@ -311,10 +311,10 @@ We now describe the simulation of some arbitrary link $\mathscr{e}$ connecting $
 1. $P_i$ receives the token from $P_j$, and then
 2. $P_i$ receives the token again from $P_j$. The value the read operation returns is the value attached to the token (when it arrives at this second time).
 
-现在我们描述连接 $P_i$ 和 $P_j$ 的任意链接 $\mathscr{e}$ 的模拟。在共享内存模型中，$\mathscr{e}$ 由一个寄存器 $r_{ij}$ 实现，$P_i$ 向其中写入，$P_j$ 从中读取，另一个寄存器 $r_{ji}$ 的角色相反。在模拟算法中，处理器 $P_i$ ($P_j$) 有一个名为 $R_{ij}$ ($R_{ji}$) 的局部变量，分别保存 $r_{ij}$ ($r_{ji}$) 的值。每个令牌有一个名为 $value$ 的附加字段。每次 $P_i$ 从 $P_j$ 接收到令牌时，$P_i$ 将 $R_{ij}$ 的当前值写入该令牌的 $value$ 字段。$P_i$ 向 $r_{ij}$ 的写操作仅通过本地写入 $R_{ij}$ 实现。$P_i$ 从 $r_{ji}$ 的读操作通过以下步骤实现：
+现在我们描述连接 $P_i$ 和 $P_j$ 的任意链接 $\mathscr{e}$ 的模拟。在共享内存模型中，$\mathscr{e}$ 由一个寄存器 $r_{ij}$ 实现，$P_i$ 向其中写入，$P_j$ 从中读取，另一个寄存器 $r_{ji}$ 的角色相反。在模拟算法中，处理器 $P_i$ ($P_j$) 有一个名为 $R_{ij}$ ($R_{ji}$) 的局部变量，分别保存 $r_{ij}$ ($r_{ji}$) 的值。每个令牌有一个名为 $value$ 的附加字段。每次 $P_i$ 从 $P_j$ 接收到令牌时，$P_i$ 将 $R_{ij}$ 的当前值写入该令牌的 $value$ 字段。$P_i$ 向 $r_{ij}$ 的写操作仅通过本地写入 $R_{ij}$ 实现。**$P_i$ 从 $r_{ji}$ 的读操作通过以下步骤实现**：
 
-1. $P_i$ 从 $P_j$ 接收令牌，然后
-2. $P_i$ 再次从 $P_j$ 接收令牌。读操作返回的值是附加到令牌上的值（当它第二次到达时）。
+1. **$P_i$ 从 $P_j$ 接收令牌，然后**
+2. **$P_i$ 再次从 $P_j$ 接收令牌。读操作返回的值是附加到令牌上的值（当它第二次到达时）**。
 
 Note that, during the simulation of a read operation from $r_{ji}$, $P_i$ does not proceed in its program until the simulated read step is finished. However, $P_i$ continues to send messages (and tokens) to each of its neighbors that serve any read requests.
 
