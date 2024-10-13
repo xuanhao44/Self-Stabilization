@@ -142,7 +142,7 @@ To mitigate these potential issues, NTP has mechanisms in place to manage the ro
 
 PPT 上的演示不够直接，下图是我自己画的：
 
-![6.1_bounded_max](images/6.1_bounded_max.jpg)
+![note_6_1_bounded_max](images/note_6_1_bounded_max.jpg)
 
 同时还注意到，{1, 3 , 7} 的初始配置在 $d=2$ 个脉冲后同步，但是 {1, 3, 8} 的初始配置却在 3 个脉冲后同步。
 
