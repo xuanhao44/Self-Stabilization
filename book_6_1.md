@@ -26,13 +26,17 @@ The first self-stabilizing algorithm for synchronizing digital clocks that we de
 
 我们描述的第一个用于同步数字时钟的自稳定算法使用了无限数目的时钟值。该算法的代码如图 6.1 所示。**令 $max$ 为处理器 $P_i$ 在某一脉冲期间从邻居读取的最大时钟值。在这种情况下，$P_i$ 将值 $max+1$ 赋给自己的时钟**。这个简单的算法是自稳定的，因为从任何初始配置开始，经过至少 $d$ 个脉冲（其中 $d$ 是系统的直径）后，时钟将同步并在之后的任意脉冲中递增 1。
 
-Let $P_m$ be a processor with the maximal clock value in the first configuration. The correctness of the algorithm can be easily proven by an induction on the distance from $P_m$; we assume that, following $i$ pulses, every processor of distance $i$ from $P_m$ holds the (current) maximal clock value. The algorithm uses unbounded clocks, which is a serious drawback in self-stabilizing systems. Every implementation of the algorithm must use bounded memory for the clock (e.g., a sixty-four-bit register). As already remarked, the assumption that a sixty-four-bit digital clock is "unbounded" for every implementation because it will take $2^{64}$ time units to reach the upper bound (which is large enough for every possible application) does not hold in the design of self-stabilizing systems, where a single transient fault may cause the clock immediately to reach the maximal clock value.
+Let $P_m$ be a processor with the maximal clock value in the first configuration. The correctness of the algorithm can be easily proven by an induction on the distance from $P_m$; we assume that, following $i$ pulses, every processor of distance $i$ from $P_m$ holds the (current) maximal clock value.
 
-令 $P_m$ 为初始配置中具有最大时钟值的处理器。该算法的正确性可以通过对从 $P_m$ 的距离进行归纳证明；我们假设在经过 $i$ 个脉冲后，从 $P_m$ 距离为 $i$ 的每个处理器都持有（当前的）最大时钟值。该算法使用了无限制的时钟，这是自稳定系统中的一个严重缺陷。该算法的每个实现都必须使用有限的时钟内存（例如，六十四位寄存器）。如前所述，在每个实现中假定一个六十四位数字时钟是“无限的”，因为需要 $2^{64}$ 个时间单位才能达到上限（这对于每个可能的应用程序来说已经足够大了），这种假设在自稳定系统的设计中并不成立，因为单个瞬时故障可能会导致时钟立即达到最大值。
+The algorithm uses unbounded clocks, which is a serious drawback in self-stabilizing systems. Every implementation of the algorithm must use bounded memory for the clock (e.g., a sixty-four-bit register). As already remarked, the assumption that a sixty-four-bit digital clock is "unbounded" for every implementation because it will take $2^{64}$ time units to reach the upper bound (which is large enough for every possible application) does not hold in the design of self-stabilizing systems, where a single transient fault may cause the clock immediately to reach the maximal clock value.
 
-We discuss two self-stabilizing algorithms that use bounded clock values. The first bounded algorithm is almost identical to the unbounded algorithm, the only difference being that the clocks are incremented modulo $M$ where $M > (n + 1)d$ (note that for ease of description the values we choose for $M$ are not the minimal possible value). The code of the algorithm appears in figure 6.2.
+令 $P_m$ 为初始配置中具有最大时钟值的处理器。该算法的正确性可以通过对从 $P_m$ 的距离进行归纳证明；我们假设在经过 $i$ 个脉冲后，从 $P_m$ 距离为 $i$ 的每个处理器都持有（当前的）最大时钟值。
 
-我们讨论了两种使用有限时钟值的自稳定算法。第一个有限算法与无限算法几乎相同，唯一的区别是时钟按 $M$ 取模递增，其中 $M > (n + 1)d$（请注意，为了描述方便，我们选择的 $M$ 值不是最小可能值）。该算法的代码如图 6.2 所示。
+该算法使用了无限制的时钟，这是自稳定系统中的一个严重缺陷。该算法的每个实现都必须使用有限的时钟内存（例如，六十四位寄存器）。如前所述，在每个实现中假定一个六十四位数字时钟是“无限的”，因为需要 $2^{64}$ 个时间单位才能达到上限（这对于每个可能的应用程序来说已经足够大了），这种假设在自稳定系统的设计中并不成立，因为单个瞬时故障可能会导致时钟立即达到最大值。
+
+We discuss two self-stabilizing algorithms that use bounded clock values. The first bounded algorithm is almost identical to the unbounded algorithm, the only difference being that the clocks are incremented modulo $M$ where $M > (n+1)d$ (note that for ease of description the values we choose for $M$ are not the minimal possible value). The code of the algorithm appears in figure 6.2.
+
+我们讨论了两种使用有限时钟值的自稳定算法。第一个有限算法与无限算法几乎相同，唯一的区别是时钟按 $M$ 取模递增，其中 $M > (n+1)d$（请注意，为了描述方便，我们选择的 $M$ 值不是最小可能值）。该算法的代码如图 6.2 所示。
 
 ![figure_6.2](images/figure_6.2.png)
 
