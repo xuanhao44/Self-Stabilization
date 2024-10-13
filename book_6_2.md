@@ -68,7 +68,7 @@ Interestingly, there is a simple self-stabilizing implementation of this arrow. 
 
 Each processor $P_i$ has an ${order}_{ij}$ variable for each neighbor $P_j$ that holds a value from {0, 1, 2}. $P_i$ writes in ${order}_{ij}$ and every processor can read ${order}_{ij}$.
 
-The arrow has no direction when the value of ${order}_{ij}$ is equal to the value of ${order}_{ji}$. 
+The arrow has no direction when the value of ${order}_{ij}$ is equal to the value of ${order}_{ji}$.
 
 When ${order}_{ij}$ is not equal to ${order}_{ji}$, the arrow is directed. In this case, we define the **behind** relation by the missing value $x$, which is the value from {0, 1, 2} such that $x = {order}_{ij}$ and $x = {order}_{ji}$. The convention we use is that **the value that follows $x$ in the clockwise direction is behind the other value**. In other words, $P_i$ is behind $P_j$ if and only if $({order}_{ij} + 1) \mod 3 = {order}_{ji}$.
 
@@ -102,7 +102,7 @@ $P_i$ 通过递增 $({order}_{ij} + 1) \mod 3$ 来识别所有正在“打盹”
 
 This order mechanism is used for selecting (bounded) clock values. The clock values of the napping processors are ignored. At each pulse, $P_i$ reads the order variables between every two processors $P_j$ and $P_l$, $1 \leq j$, $l \leq n$ in the system. Let $\mathcal{NB}$ be the set of processors that are not behind any other processor according to the order variables $P_i$ read.
 
-- If $\mathcal{NB}$ is not empty, then $P_i$ chooses the maximal clock value $x$ among the clock values of the processors in $\mathcal{NB}$ and assigns $(x + 1) \mod M$ to its clock. 
+- If $\mathcal{NB}$ is not empty, then $P_i$ chooses the maximal clock value $x$ among the clock values of the processors in $\mathcal{NB}$ and assigns $(x + 1) \mod M$ to its clock.
 - Otherwise, $P_i$ does not change its clock value.
 
 这种 order 的机制用于选择（有界的）时钟值。正在“打盹”的处理器的时钟值会被忽略。在每一次脉冲中，$P_i$ 会读取系统中每两个处理器 $P_j$ 和 $P_l$ 之间的 order 变量，$1 \leq j, l \leq n$。令 $\mathcal{NB}$ 为根据 $P_i$ 读取的 order 变量未落后于任何其他处理器的处理器集合。
