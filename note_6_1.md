@@ -2,6 +2,20 @@
 
 包括 6.1 和 PPT 内容。注意  Digital Clocks with a Constant Number of States 的证明部分被跳过了。
 
+<!-- TOC -->
+
+- [note\_6\_1\_时钟同步](#note_6_1_时钟同步)
+  - [Network Time Protocol (NTP)](#network-time-protocol-ntp)
+  - [lock-step（逐步锁定）](#lock-step逐步锁定)
+  - [任务](#任务)
+  - [unbounded solution](#unbounded-solution)
+  - [bounded clock solutions](#bounded-clock-solutions)
+    - [MAX](#max)
+    - [MIN](#min)
+  - [Constant Number of States](#constant-number-of-states)
+
+<!-- /TOC -->
+
 ## Network Time Protocol (NTP)
 
 看 PPT 的时候注意哪些内容是没有被划线（不在学习范围内）的。

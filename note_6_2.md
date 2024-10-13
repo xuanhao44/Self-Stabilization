@@ -1,5 +1,22 @@
 # note_6_2_即使打盹也能自稳定
 
+<!-- TOC -->
+
+- [note\_6\_2\_即使打盹也能自稳定](#note_6_2_即使打盹也能自稳定)
+  - [背景和概念](#背景和概念)
+    - [fault](#fault)
+    - [wait-free self-stabilizing clock-synchronization algorithm](#wait-free-self-stabilizing-clock-synchronization-algorithm)
+  - [unbounded clocks](#unbounded-clocks)
+  - [bounded clock values](#bounded-clock-values)
+    - [箭头、落后](#箭头落后)
+    - [识别打盹处理器](#识别打盹处理器)
+      - [特定的执行（包括 order 的算法）](#特定的执行包括-order-的算法)
+      - [算法文字描述（包括 clock 的算法）](#算法文字描述包括-clock-的算法)
+    - [算法（来自 PPT）](#算法来自-ppt)
+    - [证明](#证明)
+
+<!-- /TOC -->
+
 ## 背景和概念
 
 ### fault

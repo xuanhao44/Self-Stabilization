@@ -37,3 +37,7 @@ Shlomi Dolev
     - [4.3 Self-Stabilizing Ranking: Converting an Id-based System to a Special-processor System](book_4_3.md)
   - [note_4_3_更新算法](note_4_3.md)
     - [4.4 Update: Converting a Special Processor to an Id-based Dynamic System](book_4_4.md)
+  - [note_6_1_时钟同步](note_6_1.md)
+    - [6.1 Digital Clock Synchronization](book_6_1.md)
+  - [note_6_2_即使打盹也能自稳定](note_6_2.md)
+    - [6.2 Stabilization in Spite of Napping](book_6_2.md)
