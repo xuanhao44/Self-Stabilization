@@ -4,7 +4,7 @@
 
 ## 理解在干什么
 
-首先标题是 Converting an Id-based System to a Special-processor System，但是排名任务（算法）却是为系统中的每个 $n$ 个处理器分配一个范围为 1 到 $n$ 的唯一标识符。这可能会让人有些疑惑。
+首先标题是 Converting an Id-based System to a Special-processor System，但是排名任务（算法）却是为系统中的 $n$ 个处理器分配一个范围为 1 到 $n$ 的唯一标识符。这可能会让人有些疑惑。
 
 但是注意，我们这一节要讨论的是 compiler：
 
