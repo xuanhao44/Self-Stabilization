@@ -2,19 +2,25 @@
 
 Let us first study the combination of self-stabilization and dynamic systems. In a *dynamic* system, communication links and processors may fail and recover during normal operation. Algorithms for dynamic systems are designed to cope with such failures and to recover without global reinitialization. These algorithms consider only global states that are reachable from a predefined initial state under a *restrictive sequence of failures*; under such restrictions, the algorithms attempt to cope with failures with as few adjustments as possible. In contrast to self-stabilizing algorithms that were not designed to guarantee a particular behavior between the time of a transient fault and restoration to a legitimate state, dynamic algorithms make guarantees about behavior at all times (e.g., during the period between a failure event and the completion of necessary adjustments).
 
-让我们首先研究自稳定性和动态系统的结合。在一个*动态*系统中，通信链路和处理器可能在正常操作期间发生故障并恢复。动态系统的算法旨在应对此类故障并在无需全局重新初始化的情况下恢复。这些算法只考虑从预定义的初始状态在 *限制性故障序列* 下可到达的全局状态；在这种限制下，算法尝试以尽可能少的调整应对故障。与未设计用于保证在瞬态故障和恢复到合法状态之间特定行为的自稳定算法相反，动态算法在任何时候都对行为进行保证（例如，在故障事件和完成必要调整之间的时期）。
+让我们首先研究自稳定性和动态系统的结合。在一个 *动态* 系统中，通信链路和处理器可能在正常操作期间发生故障并恢复。动态系统的算法旨在应对此类故障并在无需全局重新初始化的情况下恢复。这些算法只考虑从预定义的初始状态在 *限制性故障序列* 下可到达的全局状态；在这种限制下，算法尝试以尽可能少的调整应对故障。与未设计用于保证在瞬态故障和恢复到合法状态之间特定行为的自稳定算法相反，动态算法在任何时候都对行为进行保证（例如，在故障事件和完成必要调整之间的时期）。
 
 Superstabilizing algorithms combine benefits of both self-stabilizing and dynamic algorithms. Roughly speaking, an algorithm is superstabilizing if it is self-stabilizing and if, when started in a safe configuration and a topology change occurs, it converges to a new safe configuration in a graceful manner. In particular, it should preserve a passage predicate during the convergence to a new safe configuration and should exhibit a fast convergence rate.
 
 超稳定算法结合了自稳定和动态算法的优点。大致而言，如果一个算法是自稳定的，并且当从安全配置开始并发生拓扑变化时，它能优雅地收敛到新的安全配置，那么它就是超稳定的。特别地，在收敛到新的安全配置期间，它应保持一个通行谓词，并表现出快速的收敛速度。
 
-The passage predicate is defined with respect to a class of topology changes. A topology change typically falsifies legitimacy. The passage predicate must therefore be weaker than legitimacy but strong enough to be useful; ideally, it should be the strongest predicate that holds when a legitimate state undergoes a topology change event. One example of a passage predicate is the existence of at most one token in the token-passing task; in a legitimate state, exactly one token exists, but a processor crash could lose the token but not falsify the passage predicate. Similarly, for the leader-election task, the passage predicate could specify that no more than one leader exists.
+The passage predicate is defined with respect to a class of topology changes. A topology change typically falsifies legitimacy. The passage predicate must therefore be weaker than legitimacy but strong enough to be useful; ideally, it should be the strongest predicate that holds when a legitimate state undergoes a topology change event.
 
-通行谓词是相对于一类拓扑变化定义的。一次拓扑变化通常会使合法性失效。因此，通行谓词必须比合法性弱一些，但足够强以保持有用；理想情况下，它应该是合法状态经历拓扑变化事件时保持的最强谓词。一个通行谓词的例子是令牌传递任务中的最多存在一个令牌；在合法状态中，正好存在一个令牌，但处理器崩溃可能会丢失令牌，而不会使通行谓词失效。类似地，对于领导者选举任务，通行谓词可以指定不超过一个领导者存在。
+- One example of a passage predicate is the existence of at most one token in the token-passing task; in a legitimate state, exactly one token exists, but a processor crash could lose the token but not falsify the passage predicate.
+- Similarly, for the leader-election task, the passage predicate could specify that no more than one leader exists.
+
+通行谓词是相对于一类拓扑变化定义的。一次拓扑变化通常会使合法性失效。因此，通行谓词必须比合法性弱一些，但足够强以保持有用；理想情况下，它应该是合法状态经历拓扑变化事件时保持的最强谓词。
+
+- 一个通行谓词的例子是令牌传递任务中的最多存在一个令牌；在合法状态中，正好存在一个令牌，但处理器崩溃可能会丢失令牌，而不会使通行谓词失效。
+- 类似地，对于领导者选举任务，通行谓词可以指定不超过一个领导者存在。
 
 In addition to the complexity measures used to evaluate self-stabilizing algorithms, superstabilizing algorithms are also evaluated by their *superstabilizing time* and *adjustment measure*. The *superstabilizing time* is the maximum number of rounds it takes for an algorithm starting from a legitimate state, to undergo a single topology change and then reach a legitimate state. The *adjustment measure* is the maximum number of processors that must change their local states, upon a topology change from a legitimate state, so that the algorithm reaches a legitimate state.
 
-除了用于评估自稳定算法的复杂性度量外，超稳定算法还通过其 *超稳定时间* 和 *调整量* 进行评估。*超稳定时间*是指算法从合法状态开始，经历一次拓扑变化并达到合法状态所需的最大轮数。*调整量*是指从合法状态经历一次拓扑变化后，为使算法达到合法状态而必须更改其本地状态的处理器的最大数量。
+除了用于评估自稳定算法的复杂性度量外，超稳定算法还通过其 *超稳定时间* 和 *调整量* 进行评估。*超稳定时间* 是指算法从合法状态开始，经历一次拓扑变化并达到合法状态所需的最大轮数。*调整量* 是指从合法状态经历一次拓扑变化后，为使算法达到合法状态而必须更改其本地状态的处理器的最大数量。
 
 Many distributed algorithms have been designed to cope with continuous dynamic changes. These algorithms make certain assumptions about the behavior of processors and links during failure and recovery; for instance, most of them do not consider all possible combinations of crashes, assume that every corrupted message is identified and discarded, and assume bounded link capacity. Recall, that according to our proof in section 3.2, when crashes are possible and the link capacity is not known, an arbitrary configuration can be reached.
 

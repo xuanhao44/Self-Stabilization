@@ -44,9 +44,9 @@ Note that, if the system is initialized in a configuration in which the values o
 
 The correctness proof for the first algorithm uses the pigeonhole principle, showing that, in any configuration, there must be two clock values $x$ and $y$ such that $y-x \geq d+1$ and there is no other clock value between.
 
-Furthermore, since each processor chooses an existing clock value and increments it by one, it holds at the first pulse of the execution that no clock can be assigned a value greater than the value of $x+1$ and less than the value of $y+1$.
+Furthermore, since each processor chooses an existing clock value and increments it by one, it holds at the first pulse of the execution that no clock can be assigned a value greater than the value of $x+1$ and less than the value of $y+1$. Similarly, until $y$ is incremented to $M$, it holds that, following the $i$ th pulse, no clock value is greater than $x+i$ and smaller than $y+i$.
 
-Similarly, until $y$ is incremented to $M$, it holds that, following the $i$ th pulse, no clock value is greater than $x+i$ and smaller than $y+i$. Thus, after $M-y+1$ pulses, the system reaches a configuration in which there is no clock value that is greater than $M-d$.
+Thus, after $M-y+1$ pulses, the system reaches a configuration in which there is no clock value that is greater than $M-d$.
 
 In the next $d$ rounds, the maximal clock value propagates, and the system reaches a configuration in which all the clocks are synchronized.
 
@@ -54,9 +54,9 @@ In the next $d$ rounds, the maximal clock value propagates, and the system reach
 
 第一个算法的正确性证明使用了抽屉原理，表明在任何配置中，必须存在两个时钟值 $x$ 和 $y$，使得 $y-x \geq d+1$，且两者之间没有其他时钟值。
 
-此外，由于每个处理器选择一个现有的时钟值并将其递增 1，故在执行的第一个脉冲中，任何时钟值都不会被赋值为大于 $x+1$ 且小于 $y+1$ 的值。
+此外，由于每个处理器选择一个现有的时钟值并将其递增 1，故在执行的第一个脉冲中，任何时钟值都不会被赋值为大于 $x+1$ 且小于 $y+1$ 的值。同样，直到 $y$ 被递增到 $M$，在第 $i$ 个脉冲后，保持没有时钟值大于 $x+i$ 且小于 $y+i$。
 
-同样，直到 $y$ 被递增到 $M$，在第 $i$ 个脉冲后，保持没有时钟值大于 $x+i$ 且小于 $y+i$。因此，在 $M-y+1$ 个脉冲后，系统达到一种配置，其中没有时钟值大于 $M-d$。
+因此，在 $M-y+1$ 个脉冲后，系统达到一种配置，其中没有时钟值大于 $M-d$。
 
 在接下来的 $d$ 轮中，最大时钟值传播，系统达到所有时钟同步的配置。
 
