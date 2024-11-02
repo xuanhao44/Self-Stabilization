@@ -69,7 +69,7 @@ Leader election algorithms are a crucial building block for achieving fault tole
 
 为什么算法不是自稳定的？
 
-> It is possible that the minimal identifier $z$—which is a candidate in the first (arbitrary) configuration of the system—is not an identifier of a processor in the system. Nevertheless, eventually every processor declares that $z$ is the identifier of the leader.
+> It is possible that the minimal identifier $z$ — which is a candidate in the first (arbitrary) configuration of the system — is not an identifier of a processor in the system. Nevertheless, eventually every processor declares that $z$ is the identifier of the leader.
 
 ## 领导者选举算法
 

@@ -33,6 +33,16 @@ A switching loop happens when multiple data-link layer paths exist between two n
 
 Switching loops can have severe consequences in network communication, including broadcast storms and persistent frame proliferation, due to the absence of a TTL mechanism at the data-link layer. It's essential to prevent and address switching loops to maintain network stability.
 
+1. **广播风暴**
+   1. 交换环路可能会触发广播风暴，即以太网帧从每个端口被交换机转发。
+   2. 这会导致帧被反复广播，造成网络拥塞。
+2. **没有 TTL 机制** 数据链路层不使用生存时间 (TTL) 机制来限制帧的传播。
+3. **无限传播**
+   1. 当帧进入一个环路网络拓扑时，它可以无限循环。
+   2. 这种不受控制的传播会干扰网络操作并导致性能问题。
+
+交换环路可能对网络通信产生严重后果，包括广播风暴和持续的帧传播，这是由于数据链路层缺乏 TTL 机制所致。因此，预防和解决交换环路问题对于维护网络稳定性至关重要。
+
 ## Spanning Tree Protocol (STP)
 
 **Loop-Free Logical Topology.**
@@ -52,6 +62,20 @@ STP (Spanning Tree Protocol) is designed to establish a loop-free logical topolo
    2. These backup links become active if a primary link fails, ensuring network resilience and continuity.
 
 Spanning Tree Protocol (STP) is a critical tool for creating a stable and loop-free network topology. It prevents broadcast storms by establishing a spanning tree structure and can include backup links to maintain network reliability in the event of link failures.
+
+**无环逻辑拓扑** STP（生成树协议）旨在在以太网交换机内建立无环的逻辑拓扑。
+
+1. **创建生成树**
+   1. STP 通过创建生成树来实现这一目标，生成树是一种层次结构，指定特定链接为活动状态，同时禁用其他链接。
+   2. 这种安排确保在任何两个网络节点之间总有一条单一的活动路径。
+2. **防止广播风暴**
+   1. STP 的一个主要目标是防止在有环的网络中可能发生的广播风暴。
+   2. 通过仔细控制活动路径，STP 避免了导致这些风暴的条件。
+3. **备用链接**
+   1. 除了维护活动路径外，STP 还可以包含备用链接。
+   2. 当主链路故障时，这些备用链接变为活动状态，确保网络的弹性和连续性。
+
+生成树协议 (STP) 是创建稳定且无环网络拓扑的关键工具。它通过建立生成树结构防止广播风暴，并可以包含备用链路，以在链路故障时保持网络可靠性。
 
 注：只要生成了生成树，那么就能防止路径过多；很遗憾的是，STP 协议的生成树构造算法是分布式的，但是却不是自稳定的。不过自稳定生成树构造算法在许多需要高可靠性和容错能力的分布式系统中都有应用。
 
@@ -187,7 +211,7 @@ ${lr}_{mi}.dis = dist - 1$ 很好理解，就是这个节点 $i$ 的邻居 $m$ �
 
 至于 $distance$ 字段，没什么好需要说的，节点 $i$ 就是单纯在通告它和根节点的距离。
 
-所以你现在知道这个 $parent$ 的作用了，就是唯一的父节点而生的。这样最后一张无向图中就诞生了一个唯一的有根树。
+所以你现在知道这个 $parent$ 的作用了，就是为唯一的父节点而生的。这样最后一张无向图中就诞生了一个唯一的有根树。
 
 最后是怎么理解 **Decide on the order using local identifiers**：我们来看原文。
 
