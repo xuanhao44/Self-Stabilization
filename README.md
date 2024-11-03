@@ -1,8 +1,23 @@
 # Self-Stabilization
 
-Shlomi Dolev
-
 用于 chalmers 的 EDA387 Computer Networks 课。是不完全的书本翻译和笔记。
+
+- 书本
+  - [Self-Stabilization (Shlomi Dolev)](resources/Self-Stabilization-Shlomi-Dolev.pdf)
+- PPT
+  - [Algorithms2024-01Dijkstra](resources/Algorithms2024-01Dijkstra.pptx)
+  - [Algorithms2024-01Models](resources/Algorithms2024-01Models.pptx)
+  - [Algorithms2024-02Spanning](resources/Algorithms2024-02Spanning.pptx)
+  - [Algorithms2024-03Matching](resources/Algorithms2024-03Matching.pptx)
+  - [Algorithms2024-04LeaderElection](resources/Algorithms2024-04LeaderElection.pptx)
+  - [Algorithms2024-05DataLink](resources/Algorithms2024-05DataLink.pptx)
+  - [Algorithms2024-07ModelConversions](resources/Algorithms2024-07ModelConversions.pptx)
+  - [Algorithms2024-08PresenceFaults](resources/Algorithms2024-08PresenceFaults.pptx)
+  - [Algorithms2024-09SuperStabilization](resources/Algorithms2024-09SuperStabilization.pptx)
+- 作业
+  - [algorithmLab2024](resources/algorithmLab2024.pdf)
+
+---
 
 - 正文
   - [1 Introduction](book_1.md)
