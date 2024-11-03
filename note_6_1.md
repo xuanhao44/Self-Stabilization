@@ -162,7 +162,7 @@ PPT 上的演示不够直接，下图是我自己画的：
 
 这就是马上要说的：
 
-> If the system is initialized in a configuration in which the values of the clocks are less than $M - d$, then the clocks are synchronized before the modulo operation is applied. Once the clocks are synchronized, the value zero is assigned to the clocks simultaneously in the pulse immediately after a configuration in which the clock values are all $M-1$.
+> If the system is initialized in a configuration in which the values of the clocks are less than $M-d$, then the clocks are synchronized before the modulo operation is applied. Once the clocks are synchronized, the value zero is assigned to the clocks simultaneously in the pulse immediately after a configuration in which the clock values are all $M-1$.
 >
 > 如果系统初始化时时钟值小于 $M-d$，则在应用模运算之前时钟已经同步。一旦时钟同步，在时钟值都为 $M-1$ 的配置之后的脉冲中，时钟同时被赋值为零。
 

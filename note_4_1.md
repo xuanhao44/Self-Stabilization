@@ -124,7 +124,7 @@ The **legal execution** of $TP$ is the sequence of configurations in which:
 - The algorithm is the **same** as presented before with $counter$ incremented modulo $cap+1$.
 
   ```pseudocode
-  counter := (MsgCounter + 1) mod (cap+1)
+  counter := (MsgCounter+1) mod (cap+1)
   ```
 
 - Sender must **eventually** introduce a counter value that not existing in any message in transit.

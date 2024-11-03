@@ -78,11 +78,11 @@ To prove that Dijkstra's algorithm is self-stabilizing for $ME$, we need to show
 
 *Proof:*
 
-There are at most $n$ distinct values in the $x$ variables in $c$, a distinct value for each processor $P_i$. There are $n + 1$ possible values that can be stored in each of the $x$ variables. Thus, an integer $j$ must exist that does not appear in any $x_i$. (End)
+There are at most $n$ distinct values in the $x$ variables in $c$, a distinct value for each processor $P_i$. There are $n+1$ possible values that can be stored in each of the $x$ variables. Thus, an integer $j$ must exist that does not appear in any $x_i$. (End)
 
 *证明：*
 
-在配置 $c$ 中，$x$ 变量中最多有 $n$ 个不同的值，每个处理器 $P_i$ 对应一个不同的值。每个 $x$ 变量可以存储 $n + 1$ 个可能的值。因此，必须存在一个整数 $j$，它不会出现在任何 $x_i$ 中。（完）
+在配置 $c$ 中，$x$ 变量中最多有 $n$ 个不同的值，每个处理器 $P_i$ 对应一个不同的值。每个 $x$ 变量可以存储 $n+1$ 个可能的值。因此，必须存在一个整数 $j$，它不会出现在任何 $x_i$ 中。（完）
 
 ---
 
@@ -100,9 +100,9 @@ The next observation is also simple, claiming that the special processor $P_1$ c
 
 Assume that there exists a configuration $c$ and a fair execution that starts in $c$ and in which $P_1$ does not change the value of $x_1$ during the first $n$ rounds.
 
-- Let $c_2$ be the configuration that immediately follows the first time $P_2$ executes a computation step during the first round. Clearly, $x_1 = x_2$ in $c_2$ and in every configuration that follows $c_2$ in the next $n - 1$ rounds.
+- Let $c_2$ be the configuration that immediately follows the first time $P_2$ executes a computation step during the first round. Clearly, $x_1 = x_2$ in $c_2$ and in every configuration that follows $c_2$ in the next $n-1$ rounds.
 - Let $c_3$ be the configuration that immediately follows the first time $P_3$ executes a computation step during the second round. It holds in $c_3$ that $x_1 = x_2 = x_3$.
-- The same argument repeats itself until we arrive at the configuration $c_n$, which is reached in the ($n - 1$) th round and in which $x_1 = x_2 =···= x_n$.
+- The same argument repeats itself until we arrive at the configuration $c_n$, which is reached in the ($n-1$) th round and in which $x_1 = x_2 =···= x_n$.
 
 In the $n$ th round, $P_1$ is activated and changes the value of $x_1$, a contradiction. (End)
 
@@ -110,9 +110,9 @@ In the $n$ th round, $P_1$ is activated and changes the value of $x_1$, a contra
 
 **假设**存在一个配置 $c$ 和一个从 $c$ 开始的公平执行，在该执行中 $P_1$ 在前 $n$ 轮中没有改变 $x_1$ 的值。
 
-- 设 $c_2$ 为 $P_2$ 在第一轮中第一次执行计算步骤后立即跟随的配置。显然，在 $c_2$ 中 $x_1 = x_2$，并且在接下来的 $n - 1$ 轮中每个跟随 $c_2$ 的配置中也是如此。
+- 设 $c_2$ 为 $P_2$ 在第一轮中第一次执行计算步骤后立即跟随的配置。显然，在 $c_2$ 中 $x_1 = x_2$，并且在接下来的 $n-1$ 轮中每个跟随 $c_2$ 的配置中也是如此。
 - 设 $c_3$ 为 $P_3$ 在第二轮中第一次执行计算步骤后立即跟随的配置。在 $c_3$ 中，$x_1 = x_2 = x_3$。
-- 同样的论点重复，直到我们到达配置 $c_n$，该配置在第 ($n - 1$) 轮中达到，并且在该配置中 $x_1 = x_2 =···= x_n$。
+- 同样的论点重复，直到我们到达配置 $c_n$，该配置在第 ($n-1$) 轮中达到，并且在该配置中 $x_1 = x_2 =···= x_n$。
 
 在第 $n$ 轮中，$P_1$ 被激活并改变 $x_1$ 的值，这与假设矛盾。（完）
 
@@ -134,7 +134,7 @@ In accordance with lemma 2.3, for every possible configuration $c$ there exists 
 
 In accordance with lemma 2.4, for every possible configuration $c$, in every fair execution that starts in $c$, the special processor $P_1$ changes the value of $x_1$ in every $n$ rounds.
 
-Every time $P_1$ changes the value of $x_1$, $P_1$ increments the value of $x_1$ modulo $n + 1$.
+Every time $P_1$ changes the value of $x_1$, $P_1$ increments the value of $x_1$ modulo $n+1$.
 
 Thus, it must hold that every possible value, and in particular the value $j$, is assigned to $x_1$ during any fair execution that starts in $c$. Let $c_j$ be the configuration that immediately follows the first assignment of $j$ in $x_1$.
 
@@ -150,7 +150,7 @@ In accordance with lemma 2.4, $P_1$ must assign $j$ to $x_1$ in every $n^2$ roun
 
 根据引理 2.4，对于每一个可能的配置 $c$，在每个从 $c$ 开始的公平执行中，特殊处理器 $P_1$ 在每 $n$ 轮中改变一次 $x_1$ 的值。
 
-每次 $P_1$ 改变 $x_1$ 的值时，$P_1$ 将 $x_1$ 的值按模 $n + 1$ 增加。
+每次 $P_1$ 改变 $x_1$ 的值时，$P_1$ 将 $x_1$ 的值按模 $n+1$ 增加。
 
 因此，在从 $c$ 开始的任何公平执行中，$x_1$ 必定会被分配到每一个可能的值，特别是值 $j$。设 $c_j$ 为 $x_1$ 首次分配值 $j$ 后立即跟随的配置。
 
@@ -166,9 +166,9 @@ In fact, Dijkstra's algorithm stabilizes when the number of possible values for 
 
 事实上，当 $x$ 变量的可能值数量为 $n$ 时，Dijkstra 算法会稳定下来。原因是，如果在初始配置中没有缺失的可能值，那么 $x_1$ 就有一个独特的值；因此，稳定性是有保证的。否则，在初始配置中至少缺少一个可能值，并且定理 2.1 成立。
 
-Moreover, a similar argument holds when the number of possible values for the x variables is $n - 1$. In this case, a configuration must be reached in which $x_n = x_1$ (just before the first time $P_1$ changes the value of $x_1$). Call this configuration $c$. If in c every processor $P_i$, $1 \leq i \leq n - 1$, does not hold a distinct value in $x_i$, then a missing value $j$ must exist and the stabilization is proved by a proof similar to that of theorem 2.1. Otherwise, each $P_i$, $1 \leq i \leq n-1$, holds a distinct value in $c$. Let $j'$ be the value of $x_1$ in $c$ and consider the first configuration $c'$ that follows c and in which $P_1$ is able to change the value of $x_1$. Consider the following three cases for the first computation step that follows $c$.
+Moreover, a similar argument holds when the number of possible values for the x variables is $n-1$. In this case, a configuration must be reached in which $x_n = x_1$ (just before the first time $P_1$ changes the value of $x_1$). Call this configuration $c$. If in c every processor $P_i$, $1 \leq i \leq n-1$, does not hold a distinct value in $x_i$, then a missing value $j$ must exist and the stabilization is proved by a proof similar to that of theorem 2.1. Otherwise, each $P_i$, $1 \leq i \leq n-1$, holds a distinct value in $c$. Let $j'$ be the value of $x_1$ in $c$ and consider the first configuration $c'$ that follows c and in which $P_1$ is able to change the value of $x_1$. Consider the following three cases for the first computation step that follows $c$.
 
-Case 1: a processor $P_i$, $2 \leq i \leq n - 1$, copies the value of $x_{i-1}$ to $x_i$ and, at the same time, eliminates the distinct value stored in xi from the system.
+Case 1: a processor $P_i$, $2 \leq i \leq n-1$, copies the value of $x_{i-1}$ to $x_i$ and, at the same time, eliminates the distinct value stored in xi from the system.
 
 Case 2: $P_n$ copies the distinct value of $x_{n-1}$ to $x_n$, leaving $x_1$ with a distinct value.
 
@@ -184,13 +184,13 @@ Case 3: $P_1$ changes the value of $x_1$ to $k = (j'+1) \mod (n-1)$; thus, the o
 
 Will Dijkstra's algorithm stabilize when the number of possible values for the $x$ variables is $n-2$? Let $c$ = {0, 0, 2, 1, 0} be a system configuration. An execution that starts in $c$ and repeatedly activates $P_1$, $P_5$, $P_4$, $P_3$, $P_2$, in this order, does not reach a safe configuration:
 
-Dijkstra 算法是否会在 $x$ 变量的可能值数量为 $n - 2$ 时稳定？设 $c$ = {0, 0, 2, 1, 0} 为一个系统配置。从 $c$ 开始并按顺序重复激活 $P_1$、$P_5$、$P_4$、$P_3$、$P_2$ 的执行不会达到安全配置：
+Dijkstra 算法是否会在 $x$ 变量的可能值数量为 $n-2$ 时稳定？设 $c$ = {0, 0, 2, 1, 0} 为一个系统配置。从 $c$ 开始并按顺序重复激活 $P_1$、$P_5$、$P_4$、$P_3$、$P_2$ 的执行不会达到安全配置：
 
 {0, 0, 2, 1, 0}→{1, 0, 2, 1, 0}→{1, 0, 2, 1, 1}→{1, 0, 2, 2, 1}→{1, 0, 0, 2, 1}→{1, 1, 0, 2, 1}···
 
-Note that the configuration {1, 1, 0, 2, 1}is obtained by incrementing every value in {0, 0, 2, 1, 0} by 1, where the increment operation is done modulo $n - 2 = 3$, and therefore the configuration {0, 0, 2, 1, 0} is reached again after activating each processor $n - 2 = 3$ times when the processors are repeatedly activated in the order specified above. Thus, there exists an infinite execution in which more than one processor can change a state in every configuration. This execution has no suffix in $ME$, and therefore the algorithm is not self stabilizing with relation to $ME$.
+Note that the configuration {1, 1, 0, 2, 1}is obtained by incrementing every value in {0, 0, 2, 1, 0} by 1, where the increment operation is done modulo $n-2 = 3$, and therefore the configuration {0, 0, 2, 1, 0} is reached again after activating each processor $n-2 = 3$ times when the processors are repeatedly activated in the order specified above. Thus, there exists an infinite execution in which more than one processor can change a state in every configuration. This execution has no suffix in $ME$, and therefore the algorithm is not self stabilizing with relation to $ME$.
 
-注意，配置 {1, 1, 0, 2, 1} 是通过将 {0, 0, 2, 1, 0} 中的每个值增加 1 获得的，其中增加操作是以模 $n - 2 = 3$ 进行的，因此在按上述顺序重复激活每个处理器 $n - 2 = 3$ 次后，配置 {0, 0, 2, 1, 0} 再次达到。因此，存在一个无限执行，其中在每个配置中有多个处理器可以改变状态。这个执行在 $ME$ 中没有后缀，因此该算法相对于 $ME$ 不是自稳定的。
+注意，配置 {1, 1, 0, 2, 1} 是通过将 {0, 0, 2, 1, 0} 中的每个值增加 1 获得的，其中增加操作是以模 $n-2 = 3$ 进行的，因此在按上述顺序重复激活每个处理器 $n-2 = 3$ 次后，配置 {0, 0, 2, 1, 0} 再次达到。因此，存在一个无限执行，其中在每个配置中有多个处理器可以改变状态。这个执行在 $ME$ 中没有后缀，因此该算法相对于 $ME$ 不是自稳定的。
 
 It seems at first glance that the powerful central daemon scheduler guarantees some sort of mutual exclusion by activating one processor at a time. One can ask whether an algorithm in which every processor $P_i$ executes the critical section (whenever the central daemon activates $P_i$) is a mutual exclusion algorithm.
 
@@ -202,7 +202,7 @@ To answer the above question, let us consider a multitasking single-processor co
 
 On the negative side, we demonstrate that Dijkstra's algorithm needs more states to work if steps consists of only one communication operation, read or write. (The term *read/write* *atomicity* describes the operations in such a system.) To do this we introduce an internal variable ${lx}_i$ for every processor $P_i$ in which is stored the last value read by $P_i$ from the $x$ variable of the left neighbor of $P_i$. Note that the existence of such a variable is enforced by the new atomicity, since a write operation is not executed in the same atomic step as a read operation and the value written is a function of the last value read. Now a possible configuration is a vector  $c = \{({lx}_1, x1), ({lx}_2, x2), ···, ({lx}_n, xn)\}$. A read operation of $P_i$, $1 < i \leq n$, copies the value of $x_{i-1}$ into ${lx}_i$; a read operation of $P_1$ copies the value of $x_n$ into ${lx}_1$. A write operation of $P_i$, $1 < i \leq n$, copies the value of ${lx}_i$ into $x_i$; a write operation of $P_1$ assigns $({lx}_1 + 1) \mod K$ to $x_1$, where, from our previous discussion, $K > (n-2)$. If we reexamine the operation of every processor in the read/write atomicity model, we discover that the n-processor ring in this model is identical to a ring of $2n$ processors in a system with a central daemon. A read operation is essentially a copy of the value of the left neighbor. A write operation by every processor $P_i$, $i \neq 1$, is also a copy operation from ${lx}_i$ to $x_i$. $x_1$ is the only variable that is incremented modulo $K$ during a write operation. Thus, we can apply our previous proofs and discussion to conclude that $K$ must be greater than $2n-2$.
 
-在负面方面，我们证明了如果步骤仅由一个通信操作（读取或写入）组成，Dijkstra 算法需要更多的状态才能工作。（术语 *读/写原子性* 描述了这种系统中的操作。）为此，我们为每个处理器 $P_i$ 引入一个内部变量 ${lx}_i$，其中存储了 $P_i$ 从其左邻居的 $x$ 变量中读取的最后一个值。注意，这种变量的存在是由新的原子性强制要求的，因为写操作并不是在与读操作相同的原子步骤中执行的，并且写入的值是最后读取值的函数。现在，可能的配置是一个向量 $c = \{({lx}_1, x_1), ({lx}_2, x_2), ···, ({lx}_n, x_n)\}$。$P_i$ 的读操作，$1 < i \leq n$，将 $x_{i-1}$ 的值复制到 ${lx}_i$；$P_1$ 的读操作将 $x_n$ 的值复制到 ${lx}_1$。$P_i$ 的写操作，$1 < i \leq n$，将 ${lx}_i$ 的值复制到 $x_i$；$P_1$ 的写操作将 $({lx}_1 + 1) \mod K$ 赋给 $x_1$，根据我们之前的讨论，$K > (n - 2)$。如果我们重新检查在读/写原子性模型中每个处理器的操作，我们会发现该模型中的 $n$ 处理器环与带有中央守护进程的系统中的 $2n$ 处理器环是相同的。读操作本质上是左邻居值的复制。每个处理器 $P_i$（$i \neq 1$）的写操作也是从 ${lx}_i$ 到 $x_i$ 的复制操作。$x_1$ 是唯一在写操作期间以模 $K$ 增加的变量。因此，我们可以应用之前的证明和讨论，得出 $K$ 必须大于 $2n - 2$。
+在负面方面，我们证明了如果步骤仅由一个通信操作（读取或写入）组成，Dijkstra 算法需要更多的状态才能工作。（术语 *读/写原子性* 描述了这种系统中的操作。）为此，我们为每个处理器 $P_i$ 引入一个内部变量 ${lx}_i$，其中存储了 $P_i$ 从其左邻居的 $x$ 变量中读取的最后一个值。注意，这种变量的存在是由新的原子性强制要求的，因为写操作并不是在与读操作相同的原子步骤中执行的，并且写入的值是最后读取值的函数。现在，可能的配置是一个向量 $c = \{({lx}_1, x_1), ({lx}_2, x_2), ···, ({lx}_n, x_n)\}$。$P_i$ 的读操作，$1 < i \leq n$，将 $x_{i-1}$ 的值复制到 ${lx}_i$；$P_1$ 的读操作将 $x_n$ 的值复制到 ${lx}_1$。$P_i$ 的写操作，$1 < i \leq n$，将 ${lx}_i$ 的值复制到 $x_i$；$P_1$ 的写操作将 $({lx}_1 + 1) \mod K$ 赋给 $x_1$，根据我们之前的讨论，$K > (n-2)$。如果我们重新检查在读/写原子性模型中每个处理器的操作，我们会发现该模型中的 $n$ 处理器环与带有中央守护进程的系统中的 $2n$ 处理器环是相同的。读操作本质上是左邻居值的复制。每个处理器 $P_i$（$i \neq 1$）的写操作也是从 ${lx}_i$ 到 $x_i$ 的复制操作。$x_1$ 是唯一在写操作期间以模 $K$ 增加的变量。因此，我们可以应用之前的证明和讨论，得出 $K$ 必须大于 $2n-2$。
 
 In figure 2.3 circles represent processors and rectangles represent communication registers. The left portion of figure 2.3 represents a system for which read/write atomicity is assumed. The arrows in the left portion denote the ability of $P_i$ to write (the value of ${lx}_i$, if $i \neq 1$) in $x_i$ and read the value of $x_{i-1}$  (into ${lx}_i$). The right portion of figure 2.3 represents a system for which a central daemon is assumed. The arrows in this portion denote the ability of $P_i$ to use the state of its left neighbor together with its own state for its transition function. Note that there is no need to store a value read from a (register of a) processor in a local variable. Whenever the central daemon schedules a processor to execute a step, the state of the left neighbor (the value read from the left neighbor) is used by $P_i$ in the very same (aggregate) step to compute its next state.
 

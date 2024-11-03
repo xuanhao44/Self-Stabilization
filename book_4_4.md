@@ -175,7 +175,7 @@ The proof is by induction on $k$, the number of cycles in the execution.
 
 We assume that, following the first $k$ cycles of the execution, assertions (1) and (2) hold for $l < min(k, d+1)$. We prove that, after one additional cycle, assertions (1) and (2) hold for $l < min(k+1, d+1)$.
 
-By the induction assumption, following the first $k$ cycles of the execution, each tuple of distance $l < min(k, d+1)$ that should appear in ${Processors}_i$ does indeed appear there. Moreover, no tuple with distance $l < min(k, d + 1)$ that should not appear in ${Processors}_i$ appears in ${Processors}_i$. In other words, the Processors variables are correct up to distance $l - 1$.
+By the induction assumption, following the first $k$ cycles of the execution, each tuple of distance $l < min(k, d+1)$ that should appear in ${Processors}_i$ does indeed appear there. Moreover, no tuple with distance $l < min(k, d+1)$ that should not appear in ${Processors}_i$ appears in ${Processors}_i$. In other words, the Processors variables are correct up to distance $l-1$.
 
 In the $k+1$ cycle, every processor reads the tuples of its neighbors — in particular, it reads all the correct tuples with distances up to $l-1$. Therefore, every tuple of distance $l$ that is computed during the $k+1$ cycle is a correct tuple — indeed, a processor at distance $l$ with the identifier of the tuple exists. Moreover, since every tuple of distance $l-1$ appears following $k$ cycles, no tuple of distance $l$ is missing following the $k+1$ cycle. (End)
 

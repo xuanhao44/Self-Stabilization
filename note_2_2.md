@@ -115,25 +115,27 @@ This depends both on the number of colors, $n+1$, and the number of legitimate c
 
 Proof:
 
-In accordance with lemma 2.2, a configuration $c$ in which all the $x$ variables have the same value is a safe configuration for $ME$ and Dijkstra's algorithm.  There are $n+1$ possible values that can be stored in each of the $x$ variables. Thus, there are $n+1$ different safe configurations.
+In accordance with lemma 2.2, a configuration $c$ in which all the $x$ variables have the same value is a safe configuration for $ME$ and Dijkstra's algorithm. There are $n+1$ possible values that can be stored in each of the $x$ variables. Thus, there are $n+1$ different safe configurations.
 
 Now we have a configuration $c$ in which all the $x$ variables have the same value.
 
 Clearly the only processor $P_i$ that is able to change the value of $x_i$ in $c$ is $P_1$. $P_1$ is activated infinitely often in every fair execution that starts in c. Once $P_1$ is activated, $P_1$ assigns $x_1$ a value that does not exist in any other variable. Let $c_1$ be the configuration that immediately follows the assignment of this new value in $x_1$. Clearly, $P_1$ cannot change the value of $x_1$ until $x_n$ holds the new value as well.
 
-Every other processor $P_i$ cannot change the value of $x_i$ unless $x_{i-1} \neq x_i$. Thus, the only processor $P_i$ that can change the value of $x_i$ is $P_2$. $P_2$ is activated infinitely often in every fair execution, and in particular it is activated infinitely often following $c_1$ of every fair execution.
+Every other processor $P_i$ cannot change the value of $x_i$ unless $x_{i−1} \neq x_i$. Thus, the only processor $P_i$ that can change the value of $x_i$ is $P_2$. $P_2$ is activated infinitely often in every fair execution, and in particular it is activated infinitely often following $c_1$ of every fair execution.
 
 Let $c_2$ be the configuration reached immediately after $P_2$ changes the value of $x_2$. In $c_2$, it holds that $x_1 = x_2$, $x_2 \neq x_3$, and $x_3 = x_4 = ··· = x_n$. Thus, the only processor that is able to change a state is $P_3$.
 
-In general, in $c_i$, $1 \leq i < n$, it holds that $x_1 = x_2 = ··· = x_i$, $x_i \neq x_{i+1}$, and $x_{i+1} = x_{i+2} = ··· = x_n$. Thus, the only processor that is able to change the value of its variable is  $P_{i +1}$.
+In general, in $c_i$ , $1 ≤ i < n$, it holds that $x_1 = x_2 = ··· = x_i$, $x_i \neq x_{i+1}$, and $x_{i+1} = x_{i+2} = ··· = x_n$. Thus, the only processor that is able to change the value of its variable is  $P_{i +1}$.
 
-Therefore, in $c_{n-1}$, only $P_n$ is able to change the value of its variable and, once it is activated, a configuration $c_n$ is reached in which the values of all the variables are the same.
+Therefore, in $c_{n−1}$, only $P_n$ is able to change the value of its variable and, once it is activated, a configuration $c_n$ is reached in which the values of all the variables are the same.
 
-Note that in every execution that starts in $c$ and ends in $c_n$ exactly one processor is able to change the value of its variable and each processor changes the value of its variable exactly once. So we say, this execution belongs to $ME$, and this set of configurations is safe.
+Note that in every execution that starts in $c$ and ends in $c_n$ exactly one processor is able to change the value of its variable and each processor changes the value of its variable exactly once.
 
-That is, $c_1, c_2, c_3, ..., c_{n-1}$ are all safe configurations ($c_n$ is not mentioned, but it is obvious), and the number is $n-1$.
+Exactly the same arguments can be applied to $c_n$; thus it is clear that, in every fair execution, every processor changes the value of its variable infinitely often and, in every execution, there is exactly one processor that can change its state.
 
-In general, there are $n+1$ different safe configurations, in which all the $x$ variables have the same value, and each configuration can generate $n-1$ different safe configuration, so the final number of safe configurations is $n+1 + (n+1)(n-1) = n(n+1)$.
+So $c_1, c_2, c_3,... , c_{n-1}$ are all safe configurations ($c_n$ is not mentioned, but it is obvious), and the number is $n-1$.
+
+In general, there are $n+1$ different safe configurations, in which all the $x$ variables have the same value, and each configuration can generate $n-1$ different safe configurations, so the final number of safe configurations is $n+1 + (n+1)(n-1) = n(n+1)$.
 
 ## 顺序
 

@@ -10,9 +10,9 @@ The system consists of $n$ processors $P_1, P_2, ···, P_n$, where $P_2, ··�
 
 系统由 $n$ 个处理器 $P_1, P_2, ···, P_n$ 组成，其中 $P_2, ···, P_n$ 运行相似的程序，而 $P_1$ 是一个特殊的处理器，运行不同的程序。$P_1$ 被称为树的 *根* 处理器。每个非根处理器运行一个相同的程序。该程序有一个输入参数，即处理器的相邻链接数。因此，所有具有相同邻居数量的两个（非根）处理器是相同的——它们运行相同的程序。
 
-Essentially **the algorithm is a distributed *BFS* algorithm**. Each processor is continuously trying to compute its distance from the root and to report this distance to all its neighbors by writing the distance in its registers. At the beginning of an arbitrary execution, the only processor guaranteed to compute the right distance is the root itself. Once this distance is written in all the root's registers, the value stored in these registers will never be changed. **Once all processors at distance $x$ from the root have completed computing their distance from the root correctly and have written it in all their registers, their registers remain constant throughout execution**, and processors at distance $x + 1$ from the root are ready to compute their own distance from the root, and so forth.
+Essentially **the algorithm is a distributed *BFS* algorithm**. Each processor is continuously trying to compute its distance from the root and to report this distance to all its neighbors by writing the distance in its registers. At the beginning of an arbitrary execution, the only processor guaranteed to compute the right distance is the root itself. Once this distance is written in all the root's registers, the value stored in these registers will never be changed. **Once all processors at distance $x$ from the root have completed computing their distance from the root correctly and have written it in all their registers, their registers remain constant throughout execution**, and processors at distance $x+1$ from the root are ready to compute their own distance from the root, and so forth.
 
-本质上，该算法是一个**分布式的 *BFS* 算法**。每个处理器不断尝试计算其与根的距离，并通过将距离写入其寄存器来将此距离报告给所有邻居。在任意执行的开始，唯一保证能计算出正确距离的处理器是根处理器本身。**一旦这个距离被写入所有根处理器的寄存器，这些寄存器中存储的值将永远不会改变。一旦所有距离根为 $x$ 的处理器完成了与根的距离计算并将其写入所有寄存器，它们的寄存器在整个执行过程中将保持不变**，距离根为 $x + 1$ 的处理器将准备好计算它们与根的距离，依此类推。
+本质上，该算法是一个**分布式的 *BFS* 算法**。每个处理器不断尝试计算其与根的距离，并通过将距离写入其寄存器来将此距离报告给所有邻居。在任意执行的开始，唯一保证能计算出正确距离的处理器是根处理器本身。**一旦这个距离被写入所有根处理器的寄存器，这些寄存器中存储的值将永远不会改变。一旦所有距离根为 $x$ 的处理器完成了与根的距离计算并将其写入所有寄存器，它们的寄存器在整个执行过程中将保持不变**，距离根为 $x+1$ 的处理器将准备好计算它们与根的距离，依此类推。
 
 The output tree is encoded by means of the registers as follows: each register $r_{ij}$, in which $P_i$ writes and from which $P_j$ reads, contains a binary parent field denoted by $r_{ij}.parent$. If $P_j$ is the parent of $P_i$ in the *BFS* tree, then the value of $r_{ij}.parent$ is 1; otherwise the value of $r_{ij}.parent$ is 0. In addition, each register $r_{ij}$ has a $distance$ field, denoted by $r_{ij}.dis$, that holds the distance from the root to $P_i$. The maximal value that can be stored in the $distance$ field is $N$, where $N$ is an upper bound on the number of processors in the system. An attempt to assign a value larger than $N$ to the $distance$ field results in the assignment of $N$.
 
@@ -54,7 +54,7 @@ The value of each communication register is a combination of a binary value (for
 
 **The task $ST$ of legitimate sequences is defined as the set of all configuration sequences in which every configuration encodes a *BFS* tree of the communication graph. In fact, a particular *BFS* tree called the *first BFS tree* is encoded.** Let $\alpha = (\alpha_1, \alpha_2, ...\alpha_n)$ be the arbitrary ordering of the edges incident to each node $v_i \in V$. The first *BFS* tree of a communication graph $G$ is uniquely defined by the choice of the root $v_1$ and $\alpha$. When a node $v_i$ of distance $x +1$ from $v_1$ has more than a single neighbor of distance $x$ from $v_1$, **$v_i$ is connected to its first neighbor according to $\alpha_i$**, whose distance from $v_1$ is $x$. In the lemma below, we use the definition of the first *BFS* tree to characterize the set of safe configurations for the algorithm.
 
-**合法序列任务 $ST$ 定义为所有配置序列的集合，其中每个配置都编码了通信图的一个 *BFS* 树。实际上，编码的是一个特定的 *BFS* 树，称为 *第一个 BFS 树*。**设 $\alpha = (\alpha_1, \alpha_2, ...\alpha_n)$ 为每个节点 $v_i \in V$ 的边的任意排序。通信图 $G$ 的 *第一个 BFS 树* 由根 $v_1$ 和 $\alpha$ 唯一定义。当距离 $v_1$ 为 $x + 1$ 的节点 $v_i$ 有多个距离 $v_1$ 为 $x$ 的邻居时，**$v_i$ 根据 $\alpha_i$ 连接到其第一个邻居**，该邻居距离 $v_1$ 为 $x$。在下面的引理中，我们使用第一个 *BFS* 树的定义来描述算法的一组安全配置。
+**合法序列任务 $ST$ 定义为所有配置序列的集合，其中每个配置都编码了通信图的一个 *BFS* 树。实际上，编码的是一个特定的 *BFS* 树，称为 *第一个 BFS 树*。**设 $\alpha = (\alpha_1, \alpha_2, ...\alpha_n)$ 为每个节点 $v_i \in V$ 的边的任意排序。通信图 $G$ 的 *第一个 BFS 树* 由根 $v_1$ 和 $\alpha$ 唯一定义。当距离 $v_1$ 为 $x+1$ 的节点 $v_i$ 有多个距离 $v_1$ 为 $x$ 的邻居时，**$v_i$ 根据 $\alpha_i$ 连接到其第一个邻居**，该邻居距离 $v_1$ 为 $x$。在下面的引理中，我们使用第一个 *BFS* 树的定义来描述算法的一组安全配置。
 
 The lemma below shows that, in every execution, a safe configuration is reached. **We use $\triangle$ to denote the maximum number of links adjacent to a processor**, and use the following definitions of *floating distances* and *smallest floating distance* in our proof.
 
@@ -101,11 +101,11 @@ Each processor reads the registers of the root and then writes to its own regist
 
 *Induction step:*
 
-(assume correctness for $k \geq 0$ and prove for $k + 1$)
+(assume correctness for $k \geq 0$ and prove for $k+1$)
 
-Let $m \geq k$ be the smallest floating distance in the configuration $c_{4k}$ that follows the first $\triangle+ 4k\triangle$ rounds. During the $4\triangle$ rounds that follow $c_{4k}$, each processor that reads $m$ and chooses $m$ as the smallest value assigns $m + 1$ to its distance and writes this value. Therefore, the smallest floating distance value is $m +1$ in the configuration $c_{4(k+1)}$. This proves assertion 1.
+Let $m \geq k$ be the smallest floating distance in the configuration $c_{4k}$ that follows the first $\triangle+ 4k\triangle$ rounds. During the $4\triangle$ rounds that follow $c_{4k}$, each processor that reads $m$ and chooses $m$ as the smallest value assigns $m+1$ to its distance and writes this value. Therefore, the smallest floating distance value is $m +1$ in the configuration $c_{4(k+1)}$. This proves assertion 1.
 
-Since the smallest floating distance is $m \geq k$, it is clear that each processor reads the distance of a neighboring processor of distance $k$ and assigns $k + 1$ to its distance. (End)
+Since the smallest floating distance is $m \geq k$, it is clear that each processor reads the distance of a neighboring processor of distance $k$ and assigns $k+1$ to its distance. (End)
 
 *证明：*
 
@@ -128,11 +128,11 @@ Since the smallest floating distance is $m \geq k$, it is clear that each proces
 
 *归纳步骤：*
 
-（假设 $k \geq 0$ 时正确，并证明 $k + 1$ 时正确）
+（假设 $k \geq 0$ 时正确，并证明 $k+1$ 时正确）
 
 设 $m \geq k$ 为前 $\triangle+ 4k\triangle$ 轮次后的配置 $c_{4k}$ 中的最小浮动距离。在 $c_{4k}$ 之后的 $4\triangle$ 轮次中，每个读取 $m$ 并选择 $m$ 作为最小值的处理器将 $m+1$ 赋给其距离并写入该值。因此，在配置 $c_{4(k+1)}$ 中，最小浮动距离值为 $m+1$。这证明了断言 1。
 
-由于最小浮动距离为 $m \geq k$，显然每个处理器读取距离为 $k$ 的邻居处理器的距离并将其距离赋值为 $k + 1$。（完）
+由于最小浮动距离为 $m \geq k$，显然每个处理器读取距离为 $k$ 的邻居处理器的距离并将其距离赋值为 $k+1$。（完）
 
 ---
 
