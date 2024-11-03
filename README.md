@@ -19,6 +19,8 @@
 
 ---
 
+由于 GitHub 的 $\LaTeX$ 渲染的不完全性，建议使用 Typora 或者 VS Code 打开看。
+
 - 正文
   - [1 Introduction](book_1.md)
   - [2 Definitions, Techniques, and Paradigms](book_2.md)
